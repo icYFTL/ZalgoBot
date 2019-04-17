@@ -33,9 +33,8 @@ class ApiWorker:
             if event.type == VkEventType.MESSAGE_NEW:
 
                 if event.to_me:
-                    if event.user_id in Config.admins:
-                        request = event.text
-                        return [request, event.user_id]
+                    request = event.text
+                    return [request, event.user_id]
 
     def message_send(self, message, user_id, zalgo):
         if zalgo:
