@@ -1,5 +1,5 @@
 # ZalgoBot
-Easy ZalgoBot for VK	* `What this script does?`  
+* `What this script does?`  
     This script transform text to t̷̤̦̰̫͓͕͗͌ͦ̓͛̋ͥè̴̠̤͓͕̠͒̇̆̋x͍͇͖̻̍ͯ͛͌̇t҉͕͉̮
 
 
