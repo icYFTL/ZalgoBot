@@ -50,4 +50,7 @@ class ApiWorker:
 
     def get_message(self):
         data = self.message_handler()
-        self.message_send(data[0], data[1], True)
+        if data[0]:
+            self.message_send(data[0], data[1], True)
+        else:
+            self.message_send('Гони текст, а не вот это все.', data[1], False)
