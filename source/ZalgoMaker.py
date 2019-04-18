@@ -67,28 +67,29 @@ class ZalgoMaker:
 
             newtxt += txt[i]
 
-            if mode == '1':
+            if mode == 'min':
                 num_up = self.rand(8)
                 num_mid = self.rand(2)
                 num_down = self.rand(8)
 
-            elif mode == '2':
+            elif mode == 'average':
                 num_up = self.rand(16) // 2 + 1
                 num_mid = self.rand(6) // 2
                 num_down = self.rand(16) // 2 + 1
-            else:
+            elif mode == 'max':
                 num_up = self.rand(64) // 4 + 3
                 num_mid = self.rand(16) // 4 + 1
                 num_down = self.rand(64) // 4 + 3
 
-            if 'up' in pos:
-                for j in range(0, num_up):
-                    newtxt += self.rand_zalgo(self.zalgo_up)
-            if 'mid' in pos:
-                for j in range(0, num_mid):
-                    newtxt += self.rand_zalgo(self.zalgo_mid)
-            if 'down' in pos:
-                for j in range(0, num_down):
-                    newtxt += self.rand_zalgo(self.zalgo_down)
+            if pos != 'None':
+                if '1' in pos:
+                    for j in range(0, num_up):
+                        newtxt += self.rand_zalgo(self.zalgo_up)
+                if '2' in pos:
+                    for j in range(0, num_mid):
+                        newtxt += self.rand_zalgo(self.zalgo_mid)
+                if '3' in pos:
+                    for j in range(0, num_down):
+                        newtxt += self.rand_zalgo(self.zalgo_down)
 
         return newtxt
