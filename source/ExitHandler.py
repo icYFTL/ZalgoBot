@@ -2,7 +2,9 @@ from source.BotApi import BotApi
 from Config import Config
 import hues
 
-class ExitHandler(object):
+
+class ExitHandler:
+    @staticmethod
     def bye():
         try:
             BA = BotApi(Config.access_token)

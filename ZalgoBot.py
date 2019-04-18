@@ -11,5 +11,4 @@ atexit.register(ExitHandler.bye)
 Preview.do()
 
 ### WORKOUT ###
-handle = ApiWorker()
-handle.get_message()
+ApiWorker.started()

@@ -4,13 +4,14 @@ import time
 from source.iniWorker import iniWorker
 from source.CommandsHandler import CommandsHandler
 from source.StaticData import StaticData
-
+from source.BotApi import BotApi
+from Config import Config
 
 class Threads(Thread):
 
-    def __init__(self, botapi):
+    def __init__(self):
         Thread.__init__(self)
-        self.botapi = botapi
+        self.botapi = BotApi(Config.access_token)
 
     def run(self):
         while True:
@@ -29,3 +30,13 @@ class Threads(Thread):
                 else:
                     self.botapi.message_send('Гони текст, а не вот это все.', data[1], False)
                 time.sleep(0.4)
+
+
+class BotThread(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.botapi = BotApi(Config.access_token)
+
+    def run(self):
+        while True:
+            StaticData.stack.append(self.botapi.message_handler())
