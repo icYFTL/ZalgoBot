@@ -132,4 +132,5 @@ class CommandsHandler:
         self.botapi.message_send('Теперь Zalgo будет минимального размера.', self.user_id, False)
 
     def undefined_comma(self):
-        self.botapi.message_send('Нет такой команды.', self.user_id, False)
+        self.botapi.message_send('Нет такой команды. Используйте /help для получения списка комманд.', self.user_id,
+                                 False)
