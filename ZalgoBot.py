@@ -12,5 +12,4 @@ Preview.do()
 
 ### WORKOUT ###
 handle = ApiWorker()
-while True:
-    handle.get_message()
+handle.get_message()

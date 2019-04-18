@@ -2,9 +2,11 @@ import sys
 import time
 from source.ConsoleWorker import ConsoleWorker
 from source.StaticData import StaticData
+import hues
 
 
-class Preview(object):
+class Preview:
+    @staticmethod
     def do():
         CLSWork = ConsoleWorker()
         CLSWork.ClearConsole()
@@ -21,4 +23,4 @@ class Preview(object):
             else:
                 sys.stdout.write(corp[i])
                 sys.stdout.flush()
-        print(notice + "\n\n\n")
+        hues.warn(notice + "\n\n\n")

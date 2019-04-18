@@ -1,6 +1,6 @@
 from source.BotApi import BotApi
 from Config import Config
-
+import hues
 
 class ExitHandler(object):
     def bye():
@@ -11,4 +11,4 @@ class ExitHandler(object):
         except:
             pass
 
-        print('Shutting down...')
+        hues.error('Shutting down...')
