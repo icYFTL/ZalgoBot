@@ -23,4 +23,5 @@ class Preview:
             else:
                 sys.stdout.write(corp[i])
                 sys.stdout.flush()
-        hues.warn(notice + "\n\n\n")
+        hues.warn('')
+        print(notice + "\n\n\n")
