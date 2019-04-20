@@ -89,17 +89,17 @@ class CommandsHandler:
                                      self.user_id, JSONWorker.read_json('reversekey.json'))
 
     def zalgo_comma(self):
-        iniWorker.changeConfig(self.user_id, None, None, 'zalgo')
+        iniWorker.changeConfig(self.user_id, 'type', 'zalgo')
         self.botapi.message_send('Режим Zalgo активирован.',
                                  self.user_id, JSONWorker.read_json('zalgokey.json'))
 
     def flip_comma(self):
-        iniWorker.changeConfig(self.user_id, None, None, 'flip')
+        iniWorker.changeConfig(self.user_id, 'type', 'flip')
         self.botapi.message_send('Режим Flip активирован.',
                                  self.user_id, JSONWorker.read_json('flipkey.json'))
 
     def reverse_comma(self):
-        iniWorker.changeConfig(self.user_id, None, None, 'reverse')
+        iniWorker.changeConfig(self.user_id, 'type', 'reverse')
         self.botapi.message_send('Режим Reverse активирован.',
                                  self.user_id, JSONWorker.read_json('reversekey.json'))
 
@@ -128,7 +128,9 @@ class CommandsHandler:
                 ''', self.user_id, JSONWorker.read_json('reversekey.json'))
 
     def default_comma(self):
-        iniWorker.changeConfig(self.user_id, 'average', '123', 'zalgo')
+        iniWorker.changeConfig(self.user_id, 'type', 'zalgo')
+        iniWorker.changeConfig(self.user_id, 'zalgo_type', 'average')
+        iniWorker.changeConfig(self.user_id, 'zalgo_pos', '123')
         self.botapi.message_send('Успешно изменено.', self.user_id, JSONWorker.read_json('zalgokey.json'))
 
     def stat_comma(self):
@@ -174,7 +176,7 @@ class CommandsHandler:
                 self.botapi.message_send('Теперь Zalgo будет наложена поверх символов.', self.user_id, None)
             if self.data == '':
                 self.data = 'None'
-            iniWorker.changeConfig(self.user_id, None, self.data, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_pos', self.data)
         else:
             self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
@@ -193,7 +195,7 @@ class CommandsHandler:
                                          None)
             if self.data == '':
                 self.data = 'None'
-            iniWorker.changeConfig(self.user_id, None, self.data, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_pos', self.data)
         else:
             self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
@@ -212,13 +214,13 @@ class CommandsHandler:
                                          None)
             if self.data == '':
                 self.data = 'None'
-            iniWorker.changeConfig(self.user_id, None, self.data, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_pos', self.data)
         else:
             self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
     def zalgo_max(self):
         if self.data[0] == 'zalgo':
-            iniWorker.changeConfig(self.user_id, 'max', None, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_type', 'max')
             self.botapi.message_send('Теперь Zalgo  будет максимального размера.', self.user_id,
                                      None)
         else:
@@ -226,7 +228,7 @@ class CommandsHandler:
 
     def zalgo_aver(self):
         if self.data[0] == 'zalgo':
-            iniWorker.changeConfig(self.user_id, 'average', None, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_type', 'average')
             self.botapi.message_send('Теперь Zalgo будет среднего размера.', self.user_id,
                                      None)
         else:
@@ -234,7 +236,7 @@ class CommandsHandler:
 
     def zalgo_min(self):
         if self.data[0] == 'zalgo':
-            iniWorker.changeConfig(self.user_id, 'min', None, None)
+            iniWorker.changeConfig(self.user_id, 'zalgo_type', 'min')
             self.botapi.message_send('Теперь Zalgo будет минимального размера.', self.user_id,
                                      None)
         else:

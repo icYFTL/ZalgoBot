@@ -35,9 +35,15 @@ class Threads(Thread):
                     conf = iniWorker.readConfig(data[1])
                     if conf[0] == 'zalgo':
                         self.botapi.message_send_zalgo(data[0], data[1], JSONWorker.read_json('zalgokey.json'))
+                        iniWorker.changeConfig(data[1], 'messages_count',
+                                               str(int(iniWorker.readConfig(data[1])[3]) + 1))
                     elif conf[0] == 'flip':
                         self.botapi.message_send_flip(data[0], data[1], JSONWorker.read_json('flipkey.json'))
+                        iniWorker.changeConfig(data[1], 'messages_count',
+                                               str(int(iniWorker.readConfig(data[1])[3]) + 1))
                     elif conf[0] == 'reverse':
                         self.botapi.message_send_reverse(data[0], data[1], JSONWorker.read_json('reversekey.json'))
+                        iniWorker.changeConfig(data[1], 'messages_count',
+                                               str(int(iniWorker.readConfig(data[1])[3]) + 1))
                 else:
                     self.botapi.message_send('Гони текст, а не вот это всё.', data[1], None)

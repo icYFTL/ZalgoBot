@@ -22,17 +22,10 @@ class iniWorker:
         iniWorker.writeConfig(config)
 
     @staticmethod
-    def changeConfig(user_id, zalgotype, zalgopos, type):
+    def changeConfig(user_id, key, value):
         config = configparser.ConfigParser()
         config.read('source/data/info.ini')
-
-        if type:
-            config.set(str(user_id), "type", type)
-        if zalgotype:
-            config.set(str(user_id), "zalgo_type", zalgotype)
-        if zalgopos:
-            config.set(str(user_id), "zalgo_pos", zalgopos)
-
+        config.set(str(user_id), key, value)
         iniWorker.writeConfig(config)
 
     @staticmethod
@@ -44,8 +37,9 @@ class iniWorker:
             type = config.get(str(user_id), "type")
             zalgo_type = config.get(str(user_id), "zalgo_type")
             zalgo_pos = config.get(str(user_id), "zalgo_pos")
+            messages_count = config.get(str(user_id), "messages_count")
 
-            return [type, zalgo_type, zalgo_pos]
+            return [type, zalgo_type, zalgo_pos, messages_count]
         except configparser.NoSectionError:
             return False
 
