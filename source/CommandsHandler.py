@@ -117,14 +117,14 @@ class CommandsHandler:
         elif self.data[0] == 'flip':
             self.botapi.message_send(
                 '''
-                /reverse - включить режим Reverse
-                /zalgo - включить режим Zalgo
+                /default - Вернуть стандартные настройки
+                        /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('flipkey.json'))
         elif self.data[0] == 'reverse':
             self.botapi.message_send(
                 '''
-                /flip - включить режим Flip
-                /zalgo - включить режим Zalgo
+                /default - Вернуть стандартные настройки
+                        /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('reversekey.json'))
 
     def default_comma(self):
