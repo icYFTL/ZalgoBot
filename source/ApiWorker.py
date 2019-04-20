@@ -1,5 +1,5 @@
 from Config import Config
-from source.Threads import Threads, BotThread
+from source.Threads import Threads
 from source.BotApi import BotApi
 import hues
 
@@ -13,5 +13,4 @@ class ApiWorker:
         hues.success('Script has been started.')
         thread = Threads()
         thread.start()
-        bot_thread = BotThread()
-        bot_thread.start()
+        botapi.message_handler()

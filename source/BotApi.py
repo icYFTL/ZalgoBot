@@ -4,6 +4,8 @@ import random
 
 from source.iniWorker import iniWorker
 from source.ZalgoMaker import ZalgoMaker
+from source.FlipTextMaker import FlipTextMaker
+from source.StaticData import StaticData
 
 
 class BotApi:
@@ -21,27 +23,38 @@ class BotApi:
             exit()
 
     def message_handler(self):
-        longpoll = VkLongPoll(self.vk)
+        while True:
+            longpoll = VkLongPoll(self.vk)
 
-        for event in longpoll.listen():
+            for event in longpoll.listen():
 
-            if event.type == VkEventType.MESSAGE_NEW:
+                if event.type == VkEventType.MESSAGE_NEW:
 
-                if event.to_me:
-                    request = event.text
-                    return [request, event.user_id]
+                    if event.to_me:
+                        request = event.text
+                        StaticData.stack.append([request, event.user_id])
 
-    def message_send(self, message, user_id, zalgo):
+    def message_send(self, message, user_id):
+        self.vk.method("messages.send",
+                       {"user_id": user_id,
+                        "message": message,
+                        'random_id': random.randint(0, 999999)})
 
+    def message_send_zalgo(self, message, user_id):
         data = iniWorker.readConfig(user_id)
+        self.vk.method("messages.send",
+                       {"user_id": user_id,
+                        "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
+                        'random_id': random.randint(0, 999999)})
 
-        if zalgo:
-            self.vk.method("messages.send",
-                           {"user_id": user_id,
-                            "message": self.zalgo.zalgo_textarea(message, data[0], data[1]),
-                            'random_id': random.randint(0, 999999)})
-        else:
-            self.vk.method("messages.send",
-                           {"user_id": user_id,
-                            "message": message,
-                            'random_id': random.randint(0, 999999)})
+    def message_send_flip(self, message, user_id):
+        self.vk.method("messages.send",
+                       {"user_id": user_id,
+                        "message": FlipTextMaker.flip(message),
+                        'random_id': random.randint(0, 999999)})
+
+    def message_send_reverse(self, message, user_id):
+        self.vk.method("messages.send",
+                       {"user_id": user_id,
+                        "message": message[::-1],
+                        'random_id': random.randint(0, 999999)})

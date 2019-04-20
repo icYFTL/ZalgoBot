@@ -1,5 +1,4 @@
 from threading import Thread
-import time
 import hues
 
 from source.iniWorker import iniWorker
@@ -7,6 +6,7 @@ from source.CommandsHandler import CommandsHandler
 from source.StaticData import StaticData
 from source.BotApi import BotApi
 from Config import Config
+
 
 class Threads(Thread):
 
@@ -31,18 +31,12 @@ class Threads(Thread):
 
                 hues.log('{} message from {} was handled'.format(data[0], data[1]))
                 if data[0]:
-                    self.botapi.message_send(data[0], data[1], True)
+                    conf = iniWorker.readConfig(data[1])
+                    if conf[0] == 'zalgo':
+                        self.botapi.message_send_zalgo(data[0], data[1])
+                    elif conf[0] == 'flip':
+                        self.botapi.message_send_flip(data[0], data[1])
+                    elif conf[0] == 'reverse':
+                        self.botapi.message_send_reverse(data[0], data[1])
                 else:
-                    self.botapi.message_send('Гони текст, а не вот это все.', data[1], False)
-                time.sleep(0.4)
-
-
-class BotThread(Thread):
-    def __init__(self):
-        Thread.__init__(self)
-        self.botapi = BotApi(Config.access_token)
-
-    def run(self):
-        while True:
-            StaticData.stack.append(self.botapi.message_handler())
-            hues.log('Got message')
+                    self.botapi.message_send('Гони текст, а не вот это всё.', data[1])
