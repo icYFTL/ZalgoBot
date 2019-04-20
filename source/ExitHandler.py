@@ -9,7 +9,7 @@ class ExitHandler:
         try:
             BA = BotApi(Config.access_token)
             for admin in Config.admins:
-                BA.message_send('Скрипт был аварийно остановлен.', admin, False)
+                BA.message_send('Скрипт был аварийно остановлен.', admin, None)
         except:
             pass
 

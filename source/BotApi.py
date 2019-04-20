@@ -34,27 +34,62 @@ class BotApi:
                         request = event.text
                         StaticData.stack.append([request, event.user_id])
 
-    def message_send(self, message, user_id):
-        self.vk.method("messages.send",
-                       {"user_id": user_id,
-                        "message": message,
-                        'random_id': random.randint(0, 999999)})
+    def message_send(self, message, user_id, keyboard):
+        if keyboard:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": message,
+                            'random_id': random.randint(0, 999999),
+                            'keyboard': keyboard
+                            })
+        else:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": message,
+                            'random_id': random.randint(0, 999999),
+                            })
 
-    def message_send_zalgo(self, message, user_id):
+    def message_send_zalgo(self, message, user_id, keyboard):
         data = iniWorker.readConfig(user_id)
-        self.vk.method("messages.send",
-                       {"user_id": user_id,
-                        "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
-                        'random_id': random.randint(0, 999999)})
+        if keyboard:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
+                            'random_id': random.randint(0, 999999),
+                            'keyboard': keyboard
+                            })
+        else:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
+                            'random_id': random.randint(0, 999999),
+                            })
 
-    def message_send_flip(self, message, user_id):
-        self.vk.method("messages.send",
-                       {"user_id": user_id,
-                        "message": FlipTextMaker.flip(message),
-                        'random_id': random.randint(0, 999999)})
+    def message_send_flip(self, message, user_id, keyboard):
+        if keyboard:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": FlipTextMaker.flip(message),
+                            'random_id': random.randint(0, 999999),
+                            'keyboard': keyboard
+                            })
+        else:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": FlipTextMaker.flip(message),
+                            'random_id': random.randint(0, 999999),
+                            })
 
-    def message_send_reverse(self, message, user_id):
-        self.vk.method("messages.send",
-                       {"user_id": user_id,
-                        "message": message[::-1],
-                        'random_id': random.randint(0, 999999)})
+    def message_send_reverse(self, message, user_id, keyboard):
+        if keyboard:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": message[::-1],
+                            'random_id': random.randint(0, 999999),
+                            'keyboard': keyboard
+                            })
+        else:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": message[::-1],
+                            'random_id': random.randint(0, 999999)})

@@ -6,6 +6,7 @@ from source.CommandsHandler import CommandsHandler
 from source.StaticData import StaticData
 from source.BotApi import BotApi
 from Config import Config
+from source.JSONWorker import JSONWorker
 
 
 class Threads(Thread):
@@ -33,10 +34,10 @@ class Threads(Thread):
                 if data[0]:
                     conf = iniWorker.readConfig(data[1])
                     if conf[0] == 'zalgo':
-                        self.botapi.message_send_zalgo(data[0], data[1])
+                        self.botapi.message_send_zalgo(data[0], data[1], JSONWorker.read_json('zalgokey.json'))
                     elif conf[0] == 'flip':
-                        self.botapi.message_send_flip(data[0], data[1])
+                        self.botapi.message_send_flip(data[0], data[1], JSONWorker.read_json('flipkey.json'))
                     elif conf[0] == 'reverse':
-                        self.botapi.message_send_reverse(data[0], data[1])
+                        self.botapi.message_send_reverse(data[0], data[1], JSONWorker.read_json('reversekey.json'))
                 else:
-                    self.botapi.message_send('Гони текст, а не вот это всё.', data[1])
+                    self.botapi.message_send('Гони текст, а не вот это всё.', data[1], None)
