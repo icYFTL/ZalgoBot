@@ -9,7 +9,7 @@ class ApiWorker:
     def started():
         botapi = BotApi(Config.access_token)
         for admin in Config.admins:
-            botapi.message_send('Скрипт начал работу.', admin, False)
+            botapi.message_send('Скрипт начал работу.', admin)
         hues.success('Script has been started.')
         thread = Threads()
         thread.start()
