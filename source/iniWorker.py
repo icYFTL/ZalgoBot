@@ -18,6 +18,7 @@ class iniWorker:
         config.set(str(user_id), "type", "zalgo")
         config.set(str(user_id), "zalgo_type", "average")
         config.set(str(user_id), "zalgo_pos", "123")
+        config.set(str(user_id), "messages_count", "0")
 
         iniWorker.writeConfig(config)
 
