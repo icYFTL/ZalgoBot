@@ -20,7 +20,7 @@ class iniWorker:
         config.set(str(user_id), "zalgo_pos", "123")
         config.set(str(user_id), "messages_count", "0")
 
-        iniWorker.writeConfig(config)
+        iniWorker.appendConfig(config)
 
     @staticmethod
     def changeConfig(user_id, key, value):
@@ -48,6 +48,12 @@ class iniWorker:
     def writeConfig(config):
         iniWorker.path_checker()
         with open('source/data/info.ini', "w") as config_file:
+            config.write(config_file)
+
+    @staticmethod
+    def appendConfig(config):
+        iniWorker.path_checker()
+        with open('source/data/info.ini', "a") as config_file:
             config.write(config_file)
 
     @staticmethod
