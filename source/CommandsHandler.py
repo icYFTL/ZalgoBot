@@ -21,11 +21,11 @@ class CommandsHandler:
         elif comma == '/default':
             self.default_comma()
         elif comma == '/zalgo_up':
-            self.zalgo_up()
+            self.undefined_comma()  ##
         elif comma == '/zalgo_mid':
-            self.zalgo_mid()
+            self.undefined_comma()  ##
         elif comma == '/zalgo_down':
-            self.zalgo_down()
+            self.undefined_comma()  ##
         elif comma == '/zalgo_max':
             self.zalgo_max()
         elif comma == '/zalgo_aver':
@@ -107,9 +107,6 @@ class CommandsHandler:
         if self.data[0] == 'zalgo':
             self.botapi.message_send(
                 '''
-                /zalgo_up - включить/выключить добавление Zalgo сверху символов
-                /zalgo_mid - включить/выключить добавление Zalgo между символов
-                /zalgo_down - включить/выключить добавление Zalgo снизу символов
                 /zalgo_max - максимум Zalgo в тексте
                 /zalgo_aver - средний уровень Zalgo в тексте
                 /zalgo_min - минимум Zalgo в тексте
@@ -149,11 +146,9 @@ class CommandsHandler:
             self.botapi.message_send('''
             Режим: {}
             Размер Zalgo: {}
-            Распространение Zalgo: 
-            up   : {}
-            mid  : {}
-            down : {}
-            '''.format(self.data[0], self.data[1], up, mid, down), self.user_id, JSONWorker.read_json('zalgokey.json'))
+            Всего сообщений обработано: {}
+            '''.format(self.data[0], self.data[1], str(self.data[3])), self.user_id,
+                                     JSONWorker.read_json('zalgokey.json'))
         elif self.data[0] == 'flip':
             self.botapi.message_send('''
             Режим: Flip

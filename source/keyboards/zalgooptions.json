@@ -5,31 +5,6 @@
       {
         "action": {
           "type": "text",
-          "label": "/zalgo_up"
-        },
-        "color": "primary"
-      },
-      {
-        "action": {
-          "type": "text",
-          "label": "/zalgo_mid"
-        },
-        "color": "primary"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
-          "label": "/zalgo_down"
-        },
-        "color": "primary"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
           "label": "/zalgo_max"
         },
         "color": "primary"
