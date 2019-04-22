@@ -23,7 +23,11 @@ class Threads(Thread):
                 if not iniWorker.user_exists(data[1]):
                     iniWorker.createConfig(data[1])
 
-                data[0] = data[0][:50]
+                if len(data[0]) > 50:
+                    self.botapi.message_send(
+                        'Похоже, вы отправили сообщение длина которого {}.\nТак делать плохо, мы его обрезали до 50 символов.'.format(
+                            str(len(data[0]))), data[1], None)
+                    data[0] = data[0][:50]
 
                 hues.log('It\'s a command {} from {}'.format(data[0], data[1]))
                 if '/' in str(data[0]):
