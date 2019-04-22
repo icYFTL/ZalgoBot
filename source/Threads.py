@@ -23,6 +23,8 @@ class Threads(Thread):
                 if not iniWorker.user_exists(data[1]):
                     iniWorker.createConfig(data[1])
 
+                data = data[:50]
+
                 hues.log('It\'s a command {} from {}'.format(data[0], data[1]))
                 if '/' in str(data[0]):
                     CH = CommandsHandler(data[1])
