@@ -1,4 +1,8 @@
 class FlipTextMaker:
+    '''
+    This class controls making flip decoration of text.
+    :return flip -> flipped text
+    '''
     flipTable = {
         'a': '\u0250',
         'b': 'q',
@@ -93,7 +97,7 @@ class FlipTextMaker:
         for i in text:
             symb = str(FlipTextMaker.flipTable.get(i))
             if symb != "None":
-                newstr += str(FlipTextMaker.flipTable.get(i))
+                newstr += symb
             else:
                 newstr += i
         return newstr[::-1]

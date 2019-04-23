@@ -2,6 +2,11 @@ import random
 
 
 class ZalgoMaker:
+    '''
+    This class controls ZalgoText making.
+    :return zalgo_textarea -> ZalgoText
+    '''
+
     def __init__(self):
         self.zalgo_up = [
             '\u030d', '\u030e', '\u0304', '\u0305',
@@ -53,9 +58,10 @@ class ZalgoMaker:
             return True
         return False
 
-    def zalgo_textarea(self, data, mode, pos):
+    def zalgo_textarea(self, data, mode):
         txt = data
         newtxt = ''
+        pos = '123'
 
         for i in range(0, len(txt)):
             if self.is_zalgo_char(txt[i]):

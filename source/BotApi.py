@@ -9,6 +9,13 @@ from source.StaticData import StaticData
 
 
 class BotApi:
+    '''
+    This class controls VK Api requests.
+    :param token
+    :return message_handler -> [text from message, sender_vk_id]
+    :return None
+    '''
+
     def __init__(self, token):
         self.token = token
         self.zalgo = ZalgoMaker()
@@ -50,18 +57,18 @@ class BotApi:
                             })
 
     def message_send_zalgo(self, message, user_id, keyboard):
-        data = iniWorker.readConfig(user_id)
+        data = iniWorker.read_config(user_id)
         if keyboard:
             self.vk.method("messages.send",
                            {"user_id": user_id,
-                            "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
+                            "message": self.zalgo.zalgo_textarea(message, data.get('zalgo_type')),
                             'random_id': random.randint(0, 999999),
                             'keyboard': keyboard
                             })
         else:
             self.vk.method("messages.send",
                            {"user_id": user_id,
-                            "message": self.zalgo.zalgo_textarea(message, data[1], data[2]),
+                            "message": self.zalgo.zalgo_textarea(message, data.get('zalgo_type')),
                             'random_id': random.randint(0, 999999),
                             })
 

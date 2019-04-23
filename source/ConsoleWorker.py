@@ -2,7 +2,12 @@ import os
 
 
 class ConsoleWorker:
-    def ClearConsole(self):
-        CLS = os.system('clear')
-        if CLS != 0:
-            CLS = os.system('cls')
+    '''
+    This class controls work with console.
+    :return None
+    '''
+
+    @staticmethod
+    def clear_console():
+        if os.system('clear') != 0:
+            os.system('cls')

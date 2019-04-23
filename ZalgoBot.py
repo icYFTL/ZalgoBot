@@ -4,11 +4,11 @@ from source.ExitHandler import ExitHandler
 
 import atexit
 
-### ATEXIT ###
-atexit.register(ExitHandler.bye)
+# ATEXIT
+atexit.register(ExitHandler.exit)
 
-### PREVIEW ###
-Preview.do()
+# PREVIEW
+Preview.preview()
 
-### WORKOUT ###
+# WORKOUT
 ApiWorker.started()
