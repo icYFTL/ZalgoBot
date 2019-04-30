@@ -7,10 +7,9 @@ import hues
 
 class Preview:
     @staticmethod
-    def do():
-        CLSWork = ConsoleWorker()
-        CLSWork.ClearConsole()
-        print('[{}] v{} Alpha Release'.format(StaticData.name, StaticData.version))
+    def preview():
+        ConsoleWorker.clear_console()
+        print('[{}] v{}'.format(StaticData.name, StaticData.version))
         corp = 'by {}\n\n'.format(StaticData.author)
 
         notice = "If you got error or smth else: write me\nTelegram: @icYFTL\nDarkWeb: Denuvo"
