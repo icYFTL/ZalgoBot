@@ -30,6 +30,16 @@
       {
         "action": {
           "type": "text",
+          "label": "/cout"
+        },
+        "color": "primary"
+      }
+    ],
+
+    [
+      {
+        "action": {
+          "type": "text",
           "label": "/back"
         },
         "color": "default"

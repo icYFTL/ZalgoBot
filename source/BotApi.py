@@ -3,9 +3,10 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 import random
 
 from source.iniWorker import iniWorker
-from source.ZalgoMaker import ZalgoMaker
-from source.FlipTextMaker import FlipTextMaker
+from source.texthandlers.ZalgoMaker import ZalgoMaker
+from source.texthandlers.FlipTextMaker import FlipTextMaker
 from source.StaticData import StaticData
+from source.texthandlers.CoutText import CoutTextMaker
 
 
 class BotApi:
@@ -99,4 +100,18 @@ class BotApi:
             self.vk.method("messages.send",
                            {"user_id": user_id,
                             "message": message[::-1],
+                            'random_id': random.randint(0, 999999)})
+
+    def message_send_cout(self, message, user_id, keyboard):
+        if keyboard:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": CoutTextMaker.cout(message),
+                            'random_id': random.randint(0, 999999),
+                            'keyboard': keyboard
+                            })
+        else:
+            self.vk.method("messages.send",
+                           {"user_id": user_id,
+                            "message": CoutTextMaker.cout(message),
                             'random_id': random.randint(0, 999999)})

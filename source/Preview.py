@@ -6,26 +6,22 @@ import hues
 
 
 class Preview:
-    '''
-    This class controls showing preview on the start of the script
-    :return None
-    '''
-
     @staticmethod
-    def preview():
-        ConsoleWorker.clear_console()
+    def do():
+        CLSWork = ConsoleWorker()
+        CLSWork.ClearConsole()
         print('[{}] v{} Alpha Release'.format(StaticData.name, StaticData.version))
-        author = 'by icYFTL\n\n'
+        corp = 'by {}\n\n'.format(StaticData.author)
 
-        notice = "If you got error or something else: write me\nTelegram: @icYFTL\nDarkWeb: Denuvo"
+        notice = "If you got error or smth else: write me\nTelegram: @icYFTL\nDarkWeb: Denuvo"
 
-        for i in range(len(author)):
-            if author[i].isalpha() or author[i - 1].isalpha() and i != 0:
-                sys.stdout.write(author[i])
+        for i in range(len(corp)):
+            if corp[i].isalpha() or corp[i - 1].isalpha() and i != 0:
+                sys.stdout.write(corp[i])
                 sys.stdout.flush()
                 time.sleep(0.2)
             else:
-                sys.stdout.write(author[i])
+                sys.stdout.write(corp[i])
                 sys.stdout.flush()
-        hues.warn(notice)
-        print('\n\n\n')
+        hues.warn('')
+        print(notice + "\n\n\n")
