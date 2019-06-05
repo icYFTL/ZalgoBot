@@ -18,8 +18,6 @@ class CommandsHandler:
             self.options_comma()
         elif comma == '/stat':
             self.stat_comma()
-        elif comma == '/null':
-            self.null_comma()
         elif comma == '/zalgo_up':
             self.undefined_comma()  ##
         elif comma == '/zalgo_mid':
@@ -72,21 +70,18 @@ class CommandsHandler:
             Список команд:
             /options - Опции ZalgoText
             /stat - Текущие настройки ZalgoText
-            /null - обнулить текущее количество обработанных сообщений
             /change_mode - Сменить режим
             ''',
                                      self.user_id, JSONWorker.read_json('zalgokey.json'))
         elif self.data.get("current_mode") == 'flip':
             self.botapi.message_send('''
                         Список команд:
-                        /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                         ''',
                                      self.user_id, JSONWorker.read_json('flipkey.json'))
         elif self.data.get("current_mode") == 'reverse':
             self.botapi.message_send('''
                                     Список команд:
-                                    /null - обнулить текущее количество обработанных сообщений
                                     /change_mode - Сменить режим
                                     ''',
                                      self.user_id, JSONWorker.read_json('reversekey.json'))
@@ -122,25 +117,18 @@ class CommandsHandler:
         elif self.data.get("current_mode") == 'flip':
             self.botapi.message_send(
                 '''
-                /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('flipkey.json'))
         elif self.data.get("current_mode") == 'reverse':
             self.botapi.message_send(
                 '''
-                /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('reversekey.json'))
         elif self.data.get("current_mode") == 'cout':
             self.botapi.message_send(
                 '''
-                        /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('coutkey.json'))
-
-    def null_comma(self):
-        self.bdworker.changer(self.user_id, ['messages_count', 0])
-        self.botapi.message_send('Количество обработанных сообщений успешно сброшено', self.user_id, None)
 
     def stat_comma(self):
         if self.data.get("current_mode") == 'zalgo':
