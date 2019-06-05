@@ -21,15 +21,6 @@
       {
         "action": {
           "type": "text",
-          "label": "/default"
-        },
-        "color": "primary"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
           "label": "/change_mode"
         },
         "color": "positive"

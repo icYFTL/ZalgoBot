@@ -1,15 +1,15 @@
-from source.BotApi import BotApi
-from source.iniWorker import iniWorker
-from source.JSONWorker import JSONWorker
-
 from Config import Config
+from source.BDWorker import BDWorker
+from source.BotApi import BotApi
+from source.JSONWorker import JSONWorker
 
 
 class CommandsHandler:
     def __init__(self, user_id):
         self.botapi = BotApi(Config.access_token)
         self.user_id = user_id
-        self.data = iniWorker.read_config(self.user_id)
+        self.bdworker = BDWorker()
+        self.data = self.bdworker.getter(self.user_id)
 
     def identify_comma(self, comma):
         if comma == '/help':
@@ -18,8 +18,8 @@ class CommandsHandler:
             self.options_comma()
         elif comma == '/stat':
             self.stat_comma()
-        elif comma == '/default':
-            self.default_comma()
+        elif comma == '/null':
+            self.null_comma()
         elif comma == '/zalgo_up':
             self.undefined_comma()  ##
         elif comma == '/zalgo_mid':
@@ -48,7 +48,7 @@ class CommandsHandler:
             self.undefined_comma()
 
     def back_comma(self):
-        mode = iniWorker.read_config(self.user_id).get('type')
+        mode = self.data.get("current_mode")
         if mode == 'zalgo':
             self.botapi.message_send('Отменено', self.user_id, JSONWorker.read_json('zalgokey.json'))
         elif mode == 'flip':
@@ -67,85 +67,83 @@ class CommandsHandler:
                                  self.user_id, JSONWorker.read_json('3way.json'))
 
     def help_comma(self):
-        if self.data.get('type') == 'zalgo':
+        if self.data.get("current_mode"):
             self.botapi.message_send('''
             Список команд:
             /options - Опции ZalgoText
             /stat - Текущие настройки ZalgoText
-            /default - Вернуть стандартные настройки
+            /null - обнулить текущее количество обработанных сообщений
             /change_mode - Сменить режим
             ''',
                                      self.user_id, JSONWorker.read_json('zalgokey.json'))
-        elif self.data.get('type') == 'flip':
+        elif self.data.get("current_mode") == 'flip':
             self.botapi.message_send('''
                         Список команд:
-                        /default - Вернуть стандартные настройки
+                        /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                         ''',
                                      self.user_id, JSONWorker.read_json('flipkey.json'))
-        elif self.data.get('type') == 'reverse':
+        elif self.data.get("current_mode") == 'reverse':
             self.botapi.message_send('''
                                     Список команд:
-                                    /default - Вернуть стандартные настройки
+                                    /null - обнулить текущее количество обработанных сообщений
                                     /change_mode - Сменить режим
                                     ''',
                                      self.user_id, JSONWorker.read_json('reversekey.json'))
 
     def zalgo_comma(self):
-        iniWorker.change_config(self.user_id, 'type', 'zalgo')
+        self.bdworker.changer(self.user_id, ['current_mode', 'zalgo'])
         self.botapi.message_send('Режим Zalgo активирован.',
                                  self.user_id, JSONWorker.read_json('zalgokey.json'))
 
     def flip_comma(self):
-        iniWorker.change_config(self.user_id, 'type', 'flip')
+        self.bdworker.changer(self.user_id, ['current_mode', 'flip'])
         self.botapi.message_send('Режим Flip активирован.',
                                  self.user_id, JSONWorker.read_json('flipkey.json'))
 
     def reverse_comma(self):
-        iniWorker.change_config(self.user_id, 'type', 'reverse')
+        self.bdworker.changer(self.user_id, ['current_mode', 'reverse'])
         self.botapi.message_send('Режим Reverse активирован.',
                                  self.user_id, JSONWorker.read_json('reversekey.json'))
 
     def cout_comma(self):
-        iniWorker.change_config(self.user_id, 'type', 'cout')
+        self.bdworker.changer(self.user_id, ['current_mode', 'cout'])
         self.botapi.message_send('Режим Crossed Out активирован.',
                                  self.user_id, JSONWorker.read_json('coutkey.json'))
 
     def options_comma(self):
-        if self.data.get('type') == 'zalgo':
+        if self.data.get("current_mode") == 'zalgo':
             self.botapi.message_send(
                 '''
                 /zalgo_max - максимум Zalgo в тексте
                 /zalgo_aver - средний уровень Zalgo в тексте
                 /zalgo_min - минимум Zalgo в тексте
                 ''', self.user_id, JSONWorker.read_json('zalgooptions.json'))
-        elif self.data.get('type') == 'flip':
+        elif self.data.get("current_mode") == 'flip':
             self.botapi.message_send(
                 '''
-                /default - Вернуть стандартные настройки
+                /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('flipkey.json'))
-        elif self.data.get('type') == 'reverse':
+        elif self.data.get("current_mode") == 'reverse':
             self.botapi.message_send(
                 '''
-                /default - Вернуть стандартные настройки
+                /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('reversekey.json'))
-        elif self.data.get('type') == 'cout':
+        elif self.data.get("current_mode") == 'cout':
             self.botapi.message_send(
                 '''
-                /default - Вернуть стандартные настройки
+                        /null - обнулить текущее количество обработанных сообщений
                         /change_mode - Сменить режим
                 ''', self.user_id, JSONWorker.read_json('coutkey.json'))
 
-    def default_comma(self):
-        iniWorker.change_config(self.user_id, 'type', 'zalgo')
-        iniWorker.change_config(self.user_id, 'zalgo_type', 'average')
-        iniWorker.change_config(self.user_id, 'zalgo_pos', '123')
-        self.botapi.message_send('Успешно изменено.', self.user_id, JSONWorker.read_json('zalgokey.json'))
+    def null_comma(self):
+        self.bdworker.changer(self.user_id, ['messages_count', 0])
+        self.botapi.message_send('Количество обработанных сообщений успешно сброшено', self.user_id, None)
 
     def stat_comma(self):
-        if self.data.get('type') == 'zalgo':
+        if self.data.get("current_mode") == 'zalgo':
             # up = 'no'
             # mid = 'no'
             # down = 'no'
@@ -160,17 +158,18 @@ class CommandsHandler:
             Режим: {}
             Размер Zalgo: {}
             Всего сообщений обработано: {}
-            '''.format(self.data.get('type'), self.data.get('zalgo_type'), str(self.data.get('messages_count'))),
+            '''.format(self.data.get('current_mode'), self.data.get('zalgo_type'),
+                       str(self.data.get('messages_count'))),
                                      self.user_id,
-                                     JSONWorker.read_json('zalgokey.json'))
-        elif self.data.get('type') == 'flip':
+                                     None)
+        else:
             self.botapi.message_send('''
-            Режим: Flip
-            ''', self.user_id, JSONWorker.read_json('flipkey.json'))
-        elif self.data.get('type') == 'reverse':
-            self.botapi.message_send('''
-                        Режим: Reverse
-                        ''', self.user_id, JSONWorker.read_json('reversekey.json'))
+                        Режим: {}
+                        Всего сообщений обработано: {}
+                        '''.format(self.data.get('current_mode'),
+                                   str(self.data.get('messages_count'))),
+                                     self.user_id,
+                                     None)
 
     # def zalgo_up(self):
     #     if self.data.get('type') == 'zalgo':
@@ -228,24 +227,24 @@ class CommandsHandler:
     #         self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
     def zalgo_max(self):
-        if self.data.get('type') == 'zalgo':
-            iniWorker.change_config(self.user_id, 'zalgo_type', 'max')
+        if self.data.get("current_mode") == 'zalgo':
+            self.bdworker.changer(self.user_id, ['zalgo_mode', 'max'])
             self.botapi.message_send('Теперь Zalgo  будет максимального размера.', self.user_id,
                                      JSONWorker.read_json('zalgokey.json'))
         else:
             self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
     def zalgo_aver(self):
-        if self.data.get('type') == 'zalgo':
-            iniWorker.change_config(self.user_id, 'zalgo_type', 'average')
+        if self.data.get("current_mode") == 'zalgo':
+            self.bdworker.changer(self.user_id, ['zalgo_mode', 'average'])
             self.botapi.message_send('Теперь Zalgo будет среднего размера.', self.user_id,
                                      JSONWorker.read_json('zalgokey.json'))
         else:
             self.botapi.message_send('Активируйте режим Zalgo чтобы изменять настройки ZalgoText.', self.user_id, None)
 
     def zalgo_min(self):
-        if self.data.get('type') == 'zalgo':
-            iniWorker.change_config(self.user_id, 'zalgo_type', 'min')
+        if self.data.get("current_mode") == 'zalgo':
+            self.bdworker.changer(self.user_id, ['zalgo_mode', 'min'])
             self.botapi.message_send('Теперь Zalgo будет минимального размера.', self.user_id,
                                      JSONWorker.read_json('zalgokey.json'))
         else:

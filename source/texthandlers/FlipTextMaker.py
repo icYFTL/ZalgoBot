@@ -100,4 +100,4 @@ class FlipTextMaker:
                 newstr += symb
             else:
                 newstr += i
-        return newstr[::-1]
+        return newstr

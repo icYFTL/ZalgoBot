@@ -1,6 +1,5 @@
 class StaticData(object):
     name = 'ZalgoBot'
-    version = '1.3 Alpha Release'
-    name = 'ZalgoBot'
+    version = '1.4 Alpha Release'
     author = 'icYFTL'
     stack = []

@@ -1,6 +1,6 @@
-from source.BotApi import BotApi
 from Config import Config
-import hues
+from source.BotApi import BotApi
+from source.LogWork import LogWork
 
 
 class ExitHandler:
@@ -16,6 +16,4 @@ class ExitHandler:
             for admin in Config.admins:
                 BA.message_send('Скрипт был аварийно остановлен.', admin, None)
         except Exception as e:
-            hues.warn(str(e))
-
-        hues.error('Shutting down...')
+            LogWork.add_note('fatal', str(e))

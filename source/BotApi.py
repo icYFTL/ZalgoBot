@@ -1,12 +1,13 @@
-import vk_api
-from vk_api.longpoll import VkLongPoll, VkEventType
 import random
 
-from source.iniWorker import iniWorker
-from source.texthandlers.ZalgoMaker import ZalgoMaker
-from source.texthandlers.FlipTextMaker import FlipTextMaker
+import vk_api
+from vk_api.longpoll import VkLongPoll, VkEventType
+
+from source.BDWorker import BDWorker
 from source.StaticData import StaticData
 from source.texthandlers.CoutText import CoutTextMaker
+from source.texthandlers.FlipTextMaker import FlipTextMaker
+from source.texthandlers.ZalgoMaker import ZalgoMaker
 
 
 class BotApi:
@@ -58,7 +59,7 @@ class BotApi:
                             })
 
     def message_send_zalgo(self, message, user_id, keyboard):
-        data = iniWorker.read_config(user_id)
+        data = BDWorker.getter(user_id)
         if keyboard:
             self.vk.method("messages.send",
                            {"user_id": user_id,
