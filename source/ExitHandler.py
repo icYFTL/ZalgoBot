@@ -12,7 +12,7 @@ class ExitHandler:
     @staticmethod
     def exit():
         try:
-            BA = BotApi(Config.access_token)
+            BA = BotApi()
             for admin in Config.admins:
                 BA.message_send('Скрипт был аварийно остановлен.', admin, None)
         except Exception as e:

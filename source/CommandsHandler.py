@@ -6,7 +6,7 @@ from source.JSONWorker import JSONWorker
 
 class CommandsHandler:
     def __init__(self, user_id):
-        self.botapi = BotApi(Config.access_token)
+        self.botapi = BotApi()
         self.user_id = user_id
         self.bdworker = BDWorker()
         self.data = self.bdworker.getter(self.user_id)
@@ -57,9 +57,9 @@ class CommandsHandler:
     def change_mode_comma(self):
         self.botapi.message_send('''
                 Выберите режим:
-                /reverse - Включить режим Reverse
-                /flip - Включить режим Flip
                 /zalgo - Включить режим Zalgo
+                /flip - Включить режим Flip
+                /reverse - Включить режим Reverse
                 /cout - Включить режим Crossed Out
                 ''',
                                  self.user_id, JSONWorker.read_json('3way.json'))

@@ -1,7 +1,10 @@
 import random
 
 import vk_api
-from vk_api.longpoll import VkLongPoll, VkEventType
+import requests
+import json
+
+from Config import Config
 
 from source.BDWorker import BDWorker
 from source.StaticData import StaticData
@@ -18,8 +21,8 @@ class BotApi:
     :return None
     '''
 
-    def __init__(self, token):
-        self.token = token
+    def __init__(self):
+        self.token = Config.access_token
         self.zalgo = ZalgoMaker()
         self.vk = None
         self.auth()
@@ -31,17 +34,19 @@ class BotApi:
             print('Bad access token.')
             exit()
 
-    def message_handler(self):
+    def get_server(self):
+        return self.vk.method("groups.getLongPollServer", {'group_id': Config.group_id})
+
+    def message_getter(self):
         while True:
-            longpoll = VkLongPoll(self.vk)
-
-            for event in longpoll.listen():
-
-                if event.type == VkEventType.MESSAGE_NEW:
-
-                    if event.to_me:
-                        request = event.text
-                        StaticData.stack.append([request, event.user_id])
+            server = self.get_server()
+            data = json.loads(requests.get(
+                "{server}?act=a_check&key={key}&ts={ts}&wait=5".format(server=server['server'], key=server['key'],
+                                                                       ts=server['ts'])).text)
+            for event in data['updates']:
+                if event['type'] == 'message_new' and event['object']['out'] == 0:
+                    StaticData.stack.append({'message': event['object']['text'], 'user_id': event['object']['from_id']})
+                    StaticData.trigger.set()
 
     def message_send(self, message, user_id, keyboard):
         if keyboard:
