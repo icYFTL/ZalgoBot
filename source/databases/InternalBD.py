@@ -1,25 +1,29 @@
 import os
 import sqlite3
 
+from source.databases.ExternalBD import ExternalBD
 
-class BDWorker:
+
+class InternalBD:
     @staticmethod
     def initialize():
         conn = None
         cursor = None
-        if not os.path.exists('database.db'):
-            conn = sqlite3.connect("database.db")
+        if not os.path.exists('./database.db'):
+            conn = sqlite3.connect("./database.db")
             cursor = conn.cursor()
             cursor.execute("""CREATE TABLE data
-                              (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, current_mode TEXT DEFAULT "zalgo", zalgo_mode TEXT Default "average", messages_count INTEGER Default 0)
+                              (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, current_mode TEXT DEFAULT "zalgo", messages_count INTEGER Default 0, status INTEGER Default 0, token TEXT DEFAULT "null")
                            """)
-        conn = sqlite3.connect("database.db")
+        conn = sqlite3.connect("./database.db")
         cursor = conn.cursor()
         return [conn, cursor]
 
     @staticmethod
     def add_user(user_id):
-        data = BDWorker.initialize()
+        if InternalBD.user_exists(user_id):
+            return
+        data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute("""INSERT INTO data (user_id)
                           VALUES ({})""".format(user_id))
@@ -27,16 +31,35 @@ class BDWorker:
 
     @staticmethod
     def getter(user_id):
-        data = BDWorker.initialize()
+        data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         data = cursor.execute(
             """SELECT * FROM data WHERE user_id={}""".format(user_id)).fetchall()
-        return {'user_id': data[0][1], 'current_mode': data[0][2], 'zalgo_type': data[0][3],
-                'messages_count': data[0][4]}
+        data = list(data[0])
+        return {'user_id': data[1], 'current_mode': data[2],
+                'messages_count': data[3], 'status': data[4], 'token': data[5]}
+
+    @staticmethod
+    def get_token(user_id):
+        token = InternalBD.getter(user_id)['token']
+        if token == "null":
+            if InternalBD.merger(user_id):
+                token = InternalBD.getter(user_id)['token']
+            else:
+                return False
+        return token
+
+    @staticmethod
+    def merger(user_id):
+        token = ExternalBD.get_access_token(user_id)
+        if token:
+            InternalBD.changer(user_id, ['token', token])
+            return True
+        return False
 
     @staticmethod
     def messages_increment(user_id):
-        data = BDWorker.initialize()
+        data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute(
             """UPDATE data SET messages_count=messages_count+1 WHERE user_id="{}" """.format(user_id))
@@ -44,7 +67,7 @@ class BDWorker:
 
     @staticmethod
     def changer(user_id, obj):
-        data = BDWorker.initialize()
+        data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute(
             """UPDATE data SET {}="{}" WHERE user_id="{}" """.format(obj[0], obj[1], user_id))
@@ -52,7 +75,7 @@ class BDWorker:
 
     @staticmethod
     def user_exists(user_id):
-        data = BDWorker.initialize()
+        data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         if cursor.execute("""SELECT * FROM data WHERE user_id={}""".format(user_id)).fetchall():
             return True

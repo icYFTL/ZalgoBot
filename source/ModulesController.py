@@ -1,45 +1,38 @@
-import os
-from colorama import Fore, Back
-import hues
-
+import source.modules.GPL.GPL
+from source.ModuleThread import ModuleThread
 from source.StaticData import StaticData
-import importlib
+from source.databases.InternalBD import InternalBD
+from source.vkapi.UserAPI import UserAPI
 
 
 class ModulesController:
-    def __init__(self):
-        self.modules = ['GPL']
-        self.default_path = "./modules"
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.token = self.token_exists()
 
-    def handler(self):
-        hues.log("Modules checking started")
-        for module in self.modules:
-            if not self.checker(module):
-                print(Back.RED + "⛔ Module: [{}]".format(module))
-            else:
-                print(Fore.GREEN + "✅ Module: [{}]".format(module))
-                StaticData.available_modules.update(
-                    {module: importlib.import_module('{dp}/{mn}/{mn}.py'.format(dp=self.default_path, mn=module),
-                                                     package='modules.GPL.GPL.main'
-                                                     )})
+    def token_exists(self):
+        token = InternalBD.get_token(self.user_id)
+        if token:
+            return token
+        else:
+            return False
 
-        hues.log("Modules checking done")
-
-    def checker(self, name):
+    def token_valid(self):
+        UA = UserAPI(self.token)
         try:
-            for address, dirs, files in os.walk('./modules'):
-                for file in files:
-                    if file == name + '.py':
-                        return True
+            UA.get_session()
+            return True
         except:
             return False
-        return False
 
-    def execute(self, module, args):
-        StaticData.available_modules[module].main(args)
+    def user_exists(self, user):
+        UA = UserAPI(self.token)
+        UA.get_session()
+        return UA.user_exists(user)
 
-
-a = ModulesController()
-a.handler()
-a.execute('GPL', {'access': '393c19fda46c5025e4444a8d6521f26f5730436283f2d297b617f5ca0703f4d8ffb3890b384acf67fa835',
-                  'user_id': 180470000})
+    def gpl_execute(self, victim_id, user_id):
+        gpl = source.modules.GPL.GPL.GPL()
+        StaticData.stack_waiters.append({'user_id': self.user_id, 'module': 'GPL.task'})
+        StaticData.stack_module_repls.append(
+            {'module': 'GPL', 'repl': gpl.main({'access': self.token, 'user_id': [victim_id]}), 'user_id': user_id})
+        ModuleThread.trigger.set()

@@ -1,6 +1,6 @@
 from Config import Config
-from source.BotApi import BotApi
 from source.LogWork import LogWork
+from source.vkapi.BotAPI import BotAPI
 
 
 class ExitHandler:
@@ -12,7 +12,7 @@ class ExitHandler:
     @staticmethod
     def exit():
         try:
-            BA = BotApi()
+            BA = BotAPI()
             for admin in Config.admins:
                 BA.message_send('Скрипт был аварийно остановлен.', admin, None)
         except Exception as e:

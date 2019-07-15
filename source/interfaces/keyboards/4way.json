@@ -5,27 +5,33 @@
       {
         "action": {
           "type": "text",
-          "label": "/zalgo_max"
+          "label": "/zalgo"
         },
-        "color": "primary"
+        "color": "positive"
+      },
+      {
+        "action": {
+          "type": "text",
+          "label": "/flip"
+        },
+        "color": "positive"
       }
     ],
     [
       {
         "action": {
           "type": "text",
-          "label": "/zalgo_aver"
+          "label": "/reverse"
         },
-        "color": "primary"
-      }
-    ],
-    [
+        "color": "positive"
+      },
+
       {
         "action": {
           "type": "text",
-          "label": "/zalgo_min"
+          "label": "/cout"
         },
-        "color": "primary"
+        "color": "positive"
       }
     ],
     [
@@ -34,7 +40,7 @@
           "type": "text",
           "label": "/back"
         },
-        "color": "default"
+        "color": "primary"
       }
     ]
   ]

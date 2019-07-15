@@ -3,8 +3,9 @@ import threading
 
 class StaticData:
     name = 'ZalgoBot'
-    version = '1.4 Alpha Release'
+    version = '1.5 Alpha Release'
     author = 'icYFTL'
-    stack = []
+    stack_messages = []
+    stack_waiters = []
+    stack_module_repls = []
     trigger = threading.Event()
-    available_modules = {}
