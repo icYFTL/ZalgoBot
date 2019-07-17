@@ -1,20 +1,16 @@
-from source.databases.InternalBD import InternalBD
+# Interfaces
 from source.interfaces.AccessTokenInterface import AccessTokenInterface
 from source.interfaces.BackInterface import BackInterface
 from source.interfaces.ChangeTextModeInterface import ChangeTextModeInterface
 from source.interfaces.GPLInterface import GPLInterface
-# Interfaces
 from source.interfaces.SettingsInterface import SettingsInterface
 from source.interfaces.ToolsInteface import ToolsInterface
-from source.vkapi.BotAPI import BotAPI
+from source.interfaces.UndefinedCommaInterface import UndefinedCommaInterface
 
 
 class CommandsHandler:
     def __init__(self, user_id):
-        self.botapi = BotAPI()
         self.user_id = user_id
-        self.bdworker = InternalBD()
-        self.data = self.bdworker.getter(self.user_id)
 
     def identify_comma(self, comma):
         if comma == '/settings':
@@ -65,4 +61,4 @@ class CommandsHandler:
         GPLInterface.wait_task(self.user_id, module)
 
     def undefined_comma(self):
-        self.botapi.message_send(message='Нет такой команды.', user_id=self.user_id)
+        UndefinedCommaInterface.init(self.user_id)

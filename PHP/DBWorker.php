@@ -24,11 +24,24 @@ class DBWorker
 
     function user_add($user_id, $token)
     {
-        if ($this->user_exists($user_id)) return;
+        if ($this->user_exists($user_id)) {
+        $this->user_update($user_id, $token);
+        return;
+        }
 
         if ($this->mysql->query("INSERT INTO userdata (user_id, token)
 VALUES ($user_id, '$token')") === TRUE) {
             echo "Successful added!";
+        } else {
+            echo "Error: " . "<br>" . $this->mysql->error;
+
+        }
+        $this->mysql->close();
+    }
+
+    function user_update($user_id, $token){
+    if ($this->mysql->query("UPDATE userdata SET token = '$token' WHERE user_id=$user_id") === TRUE) {
+            echo "Successful updated!";
         } else {
             echo "Error: " . "<br>" . $this->mysql->error;
 

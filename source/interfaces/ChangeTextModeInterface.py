@@ -1,5 +1,5 @@
-from source.JSONWorker import JSONWorker
 from source.databases.InternalBD import InternalBD
+from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
 
 

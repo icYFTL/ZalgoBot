@@ -1,6 +1,6 @@
 from threading import Thread
 
-from source.Main import Main
+from source.main.Main import Main
 
 
 class MessagesHandler(Thread):

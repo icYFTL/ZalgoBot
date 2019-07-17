@@ -1,4 +1,4 @@
-from source.JSONWorker import JSONWorker
+from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
 
 

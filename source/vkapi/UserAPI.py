@@ -5,12 +5,11 @@ import vk_api.exceptions
 class UserAPI:
     def __init__(self, token):
         self.token = token
-        self.vk = None
+        self.vk = self.get_session()
 
     def get_session(self):
         try:
-            self.vk = vk_api.VkApi(token=self.token)
-            return True
+            return vk_api.VkApi(token=self.token)
         except:
             return False
 
@@ -21,3 +20,6 @@ class UserAPI:
             return True
         except:
             return False
+
+    def user_closed(self, user_id):
+        return self.vk.method("users.get", {'user_ids': user_id})[0]['is_closed']

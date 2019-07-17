@@ -1,36 +1,53 @@
-from source.JSONWorker import JSONWorker
-from source.ModuleThread import ModuleThread
-from source.ModulesController import ModulesController
-from source.StaticData import StaticData
+from threading import Thread
+
+from source.databases.InternalBD import InternalBD
 from source.modules.GPL.source.StaticData import StaticData as ModuleInfo
+from source.modules.ModulesController import ModulesController
+from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
+from source.vkapi.TokenController import TokenController
+from source.vkapi.UserAPI import UserAPI
 
 
 class GPLInterface:
     @staticmethod
     def init(user_id, victim_id=None):
         vk = BotAPI()
-        MC = ModulesController(user_id)
+        token = InternalBD.getter(user_id)['token']
+        TC = TokenController(token)
 
         if not victim_id:
             vk.message_send(message='Введите ID пользователя:',
                             user_id=user_id)
-            StaticData.stack_waiters.append({'user_id': user_id, 'module': 'GPL'})
-        elif not MC.token_exists():
+            InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
+            return
+        elif not TokenController.token_exists(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-        elif not MC.token_valid():
+            InternalBD.changer(user_id=user_id, obj=['status', None])
+            return
+        elif not TC.token_valid():
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-        elif not MC.user_exists(victim_id):
+            InternalBD.changer(user_id=user_id, obj=['status', None])
+            return
+        elif not TC.user_exists(victim_id):
             vk.message_send('Неверный user_id.',
                             user_id=user_id, keyboard=JSONWorker.read_json('modules'))
-        else:
-            GPLInterface.run(victim_id, MC, user_id)
+            InternalBD.changer(user_id=user_id, obj=['status', None])
+            return
+        ua = UserAPI(token)
+        if ua.user_closed(victim_id):
+            vk.message_send('У данного пользователя закрытый профиль.\nПолучить друзей не является возможным.',
+                            user_id=user_id, keyboard=JSONWorker.read_json('modules'))
+            InternalBD.changer(user_id=user_id, obj=['status', None])
+            return
+        GPLInterface.run(victim_id, user_id, token)
 
     @staticmethod
-    def run(victim_id, subclass, user_id):
-        thread = ModuleThread(victim_id, subclass, user_id)
+    def run(victim_id, user_id, token):
+        MC = ModulesController(user_id, token)
+        thread = Thread(target=MC.gpl_execute, args=(victim_id, user_id))
         thread.start()
 
     @staticmethod

@@ -13,7 +13,13 @@ class InternalBD:
             conn = sqlite3.connect("./database.db")
             cursor = conn.cursor()
             cursor.execute("""CREATE TABLE data
-                              (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, current_mode TEXT DEFAULT "zalgo", messages_count INTEGER Default 0, status INTEGER Default 0, token TEXT DEFAULT "null")
+                              (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                               user_id INTEGER,
+                                current_mode TEXT DEFAULT "zalgo",
+                                 messages_count INTEGER Default 0,
+                                  status TEXT Default "None",
+                                  subtype TEXT Default "Базовая",
+                                   token TEXT DEFAULT NULL)
                            """)
         conn = sqlite3.connect("./database.db")
         cursor = conn.cursor()
@@ -37,12 +43,12 @@ class InternalBD:
             """SELECT * FROM data WHERE user_id={}""".format(user_id)).fetchall()
         data = list(data[0])
         return {'user_id': data[1], 'current_mode': data[2],
-                'messages_count': data[3], 'status': data[4], 'token': data[5]}
+                'messages_count': data[3], 'status': data[4], 'subtype': data[5], 'token': data[6]}
 
     @staticmethod
     def get_token(user_id):
         token = InternalBD.getter(user_id)['token']
-        if token == "null":
+        if not token:
             if InternalBD.merger(user_id):
                 token = InternalBD.getter(user_id)['token']
             else:
@@ -62,7 +68,7 @@ class InternalBD:
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute(
-            """UPDATE data SET messages_count=messages_count+1 WHERE user_id="{}" """.format(user_id))
+            """UPDATE data SET messages_count=messages_count+1 WHERE user_id={} """.format(user_id))
         conn.commit()
 
     @staticmethod
@@ -70,7 +76,15 @@ class InternalBD:
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute(
-            """UPDATE data SET {}="{}" WHERE user_id="{}" """.format(obj[0], obj[1], user_id))
+            """UPDATE data SET {}="{}" WHERE user_id={}""".format(obj[0], obj[1], user_id))
+        conn.commit()
+
+    @staticmethod
+    def status_cleaner_emergency():
+        data = InternalBD.initialize()
+        conn, cursor = data[0], data[1]
+        cursor.execute(
+            """UPDATE data SET status="None" WHERE status != "None" """)
         conn.commit()
 
     @staticmethod

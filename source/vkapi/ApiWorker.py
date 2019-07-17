@@ -1,7 +1,7 @@
 import time
 
 from Config import Config
-from source.LogWork import LogWork
+from source.other.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 from source.vkapi.MessagesGetter import MessagesGetter
 from source.vkapi.MessagesHandler import MessagesHandler
@@ -19,12 +19,12 @@ class ApiWorker:
         for admin in Config.admins:
             botapi.message_send(message='Скрипт начал работу.', user_id=admin)
             time.sleep(0.4)
-        LogWork.add_note('info', 'Script has been started.')
+        LogWork.log('Script has been started.')
         ApiWorker.thread_controller()
 
     @staticmethod
     def thread_controller():
-        LogWork.add_note('info', 'Handling has been started')
+        LogWork.log('Messages handling has been started')
 
         MG = MessagesGetter()
         MG.start()

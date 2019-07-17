@@ -5,7 +5,8 @@ import requests
 import vk_api
 
 from Config import Config
-from source.StaticData import StaticData
+from source.other.LogWork import LogWork
+from source.other.StaticData import StaticData
 # Text handlers
 from source.texthandlers.CoutText import CoutTextMaker
 from source.texthandlers.FlipTextMaker import FlipTextMaker
@@ -29,8 +30,8 @@ class BotAPI:
     def auth(self):
         try:
             self.vk = vk_api.VkApi(token=self.token)
-        except Exception:
-            print('Bad access token.')
+        except:
+            LogWork.fatal('Bad basic access token.')
             exit()
 
     def get_server(self):
@@ -46,7 +47,7 @@ class BotAPI:
                 if event['type'] == 'message_new' and event['object']['out'] == 0:
                     StaticData.stack_messages.append(
                         {'message': event['object']['text'], 'user_id': event['object']['from_id']})
-                    StaticData.trigger.set()
+                    StaticData.new_message_trigger.set()
 
     def message_send(self, message, user_id, keyboard=None, type_t=None):
         template = {"user_id": user_id,

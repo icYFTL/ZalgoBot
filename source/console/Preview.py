@@ -1,8 +1,8 @@
 import sys
 import time
 
-from source.ConsoleWorker import ConsoleWorker
-from source.StaticData import StaticData
+from source.console.ConsoleWorker import ConsoleWorker
+from source.other.StaticData import StaticData
 
 
 class Preview:
