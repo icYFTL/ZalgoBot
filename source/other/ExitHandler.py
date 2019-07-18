@@ -1,3 +1,5 @@
+import atexit
+
 from Config import Config
 from source.databases.InternalBD import InternalBD
 from source.other.LogWork import LogWork
@@ -9,6 +11,10 @@ class ExitHandler:
     This script controls actions while exiting.
     :return None
     '''
+
+    @staticmethod
+    def register():
+        atexit.register(ExitHandler.exit())
 
     @staticmethod
     def exit():

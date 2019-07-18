@@ -41,8 +41,8 @@ class BotAPI:
         while True:
             server = self.get_server()
             data = json.loads(requests.get(
-                "{server}?act=a_check&key={key}&ts={ts}&wait=5".format(server=server['server'], key=server['key'],
-                                                                       ts=server['ts'])).text)
+                "{server}?act=a_check&key={key}&ts={ts}&wait=30".format(server=server['server'], key=server['key'],
+                                                                        ts=server['ts'])).text)
             for event in data['updates']:
                 if event['type'] == 'message_new' and event['object']['out'] == 0:
                     StaticData.stack_messages.append(

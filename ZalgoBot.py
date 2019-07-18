@@ -1,13 +1,16 @@
-import atexit
-
+from source.console.Preview import Preview
 from source.other.ExitHandler import ExitHandler
+from source.system.Reboot import Reboot
 from source.vkapi.ApiWorker import ApiWorker
 
-# ATEXIT
-atexit.register(ExitHandler.exit)
+# Exit routine
+ExitHandler.register()
 
-# PREVIEW
-# Preview.preview()
+# Script Controller Init
+Reboot.init()
 
-# WORKOUT
+# Preview
+Preview.preview()
+
+# Main routine
 ApiWorker.started()

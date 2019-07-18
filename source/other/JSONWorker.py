@@ -1,7 +1,7 @@
 class JSONWorker:
     '''
     This class controls work with JSON.
-    :return read_json -> keyboard.keyboards
+    :return read_json -> keyboard.json
     '''
 
     @staticmethod
