@@ -14,7 +14,7 @@ class ExitHandler:
 
     @staticmethod
     def register():
-        atexit.register(ExitHandler.exit())
+        atexit.register(ExitHandler.exit)
 
     @staticmethod
     def exit():
