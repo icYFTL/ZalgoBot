@@ -7,3 +7,4 @@ class StaticData:
     author = 'icYFTL'
     stack_messages = []
     new_message_trigger = threading.Event()
+    reboot_env = None
