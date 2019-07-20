@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 86400
+sleep 3600
 Get_PID="$(sudo ps -fA | grep 'python3 ZalgoBot.py')"
 read -ra ADDR <<< "$Get_PID"
 $(sudo kill ${ADDR[1]})
