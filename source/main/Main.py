@@ -35,6 +35,10 @@ class Main:
 
             data = InternalBD.getter(self.user_id)
             if data['status'] != "None":
+                if self.message == '/back':
+                    InternalBD.changer(self.user_id, ['status', None])
+                    CH.back_comma()
+                    return
                 LogWork.log('Module "{}" request from {}'.format(data['status'], self.user_id))
                 if 'GPL' in data['status'] and self.message == '/GPL':
                     CH.gpl_comma()

@@ -28,6 +28,9 @@ class UserAPI:
 
     @staticmethod
     def get_id_from_url(token, url):
-        url = url.replace("https://vk.com/", "").replace("/", "")
-        vk = vk_api.VkApi(token=token)
-        return vk.method("users.get", {"user_ids": url})[0]['id']
+        try:
+            url = url.replace("https://vk.com/", "").replace("/", "")
+            vk = vk_api.VkApi(token=token)
+            return vk.method("users.get", {"user_ids": url})[0]['id']
+        except:
+            return False

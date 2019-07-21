@@ -31,8 +31,8 @@ class GPLInterface:
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        elif not TC.user_exists(UserAPI.get_id_from_url(token, victim_id)):
-            vk.message_send('Неверный user_id.',
+        elif not UserAPI.get_id_from_url(token, victim_id):
+            vk.message_send('Неверная ссылка.',
                             user_id=user_id, keyboard=JSONWorker.read_json('modules'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
