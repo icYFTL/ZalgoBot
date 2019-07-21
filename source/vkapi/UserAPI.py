@@ -21,5 +21,13 @@ class UserAPI:
         except:
             return False
 
-    def user_closed(self, user_id):
-        return self.vk.method("users.get", {'user_ids': user_id})[0]['is_closed']
+    @staticmethod
+    def user_closed(token, user_id):
+        vk = vk_api.VkApi(token=token)
+        return vk.method("users.get", {'user_ids': user_id})[0]['is_closed']
+
+    @staticmethod
+    def get_id_from_url(token, url):
+        url = url.replace("https://vk.com/", "").replace("/", "")
+        vk = vk_api.VkApi(token=token)
+        return vk.method("users.get", {"user_ids": url})[0]['id']

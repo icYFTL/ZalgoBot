@@ -17,7 +17,7 @@ class GPLInterface:
         TC = TokenController(token)
 
         if not victim_id:
-            vk.message_send(message='Введите ID пользователя:',
+            vk.message_send(message='Введите ссылку на страницу пользователя:',
                             user_id=user_id)
             InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
             return
@@ -31,23 +31,22 @@ class GPLInterface:
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        elif not TC.user_exists(victim_id):
+        elif not TC.user_exists(UserAPI.get_id_from_url(token, victim_id)):
             vk.message_send('Неверный user_id.',
                             user_id=user_id, keyboard=JSONWorker.read_json('modules'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        ua = UserAPI(token)
-        if ua.user_closed(victim_id):
+        elif UserAPI.user_closed(token, UserAPI.get_id_from_url(token, victim_id)):
             vk.message_send('У данного пользователя закрытый профиль.\nПолучить друзей не является возможным.',
                             user_id=user_id, keyboard=JSONWorker.read_json('modules'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        GPLInterface.run(victim_id, user_id, token)
+        GPLInterface.run(UserAPI.get_id_from_url(token, victim_id), user_id, token)
 
     @staticmethod
     def run(victim_id, user_id, token):
         MC = ModulesController(user_id, token)
-        thread = Thread(target=MC.gpl_execute, args=(victim_id, user_id))
+        thread = Thread(target=MC.gpl_execute, args=(victim_id,))
         thread.start()
 
     @staticmethod
