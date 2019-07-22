@@ -5,15 +5,15 @@ from flask import request
 
 from source.other.StaticData import StaticData
 
-app = Flask(__name__)
+zalgo_m = Flask(__name__)
 
 
-@app.route('/')
+@zalgo_m.route('/')
 def hello_world():
     return 'Hello from Flask!'
 
 
-@app.route('/', methods=['POST'])
+@zalgo_m.route('/', methods=['POST'])
 def processing():
     # Распаковываем json из пришедшего POST-запроса
     data = json.loads(request.data)
