@@ -10,4 +10,5 @@ class MessagesGetter(Thread):
         self.botapi = BotAPI()
 
     def run(self):
-        self.botapi.message_getter()
+        pass
+        # self.botapi.message_getter()
