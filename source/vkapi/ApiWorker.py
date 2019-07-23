@@ -1,7 +1,7 @@
 import time
 
 from Config import Config
-from source.other.LogWork import LogWork
+from source.Logger.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 from source.vkapi.MessagesHandler import MessagesHandler
 

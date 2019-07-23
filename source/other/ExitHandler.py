@@ -2,7 +2,7 @@ import atexit
 
 from Config import Config
 from source.databases.InternalBD import InternalBD
-from source.other.LogWork import LogWork
+from source.Logger.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 
 

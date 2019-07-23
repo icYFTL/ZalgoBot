@@ -1,8 +1,8 @@
 from source.databases.InternalBD import InternalBD
 from source.interfaces.IntroInterface import IntroInterface
 from source.main.CommandsHandler import CommandsHandler
-from source.other.LogWork import LogWork
-from source.other.StaticData import StaticData
+from source.Logger.LogWork import LogWork
+from Static.StaticData import StaticData
 from source.texthandlers.MessageHandler import MessageHandler
 from source.vkapi.BotAPI import BotAPI
 

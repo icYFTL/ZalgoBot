@@ -5,8 +5,8 @@ import requests
 import vk_api
 
 from Config import Config
-from source.other.LogWork import LogWork
-from source.other.StaticData import StaticData
+from source.Logger.LogWork import LogWork
+from Static.StaticData import StaticData
 # Text handlers
 from source.texthandlers.CoutText import CoutTextMaker
 from source.texthandlers.FlipTextMaker import FlipTextMaker

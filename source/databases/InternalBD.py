@@ -1,8 +1,6 @@
 import os
 import sqlite3
 
-from source.databases.ExternalBD import ExternalBD
-
 
 class InternalBD:
     @staticmethod
@@ -56,14 +54,6 @@ class InternalBD:
         return token
 
     @staticmethod
-    def merger(user_id):
-        token = ExternalBD.get_access_token(user_id)
-        if token:
-            InternalBD.changer(user_id, ['token', token])
-            return True
-        return False
-
-    @staticmethod
     def messages_increment(user_id):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
@@ -85,6 +75,14 @@ class InternalBD:
         conn, cursor = data[0], data[1]
         cursor.execute(
             """UPDATE data SET status="None" WHERE status != "None" """)
+        conn.commit()
+
+    @staticmethod
+    def add_token(user_id, token):
+        data = InternalBD.initialize()
+        conn, cursor = data[0], data[1]
+        cursor.execute(
+            """UPDATE data SET token="{token}" WHERE user_id={user_id}""".format(token=token, user_id=user_id))
         conn.commit()
 
     @staticmethod

@@ -2,7 +2,7 @@ import sys
 import time
 
 from source.console.ConsoleWorker import ConsoleWorker
-from source.other.StaticData import StaticData
+from Static.StaticData import StaticData
 
 
 class Preview:

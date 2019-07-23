@@ -1,10 +1,11 @@
 import json
 import logging
 
-from flask import Flask
-from flask import request
+import requests
+from flask import Flask, request, redirect
 
-from source.other.StaticData import StaticData
+from source.databases.InternalBD import InternalBD
+from Static.StaticData import StaticData
 
 m_thread = Flask(__name__)
 
@@ -12,9 +13,13 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 
-@m_thread.route('/')
-def hello_world():
-    return 'Welcome to icYFTL\'s server.'
+@m_thread.route('/', methods=['GET'])
+def get_access():
+    code = request.args['code']
+    access = json.loads(requests.get(
+        "https://oauth.vk.com/access_token?client_id=6949573&client_secret=yTy9ne0P6B0MmzZLDLPr&redirect_uri=http://icyftl.ru/ZalgoBot/GetAccess.php&code=" + code).text)
+    InternalBD.add_token(user_id=access['user_id'], token=access['access_token'])
+    return redirect("https://vk.com/im?sel=-181269537", code=302)
 
 
 @m_thread.route('/', methods=['POST'])
