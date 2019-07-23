@@ -10,7 +10,7 @@ zalgo_m = Flask(__name__)
 
 @zalgo_m.route('/')
 def hello_world():
-    return 'Hello from Flask!'
+    return 'Welcome to icYFTL\'s server.'
 
 
 @zalgo_m.route('/', methods=['POST'])
@@ -21,7 +21,7 @@ def processing():
     if 'type' not in data.keys():
         return 'not vk'
     if data['type'] == 'confirmation':
-        return "7973f688"
+        return "bb2072fc"
     elif data['type'] == 'message_new':
         StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id']})
         StaticData.new_message_trigger()
