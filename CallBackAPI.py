@@ -24,5 +24,5 @@ def processing():
         return "bb2072fc"
     elif data['type'] == 'message_new':
         StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id']})
-        StaticData.new_message_trigger()
+        StaticData.new_message_trigger.set()
         return 'ok'
