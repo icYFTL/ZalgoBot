@@ -1,14 +1,10 @@
-from CallBackAPI import zalgo_m
 from source.console.Preview import Preview
 from source.other.ExitHandler import ExitHandler
-from source.system.Reboot import Reboot
 from source.vkapi.ApiWorker import ApiWorker
+from source.vkapi.CallBackAPI import m_thread
 
 # Exit routine
 ExitHandler.register()
-
-# Script Controller Init
-Reboot.init()
 
 # Preview
 Preview.preview()
@@ -17,4 +13,4 @@ Preview.preview()
 ApiWorker.started()
 
 # Messages GET - Module routine initialization
-zalgo_m.run(host='localhost', port=8000, debug=False)
+m_thread.run(host='localhost', port=8000, debug=False)

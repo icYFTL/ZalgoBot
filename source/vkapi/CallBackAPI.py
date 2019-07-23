@@ -1,19 +1,23 @@
 import json
+import logging
 
 from flask import Flask
 from flask import request
 
 from source.other.StaticData import StaticData
 
-zalgo_m = Flask(__name__)
+m_thread = Flask(__name__)
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 
-@zalgo_m.route('/')
+@m_thread.route('/')
 def hello_world():
     return 'Welcome to icYFTL\'s server.'
 
 
-@zalgo_m.route('/', methods=['POST'])
+@m_thread.route('/', methods=['POST'])
 def processing():
     # Распаковываем json из пришедшего POST-запроса
     data = json.loads(request.data)
