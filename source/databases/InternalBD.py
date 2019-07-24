@@ -47,10 +47,7 @@ class InternalBD:
     def get_token(user_id):
         token = InternalBD.getter(user_id)['token']
         if not token:
-            if InternalBD.merger(user_id):
-                token = InternalBD.getter(user_id)['token']
-            else:
-                return False
+            return False
         return token
 
     @staticmethod
