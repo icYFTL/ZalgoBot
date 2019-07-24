@@ -26,7 +26,7 @@ class ApiWorker:
     def thread_controller():
 
         # Main Messages Handler
-        main_messages_handler = Thread(target=Main.handle())
+        main_messages_handler = Thread(target=Main.handle)
         main_messages_handler.start()
 
         # Always Online
