@@ -65,7 +65,7 @@ class CommandsHandler:
         if 'gpl.task' in InternalBD.getter(self.user_id)['status']:
             GPLInterface.wait_task(self.user_id)
         else:
-            NothingWaitInterface.init()
+            NothingWaitInterface.init(self.user_id)
 
     def undefined_comma(self):
         UndefinedCommaInterface.init(self.user_id)
