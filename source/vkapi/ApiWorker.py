@@ -24,10 +24,10 @@ class ApiWorker:
 
     @staticmethod
     def thread_controller():
-        LogWork.log('Messages handler has been started')
 
         # Main Messages Handler
         main_messages_handler = Thread(target=Main.handle())
+        main_messages_handler.start()
 
         # Always Online
         vk = BotAPI()
