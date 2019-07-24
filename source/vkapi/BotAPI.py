@@ -66,7 +66,13 @@ class BotAPI:
         self.vk.method('messages.send', template)
 
     def enable_online(self):
-        self.vk.method("groups.enableOnline", {'group_id': Config.group_id})
+        try:
+            self.vk.method("groups.enableOnline", {'group_id': Config.group_id})
+        except:
+            pass
 
     def disable_online(self):
-        self.vk.method("groups.disableOnline", {'group_id': Config.group_id})
+        try:
+            self.vk.method("groups.disableOnline", {'group_id': Config.group_id})
+        except:
+            pass
