@@ -24,6 +24,6 @@ class ExitHandler:
             vk = BotAPI()
             for admin in Config.admins:
                 vk.message_send(message='Скрипт был аварийно остановлен.', user_id=admin)
-
+            vk.disable_online()
         except Exception as e:
             LogWork.fatal(str(e))

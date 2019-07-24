@@ -1,9 +1,10 @@
 import time
+from threading import Thread
 
 from Config import Config
 from source.logger.LogWork import LogWork
+from source.main.Main import Main
 from source.vkapi.BotAPI import BotAPI
-from source.vkapi.MessagesHandler import MessagesHandler
 
 
 class ApiWorker:
@@ -14,9 +15,9 @@ class ApiWorker:
 
     @staticmethod
     def started():
-        botapi = BotAPI()
+        vk = BotAPI()
         for admin in Config.admins:
-            botapi.message_send(message='Скрипт начал работу.', user_id=admin)
+            vk.message_send(message='Скрипт начал работу.', user_id=admin)
             time.sleep(0.4)
         LogWork.log('Script has been started.')
         ApiWorker.thread_controller()
@@ -25,8 +26,9 @@ class ApiWorker:
     def thread_controller():
         LogWork.log('Messages handler has been started')
 
-        # MG = MessagesGetter()
-        # MG.start()
+        # Main Messages Handler
+        main_messages_handler = Thread(target=Main.handle())
 
-        MH = MessagesHandler()
-        MH.start()
+        # Always Online
+        vk = BotAPI()
+        vk.enable_online()

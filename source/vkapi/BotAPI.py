@@ -64,3 +64,9 @@ class BotAPI:
         elif type_t == 'cout':
             template.update({"message": CoutTextMaker.cout(message)})
         self.vk.method('messages.send', template)
+
+    def enable_online(self):
+        self.vk.method("groups.enableOnline", {'group_id': Config.group_id})
+
+    def disable_online(self):
+        self.vk.method("groups.disableOnline", {'group_id': Config.group_id})

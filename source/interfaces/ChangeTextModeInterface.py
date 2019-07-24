@@ -8,10 +8,10 @@ class ChangeTextModeInterface:
     def init(user_id):
         vk = BotAPI()
         vk.message_send('''Выберите режим:
-            /zalgo - Включить режим Zalgo
-            /flip - Включить режим Flip
-            /reverse - Включить режим Reverse
-            /cout - Включить режим Crossed Out''',
+/zalgo - Включить режим Zalgo
+/flip - Включить режим Flip
+/reverse - Включить режим Reverse
+/cout - Включить режим Crossed Out''',
                         user_id, JSONWorker.read_json('4way'))
 
     @staticmethod

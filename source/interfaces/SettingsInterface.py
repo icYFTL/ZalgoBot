@@ -15,5 +15,5 @@ class SettingsInterface:
             token = "⛔"
 
         vk.message_send("""Настройки.
-        • AccessToken - {}
-        • Подписка - {}""".format(token, sub), user_id, JSONWorker.read_json('settings'))
+    • AccessToken - {}
+    • Подписка - {}""".format(token, sub), user_id, JSONWorker.read_json('settings'))
