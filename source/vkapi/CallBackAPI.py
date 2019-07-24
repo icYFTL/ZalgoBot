@@ -4,8 +4,8 @@ import logging
 import requests
 from flask import Flask, request, redirect
 
-from Static.StaticData import StaticData
 from source.databases.InternalBD import InternalBD
+from source.static.StaticData import StaticData
 
 m_thread = Flask(__name__)
 

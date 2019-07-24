@@ -1,5 +1,5 @@
 from source.databases.InternalBD import InternalBD
-from source.Logger.LogWork import LogWork
+from source.logger.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 
 

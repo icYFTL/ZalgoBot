@@ -1,7 +1,6 @@
 from threading import Thread
 
 from source.databases.InternalBD import InternalBD
-from source.modules.GPL.source.StaticData import StaticData as ModuleInfo
 from source.modules.ModulesController import ModulesController
 from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
@@ -50,8 +49,11 @@ class GPLInterface:
         thread.start()
 
     @staticmethod
-    def wait_task(user_id, module):
+    def wait_task(user_id):
         vk = BotAPI()
-        percentage = ModuleInfo.percent
-        vk.message_send(message='{module} в данный момент выполняется ({perc})'.format(module=module, perc=percentage),
-                        user_id=user_id)
+        import source.modules.GPL.source.StaticData
+        vk.message_send(
+            message="[GPL Module]\n{percent}\n{users} друзей обработано".format(
+                percent=source.modules.GPL.source.StaticData.StaticData.percent['percent'],
+                users=source.modules.GPL.source.StaticData.StaticData.percent['users']),
+            user_id=user_id)

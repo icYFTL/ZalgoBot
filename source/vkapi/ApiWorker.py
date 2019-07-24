@@ -1,7 +1,7 @@
 import time
 
 from Config import Config
-from source.Logger.LogWork import LogWork
+from source.logger.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 from source.vkapi.MessagesHandler import MessagesHandler
 
@@ -23,7 +23,7 @@ class ApiWorker:
 
     @staticmethod
     def thread_controller():
-        LogWork.log('Messages handling has been started')
+        LogWork.log('Messages handler has been started')
 
         # MG = MessagesGetter()
         # MG.start()

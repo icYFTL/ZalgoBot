@@ -10,5 +10,4 @@ class MessagesHandler(Thread):
 
     def run(self):
         while True:
-            handler = Main()
-            handler.handle()
+            Main.handle()

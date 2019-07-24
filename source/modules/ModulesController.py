@@ -1,6 +1,6 @@
 from source.databases.InternalBD import InternalBD
+from source.logger.LogWork import LogWork
 from source.other.JSONWorker import JSONWorker
-from source.Logger.LogWork import LogWork
 from source.vkapi.BotAPI import BotAPI
 
 
