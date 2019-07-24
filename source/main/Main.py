@@ -44,7 +44,7 @@ class Main:
                     CH.get_status_comma()
                 return
 
-            if '/' in str(message):
+            if str(message)[0] == '/':
                 LogWork.log('Command "{}" request from {}'.format(message, user_id))
                 CH.identify_comma(message)
                 return
