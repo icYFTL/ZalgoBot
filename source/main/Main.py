@@ -27,14 +27,14 @@ class Main:
                 if not InternalBD.user_exists(user_id):
                     InternalBD.add_user(user_id)
                     IntroInterface.init(user_id)
-                    return
+                    continue
 
                 data = InternalBD.getter(user_id)
                 if data['status'] != "None":
                     if message == '/back':
                         InternalBD.changer(user_id, ['status', None])
                         CH.back_comma()
-                        return
+                        continue
                     LogWork.log('Module "{}" request from {}'.format(data['status'], user_id))
 
                     # GPL
@@ -44,12 +44,12 @@ class Main:
                         CH.gpl_comma(message)
                     elif 'WFM' in data['status']:
                         CH.get_status_comma()
-                    return
+                    continue
 
                 if str(message)[0] == '/':
                     LogWork.log('Command "{}" request from {}'.format(message, user_id))
                     CH.identify_comma(message)
-                    return
+                    continue
 
                 if len(message) > 100:
                     vk.message_send(
