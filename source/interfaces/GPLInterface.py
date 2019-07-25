@@ -27,7 +27,7 @@ class GPLInterface:
             return
         vk.message_send(message="""GPL это модуль позволяющий узнать примерно место жительства человека по его друзьям.
 Ведь все мы любим указывать школы, университеты итд.
-Использовать модуль можно нажав на клавиатуре /GPL_run""", user_id=user_id)
+Использовать модуль можно нажав на клавиатуре /GPL_run""", user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
 
     @staticmethod
     def run(victim_id, user_id):
@@ -40,12 +40,12 @@ class GPLInterface:
             return
         elif not UserAPI.get_id_from_url(token, victim_id):
             vk.message_send('Неверная ссылка.',
-                            user_id=user_id, keyboard=JSONWorker.read_json('modules'))
+                            user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
         elif UserAPI.user_closed(token, UserAPI.get_id_from_url(token, victim_id)):
             vk.message_send('У данного пользователя закрытый профиль.\nПолучить друзей не является возможным.',
-                            user_id=user_id, keyboard=JSONWorker.read_json('modules'))
+                            user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
         MC = ModulesController(user_id, token)
