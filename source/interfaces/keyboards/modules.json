@@ -8,6 +8,13 @@
           "label": "/GPL"
         },
         "color": "positive"
+      },
+      {
+        "action": {
+          "type": "text",
+          "label": "/aurora"
+        },
+        "color": "positive"
       }
     ],
     [
