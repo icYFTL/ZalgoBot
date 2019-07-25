@@ -1,4 +1,4 @@
-from threading import Thread
+from multiprocessing import Process
 
 from source.databases.InternalBD import InternalBD
 from source.modules.ModulesController import ModulesController
@@ -25,9 +25,9 @@ class GPLInterface:
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        vk.message_send(message="""GPL это модуль позволяющий узнать примерно место жительства человека по его друзьям.
+        vk.message_send(message='''GPL это модуль позволяющий узнать примерное место жительства человека по его друзьям.
 Ведь все мы любим указывать школы, университеты итд.
-Использовать модуль можно нажав на клавиатуре /GPL_run""", user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
+Использовать модуль можно нажав на клавиатуре /GPL_run''', user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
 
     @staticmethod
     def run(victim_id, user_id):
@@ -51,7 +51,7 @@ class GPLInterface:
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
         MC = ModulesController(user_id, token)
-        thread = Thread(target=MC.gpl_execute, args=(victim_id,))
+        thread = Process(target=MC.gpl_execute, args=(victim_id,))
         thread.start()
 
     @staticmethod
@@ -59,7 +59,7 @@ class GPLInterface:
         vk = BotAPI()
         import source.modules.GPL.source.StaticData
         vk.message_send(
-            message="[GPL Module]\n{percent}\n{users} друзей обработано".format(
+            message='[GPL Module]\n{percent}\n{users} друзей обработано'.format(
                 percent=source.modules.GPL.source.StaticData.StaticData.percent['percent'],
                 users=source.modules.GPL.source.StaticData.StaticData.percent['users']),
             user_id=user_id)

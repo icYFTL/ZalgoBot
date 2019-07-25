@@ -1,6 +1,7 @@
 import os
 import sqlite3
 
+from source.modules.Aurora.source.static.StaticMethods import StaticMethods
 from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
 
 
@@ -18,9 +19,34 @@ class InternalBD:
                                friends TEXT DEFAULT NULL,
                                token TEXT DEFAULT NULL)
                            """)
+            cursor.execute("""CREATE TABLE statistic
+                                          (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                           user_id INTEGER,
+                                           deleted_id INTEGER,
+                                           time TEXT)
+                                       """)
         conn = sqlite3.connect("./aurora.db")
         cursor = conn.cursor()
         return [conn, cursor]
+
+    @staticmethod
+    def add_event(user_id, deleted_id):
+        data = InternalBD.initialize()
+        conn, cursor = data[0], data[1]
+        cursor.execute("""INSERT INTO statistic (user_id, deleted_id, time)
+                          VALUES ({user_id},{deleted_id}, "{time}")""".format(user_id=user_id, deleted_id=deleted_id,
+                                                                              time=StaticMethods.get_time().strftime(
+                                                                                  '%D %T')))
+        conn.commit()
+
+    @staticmethod
+    def get_events(user_id):
+        data = InternalBD.initialize()
+        conn, cursor = data[0], data[1]
+        data = cursor.execute(
+            """SELECT deleted_id,time FROM statistic WHERE user_id={}""".format(user_id)).fetchall()
+        data = list(data[0])
+        return data
 
     @staticmethod
     def add_user(user_id, token):

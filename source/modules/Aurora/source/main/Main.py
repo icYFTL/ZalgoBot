@@ -26,6 +26,7 @@ class Main:
                         for i in removed:
                             if removed in subs:
                                 vk.unsub(i)
+                                InternalBD.add_event(user, i)
                                 LogWork.log(
                                     "User ({user_id}) was unsubed from ({unsubed})".format(user_id=user, unsubed=i))
                                 time.sleep(0.4)

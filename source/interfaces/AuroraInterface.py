@@ -22,7 +22,7 @@ class AuroraInterface:
             IB.changer(user_id=user_id, obj=['status', None])
             return
         vk.message_send(
-            message='''Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.\nПорой, это полезно.
+            message='''Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.
 Подключить модуль можно нажав на клавиатуре /aurora_add
 Отключить модуль можно нажав на клавиатуре /aurora_remove
             ''',
