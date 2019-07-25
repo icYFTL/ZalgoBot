@@ -45,6 +45,10 @@ class AuroraInterface:
             IB.changer(user_id=user_id, obj=['status', None])
             return
         from source.modules.Aurora.source.databases.InternalBD import InternalBD
+        if InternalBD.user_exists(user_id):
+            vk.message_send(message="Вы уже подключили модуль Aurora.", user_id=user_id,
+                            keyboard=JSONWorker.read_json('aurora'))
+            return
         InternalBD.add_user(user_id, token)
         vk.message_send(message="Вы успешно подключили модуль Aurora!", user_id=user_id,
                         keyboard=JSONWorker.read_json('aurora'))
