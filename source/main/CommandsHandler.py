@@ -37,14 +37,21 @@ class CommandsHandler:
             self.access_token_comma()
         elif comma == '/get_status':
             self.get_status_comma()
+        elif comma == '/GPL_run':
+            self.gpl_run()
+        elif comma == '/aurora':
+            pass
         else:
             self.undefined_comma()
 
     def settings_comma(self):
         SettingsInterface.init(self.user_id)
 
-    def gpl_comma(self, victim_id=None):
-        GPLInterface.init(self.user_id, victim_id=victim_id)
+    def gpl_comma(self):
+        GPLInterface.init(self.user_id)
+
+    def gpl_run(self, victim_id=None):
+        GPLInterface.run(victim_id, self.user_id)
 
     def tools_comma(self):
         ToolsInterface.init(self.user_id)

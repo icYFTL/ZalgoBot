@@ -32,3 +32,12 @@ class ModulesController:
 
     def aurora_execute(self, user_id):
         pass
+
+    @staticmethod
+    def full_time_modules_init():
+        try:
+            from source.modules.Aurora.source.threads.ThreadsController import ThreadsController
+            ThreadsController.init_main_routine()
+            LogWork.log("Aurora ✅")
+        except:
+            LogWork.error("Aurora ⛔")

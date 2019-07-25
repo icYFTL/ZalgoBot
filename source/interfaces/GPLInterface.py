@@ -10,17 +10,12 @@ from source.vkapi.UserAPI import UserAPI
 
 class GPLInterface:
     @staticmethod
-    def init(user_id, victim_id=None):
+    def init(user_id):
         vk = BotAPI()
         token = InternalBD.getter(user_id)['token']
         TC = TokenController(token)
 
-        if not victim_id:
-            vk.message_send(message='Введите ссылку на страницу пользователя:',
-                            user_id=user_id)
-            InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
-            return
-        elif not TokenController.token_exists(user_id):
+        if not TokenController.token_exists(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
@@ -29,6 +24,19 @@ class GPLInterface:
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
+            return
+        vk.message_send(message="""GPL это модуль позволяющий узнать примерно место жительства человека по его друзьям.
+Ведь все мы любим указывать школы, университеты итд.
+Использовать модуль можно нажав на клавиатуре /GPL_run""", user_id=user_id)
+
+    @staticmethod
+    def run(victim_id, user_id):
+        token = InternalBD.getter(user_id)['token']
+        vk = BotAPI()
+        if not victim_id:
+            vk.message_send(message='Введите ссылку на страницу пользователя:',
+                            user_id=user_id)
+            InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
             return
         elif not UserAPI.get_id_from_url(token, victim_id):
             vk.message_send('Неверная ссылка.',
@@ -40,10 +48,6 @@ class GPLInterface:
                             user_id=user_id, keyboard=JSONWorker.read_json('modules'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
-        GPLInterface.run(UserAPI.get_id_from_url(token, victim_id), user_id, token)
-
-    @staticmethod
-    def run(victim_id, user_id, token):
         MC = ModulesController(user_id, token)
         thread = Thread(target=MC.gpl_execute, args=(victim_id,))
         thread.start()

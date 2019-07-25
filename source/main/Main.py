@@ -38,10 +38,10 @@ class Main:
                     LogWork.log('Module "{}" request from {}'.format(data['status'], user_id))
 
                     # GPL
-                    if 'GPL' in data['status'] and message == '/GPL':
-                        CH.gpl_comma()
+                    if 'GPL' in data['status'] and message == '/GPL_run':
+                        CH.gpl_run()
                     elif 'GPL' in data['status']:
-                        CH.gpl_comma(message)
+                        CH.gpl_run(message)
                     elif 'WFM' in data['status']:
                         CH.get_status_comma()
                     continue
