@@ -1,6 +1,7 @@
 # Interfaces
 from source.databases.InternalBD import InternalBD
 from source.interfaces.AccessTokenInterface import AccessTokenInterface
+from source.interfaces.AuroraInterface import AuroraInterface
 from source.interfaces.BackInterface import BackInterface
 from source.interfaces.ChangeTextModeInterface import ChangeTextModeInterface
 from source.interfaces.GPLInterface import GPLInterface
@@ -38,9 +39,13 @@ class CommandsHandler:
         elif comma == '/get_status':
             self.get_status_comma()
         elif comma == '/GPL_run':
-            self.gpl_run()
+            self.gpl_run_comma()
         elif comma == '/aurora':
-            pass
+            self.aurora_comma()
+        elif comma == '/aurora_add':
+            self.aurora_add()
+        elif comma == '/aurora_remove':
+            self.aurora_remove()
         else:
             self.undefined_comma()
 
@@ -50,11 +55,17 @@ class CommandsHandler:
     def gpl_comma(self):
         GPLInterface.init(self.user_id)
 
-    def gpl_run(self, victim_id=None):
+    def gpl_run_comma(self, victim_id=None):
         GPLInterface.run(victim_id, self.user_id)
 
     def tools_comma(self):
         ToolsInterface.init(self.user_id)
+
+    def get_status_comma(self):
+        if 'gpl.task' in InternalBD.getter(self.user_id)['status']:
+            GPLInterface.wait_task(self.user_id)
+        else:
+            NothingWaitInterface.init(self.user_id)
 
     def back_comma(self):
         BackInterface.init(self.user_id)
@@ -68,11 +79,14 @@ class CommandsHandler:
     def access_token_comma(self):
         AccessTokenInterface.init(self.user_id)
 
-    def get_status_comma(self):
-        if 'gpl.task' in InternalBD.getter(self.user_id)['status']:
-            GPLInterface.wait_task(self.user_id)
-        else:
-            NothingWaitInterface.init(self.user_id)
+    def aurora_comma(self):
+        AuroraInterface.init(self.user_id)
+
+    def aurora_add(self):
+        AuroraInterface.add(self.user_id)
+
+    def aurora_remove(self):
+        AuroraInterface.remove(self.user_id)
 
     def undefined_comma(self):
         UndefinedCommaInterface.init(self.user_id)

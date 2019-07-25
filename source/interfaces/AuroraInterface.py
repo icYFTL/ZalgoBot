@@ -26,7 +26,7 @@ class AuroraInterface:
 Подключить модуль можно нажав на клавиатуре /aurora_add
 Отключить модуль можно нажав на клавиатуре /aurora_remove
             ''',
-            user_id=user_id)
+            user_id=user_id, keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
     def add(user_id):
@@ -46,14 +46,17 @@ class AuroraInterface:
             return
         from source.modules.Aurora.source.databases.InternalBD import InternalBD
         InternalBD.add_user(user_id, token)
-        vk.message_send(message="Вы успешно подключили модуль Aurora!", user_id=user_id)
+        vk.message_send(message="Вы успешно подключили модуль Aurora!", user_id=user_id,
+                        keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
     def remove(user_id):
         vk = BotAPI()
         from source.modules.Aurora.source.databases.InternalBD import InternalBD
         if not InternalBD.user_exists(user_id):
-            vk.message_send(message="Вы не подключали модуль Aurora.", user_id=user_id)
+            vk.message_send(message="Вы не подключали модуль Aurora.", user_id=user_id,
+                            keyboard=JSONWorker.read_json('aurora'))
             return
         InternalBD.remove_user(user_id)
-        vk.message_send(message="Вы успешно отключили модуль Aurora!", user_id=user_id)
+        vk.message_send(message="Вы успешно отключили модуль Aurora!", user_id=user_id,
+                        keyboard=JSONWorker.read_json('aurora'))

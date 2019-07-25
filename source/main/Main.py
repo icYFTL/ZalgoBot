@@ -39,9 +39,9 @@ class Main:
 
                     # GPL
                     if 'GPL' in data['status'] and message == '/GPL_run':
-                        CH.gpl_run()
+                        CH.gpl_run_comma()
                     elif 'GPL' in data['status']:
-                        CH.gpl_run(message)
+                        CH.gpl_run_comma(message)
                     elif 'WFM' in data['status']:
                         CH.get_status_comma()
                     continue
