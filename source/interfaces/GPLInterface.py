@@ -32,7 +32,9 @@ class GPLInterface:
     @staticmethod
     def run(victim_id, user_id):
         token = InternalBD.getter(user_id)['token']
+        victim_id = UserAPI.get_id_from_url(token, victim_id)
         vk = BotAPI()
+
         if not victim_id:
             vk.message_send(message='Введите ссылку на страницу пользователя:',
                             user_id=user_id)
