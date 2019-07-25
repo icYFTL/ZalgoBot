@@ -1,4 +1,4 @@
-from multiprocessing import Process
+from threading import Thread
 
 from source.databases.InternalBD import InternalBD
 from source.modules.ModulesController import ModulesController
@@ -51,7 +51,7 @@ class GPLInterface:
             InternalBD.changer(user_id=user_id, obj=['status', None])
             return
         MC = ModulesController(user_id, token)
-        thread = Process(target=MC.gpl_execute, args=(victim_id,))
+        thread = Thread(target=MC.gpl_execute, args=(victim_id,))
         thread.start()
 
     @staticmethod
