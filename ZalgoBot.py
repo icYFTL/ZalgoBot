@@ -12,6 +12,9 @@ ExitHandler.register()
 # Preview
 Preview.preview()
 
+# Full-time work modules
+ModulesController.full_time_modules_init()
+
 # Main routine
 LogWork.log('Initialization started.')
 ApiWorker.started()
@@ -19,6 +22,3 @@ ApiWorker.started()
 # Messages GET - Module routine initialization
 LogWork.log('Messages getter has been started')
 m_thread.run(host='localhost', port=8000, debug=False)
-
-# Full-time work modules
-ModulesController.full_time_modules_init()
