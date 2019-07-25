@@ -40,7 +40,7 @@ class GPLInterface:
                             user_id=user_id)
             InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
             return
-        elif not UserAPI.get_id_from_url(token, victim_id):
+        elif not victim_id:
             vk.message_send('Неверная ссылка.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.changer(user_id=user_id, obj=['status', None])
