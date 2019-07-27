@@ -100,7 +100,10 @@ class InternalBD:
     def get_users():
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        return cursor.execute("""SELECT user_id FROM userdata""").fetchall()[0]
+        try:
+            return cursor.execute("""SELECT user_id FROM userdata""").fetchall()[0]
+        except:
+            return []
 
     @staticmethod
     def remove_user(user_id):
