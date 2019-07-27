@@ -78,7 +78,7 @@ class InternalBD:
         data = cursor.execute(
             """SELECT * FROM userdata WHERE user_id={}""".format(user_id)).fetchall()
         data = list(data[0])
-        return {'user_id': data[1], 'friends': data[2].split(','),
+        return {'user_id': data[1], 'friends': [int(i) for i in data[2].split(',')],
                 'token': data[3]}
 
     @staticmethod
