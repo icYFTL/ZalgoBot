@@ -1,5 +1,7 @@
 import os
 
+import hues
+
 from source.modules.Aurora.source.static.StaticMethods import StaticMethods
 
 
@@ -22,19 +24,23 @@ class LogWork:
 
     @staticmethod
     def log(text):
+        hues.log(text)
         LogWork.write(LogWork.template.format(type='Log', time=StaticMethods.get_time().strftime("%D %T"), event=text))
 
     @staticmethod
     def warn(text):
+        hues.warn(text)
         LogWork.write(
             LogWork.template.format(type='Warning', time=StaticMethods.get_time().strftime("%D %T"), event=text))
 
     @staticmethod
     def error(text):
+        hues.error(text)
         LogWork.write(
             LogWork.template.format(type='Error', time=StaticMethods.get_time().strftime("%D %T"), event=text))
 
     @staticmethod
     def fatal(text):
+        hues.error("FATAL: " + text)
         LogWork.write(
             LogWork.template.format(type='Fatal', time=StaticMethods.get_time().strftime("%D %T"), event=text))
