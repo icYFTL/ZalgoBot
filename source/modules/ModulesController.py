@@ -30,9 +30,6 @@ class ModulesController:
                 user_id=self.user_id, keyboard=JSONWorker.read_json('default'))
             InternalBD.changer(self.user_id, ['status', 'None'])
 
-    def aurora_execute(self, user_id):
-        pass
-
     @staticmethod
     def full_time_modules_init():
         try:
