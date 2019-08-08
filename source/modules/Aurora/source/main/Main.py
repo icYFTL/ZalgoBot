@@ -1,12 +1,13 @@
 import time
 
 from source.databases.InternalBD import InternalBD
+from source.databases.InternalBD import InternalBD as IBD
 from source.modules.Aurora.source.databases.InternalBD import InternalBD
 from source.modules.Aurora.source.logger.LogWork import LogWork
 from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
 # Main Project Import
-from source.vkapi.BotAPI import BotAPI
-from source.vkapi.UserAPI import UserAPI
+from source.vkapi.BotAPI import BotAPI as BA
+from source.vkapi.UserAPI import UserAPI as UA
 
 
 class Main:
@@ -28,8 +29,8 @@ class Main:
                     subs = vk.get_subs()['items']
                     for i in removed:
                         if i in subs:
-                            vk = BotAPI()
-                            user = UserAPI.user_get(InternalBD.get_token(user), user)
+                            vk = BA()
+                            user = UA.user_get(IBD.get_token(user), user)
                             vk.message_send(message="[Aurora] {name} отписался от Вас!".format(
                                 name='{} {}'.format(user[0]['first_name'], user[0]['last_name'])), user_id=user)
                             InternalBD.add_event(user, i)
