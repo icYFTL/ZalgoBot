@@ -18,7 +18,7 @@ def get_access():
     try:
         code = request.args['code']
         access = json.loads(requests.get(
-            "https://oauth.vk.com/access_token?client_id=6949573&client_secret=yTy9ne0P6B0MmzZLDLPr&redirect_uri=http://195.133.144.12/&code=" + code).text)
+            "https://oauth.vk.com/access_token?client_id=7112656&client_secret=CuoqrFoGDchqt8OOErU2&redirect_uri=http://195.133.144.12/&code=" + code).text)
         InternalBD.add_token(user_id=access['user_id'], token=access['access_token'])
         return redirect("https://vk.com/im?sel=-181269537", code=302)
     except:
