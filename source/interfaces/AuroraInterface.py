@@ -50,7 +50,7 @@ class AuroraInterface:
                             keyboard=JSONWorker.read_json('aurora'))
             return
         InternalBD.add_user(user_id, token)
-        vk.message_send(message="Aurora временно не работает.", user_id=user_id,
+        vk.message_send(message="Вы успешно подключили модуль Aurora!", user_id=user_id,
                         keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
