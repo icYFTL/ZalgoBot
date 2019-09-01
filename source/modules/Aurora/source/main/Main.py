@@ -11,7 +11,12 @@ class Main:
     @staticmethod
     def routine():
         while True:
-            users = InternalBD.get_users()
+            try:
+                users = InternalBD.get_users()
+            except IndexError:
+                LogWork.warn('No users registered...')
+                time.sleep(30)
+                continue
             bot = None
             if Config.bot_features:
                 bot = BotAPI()

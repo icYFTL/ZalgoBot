@@ -1,38 +1,46 @@
-import logging
 import os
 
 import hues
 
+from source.static.StaticMethods import StaticMethods
+
 
 class LogWork:
+    template = "[{type}] ({time}): {event}"
+
     @staticmethod
-    def base_init():
+    def init():
         try:
             os.mkdir("source/logger/logs/")
         except:
             pass
-        logging.basicConfig(filename="source/logger/logs/default.log", level=logging.INFO)
 
     @staticmethod
-    def log(message):
-        LogWork.base_init()
-        logging.info(message)
-        hues.log(message)
+    def write(text):
+        LogWork.init()
+        f = open('source/logger/logs/log.log', 'a', encoding='utf-8')
+        f.write(text + '\n')
+        f.close()
 
     @staticmethod
-    def warn(message):
-        LogWork.base_init()
-        logging.warning(message)
-        hues.warn(message)
+    def log(text):
+        hues.log(text)
+        LogWork.write(LogWork.template.format(type='Log', time=StaticMethods.get_time().strftime("%D %T"), event=text))
 
     @staticmethod
-    def error(message):
-        LogWork.base_init()
-        logging.error(message)
-        hues.error(message)
+    def warn(text):
+        hues.warn(text)
+        LogWork.write(
+            LogWork.template.format(type='Warning', time=StaticMethods.get_time().strftime("%D %T"), event=text))
 
     @staticmethod
-    def fatal(message):
-        LogWork.base_init()
-        logging.fatal(message)
-        hues.error("Fatal: " + message)
+    def error(text):
+        hues.error(text)
+        LogWork.write(
+            LogWork.template.format(type='Error', time=StaticMethods.get_time().strftime("%D %T"), event=text))
+
+    @staticmethod
+    def fatal(text):
+        hues.error("FATAL: " + text)
+        LogWork.write(
+            LogWork.template.format(type='Fatal', time=StaticMethods.get_time().strftime("%D %T"), event=text))

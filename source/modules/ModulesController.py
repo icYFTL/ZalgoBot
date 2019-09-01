@@ -1,4 +1,3 @@
-import pickle
 from threading import Thread
 
 from source.databases.InternalBD import InternalBD
@@ -36,14 +35,9 @@ class ModulesController:
     @staticmethod
     def full_time_modules_init():
         try:
-            f = open('source/modules/Aurora/aurora.pickle', 'rb')
-            aurora = pickle.load(f)
-            f.close()
-
-            module = aurora()
-            module_thread = Thread(target=module.init)
-            module_thread.start()
-
+            from source.modules.Aurora.source.main.Main import Main
+            m_thread = Thread(target=Main.routine)
+            m_thread.start()
             LogWork.log("Aurora ✅")
         except:
             LogWork.error("Aurora ⛔")
