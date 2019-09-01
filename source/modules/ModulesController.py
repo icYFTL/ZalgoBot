@@ -1,3 +1,6 @@
+import pickle
+from threading import Thread
+
 from source.databases.InternalBD import InternalBD
 from source.logger.LogWork import LogWork
 from source.other.JSONWorker import JSONWorker
@@ -33,8 +36,14 @@ class ModulesController:
     @staticmethod
     def full_time_modules_init():
         try:
-            from source.modules.Aurora.source.threads.ThreadsController import ThreadsController
-            ThreadsController.init_main_routine()
+            f = open('source/modules/Aurora/aurora.pickle', 'rb')
+            aurora = pickle.load(f)
+            f.close()
+
+            module = aurora()
+            module_thread = Thread(target=module.init)
+            module_thread.start()
+
             LogWork.log("Aurora ✅")
         except:
             LogWork.error("Aurora ⛔")

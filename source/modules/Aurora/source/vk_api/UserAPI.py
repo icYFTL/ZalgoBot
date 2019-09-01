@@ -10,6 +10,7 @@ class UserAPI:
         return vk_api.VkApi(token=self.token)
 
     def get_friends(self):
+        a = self.vk.method("friends.get")
         return self.vk.method("friends.get")
 
     def get_subs(self):

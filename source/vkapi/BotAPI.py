@@ -1,12 +1,9 @@
-import json
 import random
 
-import requests
 import vk_api
 
 from Config import Config
 from source.logger.LogWork import LogWork
-from source.static.StaticData import StaticData
 # Text handlers
 from source.texthandlers.CoutText import CoutTextMaker
 from source.texthandlers.FlipTextMaker import FlipTextMaker
@@ -17,9 +14,6 @@ from source.texthandlers.ZalgoMaker import ZalgoMaker
 class BotAPI:
     '''
     This class controls VK Api requests.
-    :param token
-    :return message_handler -> [text from message, sender_vk_id]
-    :return None
     '''
 
     def __init__(self):
@@ -33,21 +27,6 @@ class BotAPI:
         except:
             LogWork.fatal('Bad basic access token.')
             exit()
-
-    def get_server(self):
-        return self.vk.method("groups.getLongPollServer", {'group_id': Config.group_id})
-
-    def message_getter(self):
-        while True:
-            server = self.get_server()
-            data = json.loads(requests.get(
-                "{server}?act=a_check&key={key}&ts={ts}&wait=30".format(server=server['server'], key=server['key'],
-                                                                        ts=server['ts'])).text)
-            for event in data['updates']:
-                if event['type'] == 'message_new' and event['object']['out'] == 0:
-                    StaticData.stack_messages.append(
-                        {'message': event['object']['text'], 'user_id': event['object']['from_id']})
-                    StaticData.new_message_trigger.set()
 
     def message_send(self, message, user_id, keyboard=None, type_t=None):
         template = {"user_id": user_id,

@@ -13,7 +13,7 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 
-@m_thread.route('/', methods=['GET'])
+@m_thread.route('/zalgo', methods=['GET'])
 def get_access():
     try:
         code = request.args['code']
@@ -25,7 +25,7 @@ def get_access():
         return "Welcome to ZalgoBot server!"
 
 
-@m_thread.route('/', methods=['POST'])
+@m_thread.route('/zalgo', methods=['POST'])
 def processing():
     # Распаковываем json из пришедшего POST-запроса
     data = json.loads(request.data)

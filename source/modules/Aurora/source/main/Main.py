@@ -1,13 +1,10 @@
 import time
 
-from source.databases.InternalBD import InternalBD
-from source.databases.InternalBD import InternalBD as IBD
+from source.modules.Aurora.Config import Config
 from source.modules.Aurora.source.databases.InternalBD import InternalBD
 from source.modules.Aurora.source.logger.LogWork import LogWork
+from source.modules.Aurora.source.vk_api.BotAPI import BotAPI
 from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
-# Main Project Import
-from source.vkapi.BotAPI import BotAPI as BA
-from source.vkapi.UserAPI import UserAPI as UA
 
 
 class Main:
@@ -15,6 +12,9 @@ class Main:
     def routine():
         while True:
             users = InternalBD.get_users()
+            bot = None
+            if Config.bot_features:
+                bot = BotAPI()
             for user in users:
                 userdata = InternalBD.getter(user)
                 vk = UserAPI(userdata['token'])
@@ -23,18 +23,16 @@ class Main:
                 removed = []
                 for old in range(len(old_friends)):
                     if old_friends[old] not in current_friends:
-                        LogWork.log("Found difference in user's ({user_id}) friends.".format(user_id=user))
+                        LogWork.log(f"Found difference in user's ({user}) friends.")
                         removed.append(old_friends[old])
                 if removed:
                     subs = vk.get_subs()['items']
                     for i in removed:
                         if i in subs:
-                            vk = BA()
-                            user = UA.user_get(IBD.get_token(user), user)
-                            vk.message_send(message="[Aurora] {name} отписался от Вас!".format(
-                                name='{} {}'.format(user[0]['first_name'], user[0]['last_name'])), user_id=user)
-                            InternalBD.add_event(user, i)
-                            LogWork.log("User ({user_id}) was unsubed from ({unsubed})".format(user_id=user, unsubed=i))
+                            vk.unsub(i)
+                            LogWork.log(f"User ({user}) was unsubed from ({i})")
+                            if Config.bot_features:
+                                bot.message_send(f"Пользователь @id{i} отписался от Вас. Отпишу ка я его от Вас.", user)
                             time.sleep(0.4)
                 InternalBD.update_friends(user, current_friends)
             time.sleep(30)
