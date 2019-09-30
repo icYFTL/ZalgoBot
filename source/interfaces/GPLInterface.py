@@ -40,16 +40,20 @@ class GPLInterface:
                             user_id=user_id)
             InternalBD.status_changer(user_id=user_id, obj="GPL_P_G")
             return
+
         elif victim_id == "BadID":
             vk.message_send('Неверная ссылка.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
+
         elif UserAPI.user_closed(token, UserAPI.get_id_from_url(token, victim_id)):
-            vk.message_send('У данного пользователя закрытый профиль.\nПолучить друзей не является возможным.',
-                            user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
+            vk.message_send(
+                'У данного пользователя закрытый профиль или его не существует.\nПолучить друзей не является возможным.',
+                user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
+
         MC = ModulesController(user_id, token)
         thread = Thread(target=MC.gpl_execute, args=(victim_id,))
         thread.start()

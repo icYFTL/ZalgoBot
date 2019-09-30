@@ -15,14 +15,18 @@ class UserAPI:
 
     def user_exists(self, user_id):
         try:
-            return False if self.vk.method("users.get", {'user_ids': user_id})[0]['first_name'] == 'DELETED' else True
+            user = self.vk.method("users.get", {'user_ids': user_id})
+            if not user[0].get('deactivated', False):
+                return True
+            else:
+                return False
         except:
             return False
 
     @staticmethod
     def user_closed(token, user_id):
         vk = vk_api.VkApi(token=token)
-        return vk.method("users.get", {'user_ids': user_id})[0]['is_closed']
+        return vk.method("users.get", {'user_ids': user_id})[0].get('is_closed', False)
 
     @staticmethod
     def get_id_from_url(token, url):
