@@ -31,7 +31,7 @@ class UserAPI:
             vk = vk_api.VkApi(token=token)
             return vk.method("users.get", {"user_ids": url})[0]['id']
         except:
-            return False
+            return "BadID"
 
     @staticmethod
     def user_get(token, user_id):
