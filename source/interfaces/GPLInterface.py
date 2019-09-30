@@ -32,7 +32,6 @@ class GPLInterface:
     @staticmethod
     def run(victim_id, user_id):
         token = InternalBD.getter(user_id)['token']
-        victim_id = UserAPI.get_id_from_url(token, victim_id)
         vk = BotAPI()
 
         if not victim_id:
@@ -41,7 +40,9 @@ class GPLInterface:
             InternalBD.status_changer(user_id=user_id, obj="GPL_P_G")
             return
 
-        elif victim_id == "BadID":
+        victim_id = UserAPI.get_id_from_url(token, victim_id)
+
+        if victim_id == "BadID":
             vk.message_send('Неверная ссылка.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.status_changer(user_id=user_id, obj="None")
