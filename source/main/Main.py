@@ -52,8 +52,8 @@ class Main:
                     continue
 
                 if len(message) > 100:
-                    vk.message_send(message=f'Длина вашего сообщения {str(
-                        len(message))}.\nМаксимально допустимая длина: 100 символов.', user_id=user_id)
+                    vk.message_send(message=f'''Длина вашего сообщения {str(
+                        len(message))}.\nМаксимально допустимая длина: 100 символов.''', user_id=user_id)
                     message = message[:100]
 
                 MessageHandler.init(
