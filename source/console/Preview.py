@@ -1,14 +1,15 @@
+import os
 import sys
 import time
 
-from source.console.ConsoleWorker import ConsoleWorker
 from source.static.StaticData import StaticData
 
 
 class Preview:
     @staticmethod
     def preview():
-        ConsoleWorker.clear_console()
+        if os.system('clear') != 0:
+            os.system('cls')
         print('[{}] v{}'.format(StaticData.name, StaticData.version))
         corp = 'by {}\n\n'.format(StaticData.author)
 

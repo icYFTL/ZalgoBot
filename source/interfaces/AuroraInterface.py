@@ -14,12 +14,12 @@ class AuroraInterface:
         if not TokenController.token_exists(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.changer(user_id=user_id, obj=['status', None])
+            IB.status_changer(user_id=user_id, obj="None")
             return
         elif not TC.token_valid():
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.changer(user_id=user_id, obj=['status', None])
+            IB.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(
             message='''Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.
@@ -37,12 +37,12 @@ class AuroraInterface:
         if not TokenController.token_exists(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.changer(user_id=user_id, obj=['status', None])
+            IB.status_changer(user_id=user_id, obj="None")
             return
         elif not TC.token_valid():
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.changer(user_id=user_id, obj=['status', None])
+            IB.status_changer(user_id=user_id, obj="None")
             return
         from source.modules.Aurora.source.databases.InternalBD import InternalBD
         if InternalBD.user_exists(user_id):

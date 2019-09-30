@@ -18,12 +18,12 @@ class GPLInterface:
         if not TokenController.token_exists(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            InternalBD.changer(user_id=user_id, obj=['status', None])
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
         elif not TC.token_valid():
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            InternalBD.changer(user_id=user_id, obj=['status', None])
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(message='''GPL это модуль позволяющий узнать примерное место жительства человека по его друзьям.
 Ведь все мы любим указывать школы, университеты итд.
@@ -38,17 +38,17 @@ class GPLInterface:
         if not victim_id:
             vk.message_send(message='Введите ссылку на страницу пользователя:',
                             user_id=user_id)
-            InternalBD.changer(user_id=user_id, obj=['status', 'GPL_P_G'])
+            InternalBD.status_changer(user_id=user_id, obj="GPL_P_G")
             return
         elif not victim_id:
             vk.message_send('Неверная ссылка.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
-            InternalBD.changer(user_id=user_id, obj=['status', None])
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
         elif UserAPI.user_closed(token, UserAPI.get_id_from_url(token, victim_id)):
             vk.message_send('У данного пользователя закрытый профиль.\nПолучить друзей не является возможным.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
-            InternalBD.changer(user_id=user_id, obj=['status', None])
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
         MC = ModulesController(user_id, token)
         thread = Thread(target=MC.gpl_execute, args=(victim_id,))

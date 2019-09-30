@@ -15,9 +15,7 @@ class UserAPI:
 
     def user_exists(self, user_id):
         try:
-            if self.vk.method("users.get", {'user_ids': user_id})[0]['first_name'] == 'DELETED':
-                return False
-            return True
+            return False if self.vk.method("users.get", {'user_ids': user_id})[0]['first_name'] == 'DELETED' else True
         except:
             return False
 

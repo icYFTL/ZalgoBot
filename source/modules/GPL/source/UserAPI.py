@@ -1,7 +1,7 @@
 import vk_api
 
 from source.modules.GPL.Config import Config
-from source.modules.GPL.source.StaticData import StaticData
+from source.modules.GPL.source.LogWork import LogWork
 
 
 class UserAPI:
@@ -15,7 +15,7 @@ class UserAPI:
         try:
             return vk_api.VkApi(token=self.token)
         except:
-            StaticData.log.log(text='Bad access token.', type_s='error')
+            LogWork.fatal('Bad access token')
             exit()
 
     def get_friends(self):

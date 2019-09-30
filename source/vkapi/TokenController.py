@@ -20,7 +20,4 @@ class TokenController:
     @staticmethod
     def token_exists(user_id):
         token = InternalBD.get_token(user_id)
-        if token:
-            return token
-        else:
-            return False
+        return token if token else False

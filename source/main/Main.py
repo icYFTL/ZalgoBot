@@ -20,7 +20,7 @@ class Main:
             user_id = data['user_id']
             message = data['message']
 
-            LogWork.log('Got "{message}" from {user_id}'.format(message=message, user_id=user_id))
+            LogWork.log(f'Got "{message}" from {user_id}')
 
             CH = CommandsHandler(user_id)
             if message:
@@ -32,7 +32,7 @@ class Main:
                 data = InternalBD.getter(user_id)
                 if data['status'] != "None":
                     if message == '/back':
-                        InternalBD.changer(user_id, ['status', None])
+                        InternalBD.status_changer(user_id=user_id, obj="None")
                         CH.back_comma()
                         continue
                     LogWork.log('Module "{}" request from {}'.format(data['status'], user_id))
@@ -47,14 +47,13 @@ class Main:
                     continue
 
                 if str(message)[0] == '/':
-                    LogWork.log('Command "{}" request from {}'.format(message, user_id))
+                    LogWork.log(f'Command "{message}" request from {user_id}')
                     CH.identify_comma(message)
                     continue
 
                 if len(message) > 100:
-                    vk.message_send(
-                        message='Длина вашего сообщения {}.\nМаксимально допустимая длина: 100 символов.'.format(
-                            str(len(message))), user_id=user_id)
+                    vk.message_send(message=f'Длина вашего сообщения {str(
+                        len(message))}.\nМаксимально допустимая длина: 100 символов.', user_id=user_id)
                     message = message[:100]
 
                 MessageHandler.init(

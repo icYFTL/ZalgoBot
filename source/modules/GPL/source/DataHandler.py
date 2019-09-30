@@ -4,6 +4,7 @@ import time
 from collections import Counter
 
 from source.modules.GPL.Config import Config
+from source.modules.GPL.source.LogWork import LogWork
 from source.modules.GPL.source.StaticData import StaticData
 from source.modules.GPL.source.StaticMethods import StaticMethods
 from source.modules.GPL.source.UserAPI import UserAPI
@@ -115,14 +116,14 @@ class DataHandler:
     def handler(self):
         counter = 0
         users = self.vk.get_friends()
-        StaticData.log.log(text="Got user's friends.", type_s='success')
+        LogWork.log("Got user's friends.")
         for user in users:
             user_info = self.vk.get_info(user)
             time.sleep(0.4)
             counter += 1
-            StaticData.log.log(
+            LogWork.log(
                 'Users handling {} ({}/{})'.format(StaticMethods.get_percentage(counter, len(users)), str(counter),
-                                                   str(len(users))), type_s='log_w')
+                                                   str(len(users))))
             StaticData.percent = {'percent': StaticMethods.get_percentage(counter, len(users)),
                                   'users': "{}/{}".format(str(counter),
                                                           str(len(users)))}
@@ -138,7 +139,7 @@ class DataHandler:
         self.save(out)
 
         if not Config.module_mod:
-            StaticData.log.log(text=' '.join(out), type_s='success_w')
-        StaticData.log.log(text='\n', type_s='print')
-        StaticData.log.log(text='User with ID {} handled.'.format(self.user_id), type_s='success')
+            LogWork.success(' '.join(out))
+        LogWork.write('\n')
+        LogWork.log('User with ID {} handled.'.format(self.user_id))
         return out

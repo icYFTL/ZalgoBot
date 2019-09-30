@@ -18,7 +18,7 @@ class LogWork:
     @staticmethod
     def write(text):
         LogWork.init()
-        f = open('source/logger/logs/log.txt', 'a', encoding='utf-8')
+        f = open('source/logger/logs/aurora_log.log', 'a', encoding='utf-8')
         f.write(text + '\n')
         f.close()
 

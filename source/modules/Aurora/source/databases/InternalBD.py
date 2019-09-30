@@ -1,4 +1,3 @@
-import os
 import sqlite3
 
 from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
@@ -7,19 +6,15 @@ from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
 class InternalBD:
     @staticmethod
     def initialize():
-        conn = None
-        cursor = None
-        if not os.path.exists('./aurora.db'):
-            conn = sqlite3.connect("./aurora.db")
-            cursor = conn.cursor()
-            cursor.execute("""CREATE TABLE userdata
+        conn = sqlite3.connect('source/modules/Aurora/aurora.db')
+        cursor = conn.cursor()
+        cursor.execute("""CREATE TABLE IF NOT EXISTS data
                               (id INTEGER PRIMARY KEY AUTOINCREMENT,
                                user_id INTEGER,
                                friends TEXT DEFAULT NULL,
                                token TEXT DEFAULT NULL)
                            """)
-        conn = sqlite3.connect("./aurora.db")
-        cursor = conn.cursor()
+        conn.commit()
         return [conn, cursor]
 
     @staticmethod
@@ -30,7 +25,7 @@ class InternalBD:
         conn, cursor = data[0], data[1]
         vk = UserAPI(token)
 
-        cursor.execute("""INSERT INTO userdata (user_id, friends, token)
+        cursor.execute("""INSERT INTO data (user_id, friends, token)
                           VALUES ({user_id},"{friends}", "{token}")""".format(user_id=user_id, token=token,
                                                                               friends=",".join(
                                                                                   "{0}".format(n) for n in
@@ -41,7 +36,7 @@ class InternalBD:
     def update_friends(user_id, friends):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        cursor.execute('UPDATE userdata SET friends="{friends}" WHERE user_id={user_id}'.format(
+        cursor.execute('UPDATE data SET friends="{friends}" WHERE user_id={user_id}'.format(
             friends=",".join("{}".format(n) for n in friends), user_id=user_id))
         conn.commit()
 
@@ -50,7 +45,7 @@ class InternalBD:
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         data = cursor.execute(
-            """SELECT * FROM userdata WHERE user_id={}""".format(user_id)).fetchall()
+            """SELECT * FROM data WHERE user_id={}""".format(user_id)).fetchall()
         data = list(data[0])
         return {'user_id': data[1], 'friends': [int(i) for i in data[2].split(',')],
                 'token': data[3]}
@@ -59,7 +54,7 @@ class InternalBD:
     def delete_user(user_id):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        cursor.execute(f'DELETE FROM userdata WHERE user_id={user_id}')
+        cursor.execute(f'DELETE FROM data WHERE user_id={user_id}')
         conn.commit()
 
     @staticmethod
@@ -73,7 +68,7 @@ class InternalBD:
     def user_exists(user_id):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        if cursor.execute("""SELECT * FROM userdata WHERE user_id={}""".format(user_id)).fetchall():
+        if cursor.execute("""SELECT * FROM data WHERE user_id={}""".format(user_id)).fetchall():
             return True
         return False
 
@@ -81,4 +76,4 @@ class InternalBD:
     def get_users():
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        return cursor.execute("""SELECT user_id FROM userdata""").fetchall()[0]
+        return cursor.execute('SELECT user_id FROM data').fetchall()[0]
