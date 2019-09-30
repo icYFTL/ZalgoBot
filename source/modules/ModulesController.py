@@ -1,5 +1,3 @@
-from threading import Thread
-
 from source.databases.InternalBD import InternalBD
 from source.logger.LogWork import LogWork
 from source.other.JSONWorker import JSONWorker
@@ -34,10 +32,11 @@ class ModulesController:
 
     @staticmethod
     def full_time_modules_init():
-        try:
-            from source.modules.Aurora.source.main.Main import Main
-            m_thread = Thread(target=Main.routine)
-            m_thread.start()
-            LogWork.log("Aurora ✅")
-        except:
-            LogWork.error("Aurora ⛔")
+        # try:
+        #     from source.modules.Aurora.source.main.Main import Main
+        #     m_thread = Thread(target=Main.routine)
+        #     m_thread.start()
+        #     LogWork.log("Aurora ✅")
+        # except:
+        #     LogWork.error("Aurora ⛔")
+        LogWork.warn("Aurora ⛔")

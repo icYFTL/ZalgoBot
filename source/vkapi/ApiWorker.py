@@ -4,6 +4,7 @@ from threading import Thread
 from Config import Config
 from source.logger.LogWork import LogWork
 from source.main.Main import Main
+from source.vkapi.AlwaysOnline import AlwaysOnline
 from source.vkapi.BotAPI import BotAPI
 
 
@@ -24,11 +25,10 @@ class ApiWorker:
 
     @staticmethod
     def thread_controller():
-
         # Main Messages Handler
         main_messages_handler = Thread(target=Main.handle)
         main_messages_handler.start()
 
         # Always Online
-        vk = BotAPI()
-        vk.enable_online()
+        AO = Thread(target=AlwaysOnline.online)
+        AO.start()
