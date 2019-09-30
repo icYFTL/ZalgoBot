@@ -26,7 +26,7 @@ class UserAPI:
     @staticmethod
     def user_closed(token, user_id):
         vk = vk_api.VkApi(token=token)
-        return vk.method("users.get", {'user_ids': user_id})[0].get('is_closed', False)
+        return vk.method("users.get", {'user_ids': user_id})[0].get('is_closed')
 
     @staticmethod
     def get_id_from_url(token, url):

@@ -48,6 +48,12 @@ class GPLInterface:
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
 
+        elif not UserAPI.user_exists(user_id=user_id):
+            vk.message_send('Аккаунт невалиден.',
+                            user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
+            InternalBD.status_changer(user_id=user_id, obj="None")
+            return
+
         elif UserAPI.user_closed(token, UserAPI.get_id_from_url(token, victim_id)):
             vk.message_send(
                 'У данного пользователя закрытый профиль или его не существует.\nПолучить друзей не является возможным.',
