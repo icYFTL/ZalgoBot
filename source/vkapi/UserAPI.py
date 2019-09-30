@@ -13,9 +13,11 @@ class UserAPI:
         except:
             return False
 
-    def user_exists(self, user_id):
+    @staticmethod
+    def user_exists(token, user_id):
+        vk = vk_api.VkApi(token=token)
         try:
-            user = self.vk.method("users.get", {'user_ids': user_id})
+            user = vk.method("users.get", {'user_ids': user_id})
             if not user[0].get('deactivated', False):
                 return True
             else:

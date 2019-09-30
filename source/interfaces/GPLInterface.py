@@ -48,7 +48,7 @@ class GPLInterface:
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
 
-        elif not UserAPI.user_exists(user_id=user_id):
+        elif not UserAPI.user_exists(user_id=user_id, token=token):
             vk.message_send('Аккаунт невалиден.',
                             user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
             InternalBD.status_changer(user_id=user_id, obj="None")
