@@ -3,7 +3,7 @@ import threading
 
 class StaticData:
     name = 'ZalgoBot'
-    version = '1.9.1'
+    version = '1.9.2'
     author = 'icYFTL'
     stack_messages = []
     new_message_trigger = threading.Event()
