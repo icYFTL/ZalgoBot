@@ -4,10 +4,9 @@ import time
 from collections import Counter
 
 from source.modules.GPL.Config import Config
-from source.modules.GPL.source.LogWork import LogWork
-from source.modules.GPL.source.StaticData import StaticData
-from source.modules.GPL.source.StaticMethods import StaticMethods
-from source.modules.GPL.source.UserAPI import UserAPI
+from source.modules.GPL.source.logger.LogWork import LogWork
+from source.modules.GPL.source.static.StaticMethods import StaticMethods
+from source.modules.GPL.source.vk_api.UserAPI import UserAPI
 
 
 class DataHandler:
@@ -16,7 +15,7 @@ class DataHandler:
         self.vk = UserAPI(user_id=self.user_id)
         self.cities = []
         self.schools = []
-        self.univers = []
+        self.high_schools = []
         self.repl = []
 
     def save(self, data):
@@ -26,26 +25,35 @@ class DataHandler:
             os.mkdir("./stdout/")
         except FileExistsError:
             pass
-        f = open('./stdout/{}.txt'.format(self.user_id), 'w', encoding='utf-8')
+        f = open(f'./stdout/{self.user_id}.txt', 'w', encoding='utf-8')
         f.write(''.join(data))
         f.close()
 
     def cities_handler(self, data):
-        city = data['city']['title'].replace(',', '')
-        if city:
-            self.cities.append(city)
+        try:
+            city = data['city']['title'].replace(',', '')
+            if city:
+                self.cities.append(city)
+        except:
+            pass
         self.schools_handler(data)
 
     def schools_handler(self, data):
-        school = data['schools'][-1]['name'].replace(',', '')
-        if school:
-            self.schools.append(school)
+        try:
+            school = data['schools'][-1]['name'].replace(',', '')
+            if school:
+                self.schools.append(school)
+        except:
+            pass
         self.univers_handler(data)
 
     def univers_handler(self, data):
-        univer = data['university_name'].replace(',', '')
-        if univer:
-            self.univers.append(univer)
+        try:
+            univer = data['university_name'].replace(',', '').replace('\r\n', '')
+            if univer:
+                self.high_schools.append(univer)
+        except:
+            pass
 
     def post_handler(self, data):
         for i in range(len(data)):
@@ -78,14 +86,14 @@ class DataHandler:
                 self.repl.append("Не найдено")
                 self.repl.append("Не найдено")
 
-    def reply_contruct(self, data):
+    def reply_contruct(self):
         repl = []
         current = ["City", self.cities]
         for i in range(0, 9, 3):
             if i == 3:
                 current = ["School", self.schools]
             if i == 6:
-                current = ["University", self.univers]
+                current = ["University", self.high_schools]
             try:
                 repl.append('\n{}:\n{}\n{}\n{}\n'.format(current[0],
                                                          '1. {}: {} ({}/{})'.format(self.repl[i][0].replace('\'', ''),
@@ -114,32 +122,26 @@ class DataHandler:
         return repl
 
     def handler(self):
-        counter = 0
         users = self.vk.get_friends()
-        LogWork.log("Got user's friends.")
-        for user in users:
-            user_info = self.vk.get_info(user)
-            time.sleep(0.4)
-            counter += 1
-            LogWork.log(
-                'Users handling {} ({}/{})'.format(StaticMethods.get_percentage(counter, len(users)), str(counter),
-                                                   str(len(users))))
-            StaticData.percent = {'percent': StaticMethods.get_percentage(counter, len(users)),
-                                  'users': "{}/{}".format(str(counter),
-                                                          str(len(users)))}
-            try:
-                self.cities_handler(user_info[0])
-            except:
-                pass
+        LogWork.log("Got user's friends")
+        users_info = []
+        if len(users) > 1000:
+            while len(users) > 0:
+                users_info.append(self.vk.get_info(users[:1000]))
+                del (users[:1000])
+                time.sleep(0.4)
+        else:
+            users_info.append(self.vk.get_info(users))
 
-        data = [Counter(self.cities), Counter(self.schools), Counter(self.univers)]
+        for user in users_info:
+            for i in user:
+                self.cities_handler(i)
+
+        data = [Counter(self.cities), Counter(self.schools), Counter(self.high_schools)]
 
         self.post_handler(data)
-        out = self.reply_contruct(data)
+        out = self.reply_contruct()
         self.save(out)
 
-        if not Config.module_mod:
-            LogWork.success(' '.join(out))
-        LogWork.write('\n')
-        LogWork.log('User with ID {} handled.'.format(self.user_id))
-        return out
+        LogWork.success(f'User with ID {self.user_id} handled')
+        print(''.join(out))

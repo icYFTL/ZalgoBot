@@ -12,16 +12,16 @@ class ModulesController:
         self.token = token
 
     def gpl_execute(self, victim_id):
-        import source.modules.GPL.GPL
-        gpl = source.modules.GPL.GPL.GPL()
+        import source.modules.GPL.source.main.Main
+        gpl = source.modules.GPL.source.main.Main
         vk = BotAPI()
         vk.message_send(
-            message="Работа модуля GPL начата.\nВы можете узнать текущий статус нажав на кнопку /get_status.",
-            user_id=self.user_id, keyboard=JSONWorker.read_json('wait'))
+            message="Работа модуля GPL начата",
+            user_id=self.user_id, keyboard=JSONWorker.read_json('default'))
         InternalBD.status_changer(user_id=self.user_id, obj="WFM.gpl.task")
         try:
             vk.message_send(message="Успешно завершено.\n{data}".format(
-                data=''.join(gpl.main({'access': self.token, 'user_id': [victim_id]}))),
+                data=''.join(gpl.Main.init(token=self.token, user_id=victim_id))),
                 user_id=self.user_id, keyboard=JSONWorker.read_json('default')
             )
             InternalBD.status_changer(user_id=self.user_id, obj="None")
