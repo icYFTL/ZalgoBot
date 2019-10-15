@@ -25,5 +25,4 @@ class Main:
                 raise BaseException
             LogWork.log(f'User with ID {user} is handling now. ({counter}/{len(user_id)})')
             DH = DataHandler(user)
-            DH.handler()
-            counter += 1
+            return DH.handler()

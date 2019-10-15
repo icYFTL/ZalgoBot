@@ -145,3 +145,5 @@ class DataHandler:
 
         LogWork.success(f'User with ID {self.user_id} handled')
         print(''.join(out))
+
+        return ''.join(out)
