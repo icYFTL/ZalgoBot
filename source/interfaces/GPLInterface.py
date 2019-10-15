@@ -64,13 +64,3 @@ class GPLInterface:
         MC = ModulesController(user_id, token)
         thread = Thread(target=MC.gpl_execute, args=(victim_id,))
         thread.start()
-
-    @staticmethod
-    def wait_task(user_id):
-        vk = BotAPI()
-        import source.modules.GPL.source.StaticData
-        vk.message_send(
-            message='[GPL Module]\n{percent}\n{users} друзей обработано'.format(
-                percent=source.modules.GPL.source.StaticData.StaticData.percent['percent'],
-                users=source.modules.GPL.source.StaticData.StaticData.percent['users']),
-            user_id=user_id)
