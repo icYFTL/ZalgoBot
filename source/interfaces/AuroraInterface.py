@@ -8,6 +8,11 @@ class AuroraInterface:
     @staticmethod
     def init(user_id):
         vk = BotAPI()
+        vk.message_send('Увы, Aurora в данный момент недоступна.',
+                        user_id=user_id, keyboard=JSONWorker.read_json('settings'))
+        return
+
+
         token = IB.getter(user_id)['token']
         TC = TokenController(token)
 
@@ -31,6 +36,9 @@ class AuroraInterface:
     @staticmethod
     def add(user_id):
         vk = BotAPI()
+        vk.message_send('Увы, Aurora в данный момент недоступна.',
+                        user_id=user_id, keyboard=JSONWorker.read_json('settings'))
+        return
         token = IB.getter(user_id)['token']
         TC = TokenController(token)
 
@@ -56,6 +64,9 @@ class AuroraInterface:
     @staticmethod
     def remove(user_id):
         vk = BotAPI()
+        vk.message_send('Увы, Aurora в данный момент недоступна.',
+                        user_id=user_id, keyboard=JSONWorker.read_json('settings'))
+        return
         from source.modules.Aurora.source.databases.InternalBD import InternalBD
         if not InternalBD.user_exists(user_id):
             vk.message_send(message="Вы не подключали модуль Aurora.", user_id=user_id,

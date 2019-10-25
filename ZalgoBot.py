@@ -1,6 +1,5 @@
 from source.console.Preview import Preview
 from source.logger.LogWork import LogWork
-from source.modules.ModulesController import ModulesController
 from source.other.ExitHandler import ExitHandler
 from source.vkapi.ApiWorker import ApiWorker
 from source.vkapi.CallBackAPI import m_thread
@@ -13,7 +12,7 @@ ExitHandler.register()
 Preview.preview()
 
 # Full-time work modules
-ModulesController.full_time_modules_init()
+# ModulesController.full_time_modules_init()
 
 # Main routine
 LogWork.log('Initialization started.')
