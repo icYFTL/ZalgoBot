@@ -2,7 +2,7 @@ import os
 
 import hues
 
-from source.static.StaticMethods import StaticMethods
+from source.modules.GPL.source.static.StaticMethods import StaticMethods
 
 
 class LogWork:
@@ -18,7 +18,7 @@ class LogWork:
     @staticmethod
     def write(text):
         LogWork.init()
-        f = open('source/logger/logs/gpl_log.log', 'a', encoding='utf-8')
+        f = open('source/logger/logs/zalgo_log.log', 'a', encoding='utf-8')
         f.write(text + '\n')
         f.close()
 
@@ -47,6 +47,6 @@ class LogWork:
 
     @staticmethod
     def success(text):
-        hues.error("Success: " + text)
+        hues.success(text)
         LogWork.write(
             LogWork.template.format(type='Success', time=StaticMethods.get_time().strftime("%D %T"), event=text))

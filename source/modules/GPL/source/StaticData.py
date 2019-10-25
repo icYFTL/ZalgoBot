@@ -1,2 +1,0 @@
-class StaticData:
-    percent = ""
