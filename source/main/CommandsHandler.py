@@ -1,11 +1,9 @@
 # Interfaces
-from source.databases.InternalBD import InternalBD
 from source.interfaces.AccessTokenInterface import AccessTokenInterface
 from source.interfaces.AuroraInterface import AuroraInterface
 from source.interfaces.BackInterface import BackInterface
 from source.interfaces.ChangeTextModeInterface import ChangeTextModeInterface
 from source.interfaces.GPLInterface import GPLInterface
-from source.interfaces.NothingWaitInterface import NothingWaitInterface
 from source.interfaces.SettingsInterface import SettingsInterface
 from source.interfaces.ToolsInteface import ToolsInterface
 from source.interfaces.UndefinedCommaInterface import UndefinedCommaInterface
@@ -36,8 +34,6 @@ class CommandsHandler:
             self.change_mode_comma_init()
         elif comma == '/access_token':
             self.access_token_comma()
-        elif comma == '/get_status':
-            self.get_status_comma()
         elif comma == '/GPL_run':
             self.gpl_run_comma()
         elif comma == '/aurora':
@@ -60,12 +56,6 @@ class CommandsHandler:
 
     def tools_comma(self):
         ToolsInterface.init(self.user_id)
-
-    def get_status_comma(self):
-        if 'gpl.task' in InternalBD.getter(self.user_id)['status']:
-            GPLInterface.wait_task(self.user_id)
-        else:
-            NothingWaitInterface.init(self.user_id)
 
     def back_comma(self):
         BackInterface.init(self.user_id)

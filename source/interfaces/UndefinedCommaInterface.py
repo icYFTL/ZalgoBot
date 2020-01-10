@@ -1,4 +1,3 @@
-from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
 
 
@@ -7,4 +6,4 @@ class UndefinedCommaInterface:
     def init(user_id):
         vk = BotAPI()
         vk.message_send('Нет такой команды.',
-                        user_id, JSONWorker.read_json('default'))
+                        user_id)

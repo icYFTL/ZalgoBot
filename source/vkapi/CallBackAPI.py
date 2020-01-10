@@ -19,7 +19,7 @@ def get_access():
         code = request.args['code']
         access = json.loads(requests.get(
             "https://oauth.vk.com/access_token?client_id=7112656&client_secret=CuoqrFoGDchqt8OOErU2&redirect_uri=https://icyftl.ru/zalgo&code=" + code).text)
-        InternalBD.add_token(user_id=access['user_id'], token=access['access_token'])
+        InternalBD.update_token(user_id=access['user_id'], token=access['access_token'])
         return redirect("https://vk.com/im?sel=-181269537", code=302)
     except:
         return "Welcome to ZalgoBot server!"
@@ -27,14 +27,15 @@ def get_access():
 
 @m_thread.route('/zalgo', methods=['POST'])
 def processing():
-    # Распаковываем json из пришедшего POST-запроса
     data = json.loads(request.data)
-    # Вконтакте в своих запросах всегда отправляет поле типа
     if 'type' not in data.keys():
         return 'not vk'
     if data['type'] == 'confirmation':
         return "bb2072fc"
     elif data['type'] == 'message_new':
-        StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id']})
-        StaticData.new_message_trigger.set()
-        return 'ok'
+        if data['secret'] == 'C0llbAcK_iS_r3aL':
+            StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id']})
+            StaticData.new_message_trigger.set()
+            return 'ok'
+        else:
+            return 'I actually don\'t like haCk3r$.', 418

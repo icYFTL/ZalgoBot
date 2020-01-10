@@ -8,11 +8,7 @@ class TokenController:
         self.ua = None
 
     def token_valid(self):
-        try:
-            self.ua = UserAPI(self.token)
-            return True
-        except:
-            return False
+        return UserAPI.is_token_valid(self.token)
 
     def user_exists(self, user):
         return self.ua.user_exists(user)

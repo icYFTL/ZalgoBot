@@ -10,8 +10,8 @@ class Preview:
     def preview():
         if os.system('clear') != 0:
             os.system('cls')
-        print('[{}] v{}'.format(StaticData.name, StaticData.version))
-        corp = 'by {}\n\n'.format(StaticData.author)
+        print(f'[{StaticData.name}] v{StaticData.version}')
+        corp = f'by {StaticData.author}\n\n'
 
         for i in range(len(corp)):
             if corp[i].isalpha() or corp[i - 1].isalpha() and i != 0:

@@ -42,8 +42,6 @@ class Main:
                         CH.gpl_run_comma()
                     elif 'GPL' in data['status']:
                         CH.gpl_run_comma(message)
-                    elif 'WFM' in data['status']:
-                        CH.get_status_comma()
                     continue
 
                 if str(message)[0] == '/':

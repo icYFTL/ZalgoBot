@@ -70,7 +70,7 @@ class InternalBD:
         conn.commit()
 
     @staticmethod
-    def add_token(user_id, token):
+    def update_token(user_id, token):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
         cursor.execute(f'UPDATE data SET token="{token}" WHERE user_id={user_id}')

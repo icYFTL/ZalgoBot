@@ -1,3 +1,6 @@
-FROM python:3-onbuild
+FROM ubuntu:latest
+MAINTAINER icYFTL
+
 EXPOSE 8000
-CMD ["python3", "./ZalgoBot.py"]
+
+CMD [ "nohup python3 ZalgoBot.py &" ]

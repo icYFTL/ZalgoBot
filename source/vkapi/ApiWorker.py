@@ -10,7 +10,7 @@ from source.vkapi.BotAPI import BotAPI
 
 class ApiWorker:
     '''
-    This class controls thread and script starting behavior
+    This class controls threads and script starting behavior
     :return None
     '''
 

@@ -1,18 +1,16 @@
 import vk_api
-import vk_api.exceptions
 
 
 class UserAPI:
-    def __init__(self, token):
-        self.token = token
-        self.vk = self.get_session()
-
-    def get_session(self):
+    @staticmethod
+    def is_token_valid(token):
         try:
-            return vk_api.VkApi(token=self.token)
+            vk = vk_api.VkApi(token=token)
+            vk.method('friends.get')
         except:
             return False
-
+        finally:
+            return True
     @staticmethod
     def user_exists(token, user_id):
         vk = vk_api.VkApi(token=token)
