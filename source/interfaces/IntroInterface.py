@@ -4,7 +4,7 @@ from source.vkapi.BotAPI import BotAPI
 
 class IntroInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         vk.message_send('''Добро пожаловать в ZalgoBot.
 ZalgoBot умеет работать с текстом, а еще он умеет делать разные штуки.

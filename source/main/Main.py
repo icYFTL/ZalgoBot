@@ -9,7 +9,7 @@ from source.vkapi.BotAPI import BotAPI
 
 class Main:
     @staticmethod
-    def handle():
+    def handle() -> None:
         LogWork.log('Messages handler has been started')
         while True:
             vk = BotAPI()

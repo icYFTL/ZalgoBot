@@ -13,11 +13,11 @@ class ExitHandler:
     '''
 
     @staticmethod
-    def register():
+    def register() -> None:
         atexit.register(ExitHandler.exit)
 
     @staticmethod
-    def exit():
+    def exit() -> None:
         try:
             LogWork.warn('Script stop in progress')
             InternalBD.status_cleaner_emergency()

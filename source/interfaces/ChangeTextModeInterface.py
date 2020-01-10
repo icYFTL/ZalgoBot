@@ -5,7 +5,7 @@ from source.vkapi.BotAPI import BotAPI
 
 class ChangeTextModeInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         vk.message_send('''Выберите режим:
 /zalgo - Включить режим Zalgo
@@ -15,7 +15,7 @@ class ChangeTextModeInterface:
                         user_id, JSONWorker.read_json('4way'))
 
     @staticmethod
-    def change(user_id, mode):
+    def change(user_id, mode) -> None:
         vk = BotAPI()
         InternalBD.mode_changer(user_id=user_id, obj=mode)
         vk.message_send('Режим {} активирован.'.format(mode[0].upper() + ''.join(mode[1:])),

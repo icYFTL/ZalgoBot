@@ -10,7 +10,7 @@ from source.vkapi.UserAPI import UserAPI
 
 class GPLInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         token = InternalBD.getter(user_id)['token']
         TC = TokenController(token)
@@ -30,7 +30,7 @@ class GPLInterface:
 Использовать модуль можно нажав на клавиатуре /GPL_run''', user_id=user_id, keyboard=JSONWorker.read_json('gpl'))
 
     @staticmethod
-    def run(victim_id, user_id):
+    def run(victim_id, user_id) -> None:
         token = InternalBD.getter(user_id)['token']
         vk = BotAPI()
 

@@ -11,7 +11,7 @@ class ModulesController:
         self.user_id = user_id
         self.token = token
 
-    def gpl_execute(self, victim_id):
+    def gpl_execute(self, victim_id) -> None:
         import source.modules.GPL.source.main.Main
         gpl = source.modules.GPL.source.main.Main
         vk = BotAPI()
@@ -33,7 +33,7 @@ class ModulesController:
             InternalBD.status_changer(user_id=self.user_id, obj="None")
 
     @staticmethod
-    def full_time_modules_init():
+    def full_time_modules_init() -> None:
         try:
             from source.modules.Aurora.source.main.Main import Main
             m_thread = Thread(target=Main.routine)

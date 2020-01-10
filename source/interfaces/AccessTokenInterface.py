@@ -4,7 +4,7 @@ from source.vkapi.BotAPI import BotAPI
 
 class AccessTokenInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         vk.message_send('''Чтобы пользоваться некоторыми штуками, увы, нужен access token.
         

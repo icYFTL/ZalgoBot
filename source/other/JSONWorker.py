@@ -5,5 +5,5 @@ class JSONWorker:
     '''
 
     @staticmethod
-    def read_json(file):
+    def read_json(file) -> str:
         return open("source/interfaces/keyboards/{}.json".format(file), "r", encoding="UTF-8").read()

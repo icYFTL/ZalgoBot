@@ -5,5 +5,5 @@ import pytz
 
 class StaticMethods:
     @staticmethod
-    def get_time():
+    def get_time() -> datetime:
         return datetime.now(pytz.timezone('Europe/Moscow'))

@@ -6,7 +6,7 @@ from source.vkapi.TokenController import TokenController
 
 class AuroraInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         vk.message_send('Увы, Aurora в данный момент недоступна.',
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
@@ -34,7 +34,7 @@ class AuroraInterface:
             user_id=user_id, keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
-    def add(user_id):
+    def add(user_id) -> None:
         vk = BotAPI()
         vk.message_send('Увы, Aurora в данный момент недоступна.',
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
@@ -62,7 +62,7 @@ class AuroraInterface:
                         keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
-    def remove(user_id):
+    def remove(user_id) -> None:
         vk = BotAPI()
         vk.message_send('Увы, Aurora в данный момент недоступна.',
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
@@ -77,5 +77,5 @@ class AuroraInterface:
                         keyboard=JSONWorker.read_json('aurora'))
 
     @staticmethod
-    def statistic(user_id):
+    def statistic(user_id) -> None:
         pass  # Await for active users

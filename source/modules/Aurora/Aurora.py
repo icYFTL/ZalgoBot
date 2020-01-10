@@ -4,7 +4,7 @@ from source.modules.Aurora.source.threads.ThreadsController import ThreadsContro
 
 class Aurora:
     @staticmethod
-    def init():
+    def init() -> None:
         # Preview
         Preview.preview()
 

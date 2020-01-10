@@ -6,10 +6,11 @@ from source.vkapi.TokenController import TokenController
 
 class SettingsInterface:
     @staticmethod
-    def init(user_id):
+    def init(user_id) -> None:
         vk = BotAPI()
         token = InternalBD.get_token(user_id)
-        if not TokenController.token_valid(token):
+        TC = TokenController(token)
+        if not TC.token_valid():
             token = "⛔"
             InternalBD.update_token(user_id, "")
 

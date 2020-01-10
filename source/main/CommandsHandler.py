@@ -13,7 +13,7 @@ class CommandsHandler:
     def __init__(self, user_id):
         self.user_id = user_id
 
-    def identify_comma(self, comma):
+    def identify_comma(self, comma) -> None:
         if comma == '/settings':
             self.settings_comma()
         elif comma == '/zalgo':
@@ -45,38 +45,38 @@ class CommandsHandler:
         else:
             self.undefined_comma()
 
-    def settings_comma(self):
+    def settings_comma(self) -> None:
         SettingsInterface.init(self.user_id)
 
-    def gpl_comma(self):
+    def gpl_comma(self) -> None:
         GPLInterface.init(self.user_id)
 
-    def gpl_run_comma(self, victim_id=None):
+    def gpl_run_comma(self, victim_id=None) -> None:
         GPLInterface.run(victim_id, self.user_id)
 
-    def tools_comma(self):
+    def tools_comma(self) -> None:
         ToolsInterface.init(self.user_id)
 
-    def back_comma(self):
+    def back_comma(self) -> None:
         BackInterface.init(self.user_id)
 
-    def change_mode_comma_init(self):
+    def change_mode_comma_init(self) -> None:
         ChangeTextModeInterface.init(self.user_id)
 
-    def change_mode_comma(self, mode):
+    def change_mode_comma(self, mode) -> None:
         ChangeTextModeInterface.change(self.user_id, mode)
 
-    def access_token_comma(self):
+    def access_token_comma(self) -> None:
         AccessTokenInterface.init(self.user_id)
 
-    def aurora_comma(self):
+    def aurora_comma(self) -> None:
         AuroraInterface.init(self.user_id)
 
-    def aurora_add(self):
+    def aurora_add(self) -> None:
         AuroraInterface.add(self.user_id)
 
-    def aurora_remove(self):
+    def aurora_remove(self) -> None:
         AuroraInterface.remove(self.user_id)
 
-    def undefined_comma(self):
+    def undefined_comma(self) -> None:
         UndefinedCommaInterface.init(self.user_id)
