@@ -9,15 +9,13 @@ class SettingsInterface:
     def init(user_id) -> None:
         vk = BotAPI()
         token = InternalBD.get_token(user_id)
+
+        sub = InternalBD.getter(user_id)['subtype']
         if not token or not UserAPI.is_token_valid(token):
             token = "⛔"
             InternalBD.update_token(user_id, "")
-
-        sub = InternalBD.getter(user_id)['subtype']
-        if token:
-            token = "✅"
         else:
-            token = "⛔"
+            token = "✅"
 
         vk.message_send(f"""Настройки.
     • AccessToken - {token}
