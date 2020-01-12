@@ -7,11 +7,7 @@ class ChangeTextModeInterface:
     @staticmethod
     def init(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('''Выберите режим:
-/zalgo - Включить режим Zalgo
-/flip - Включить режим Flip
-/reverse - Включить режим Reverse
-/cout - Включить режим Crossed Out''',
+        vk.message_send('Выберите режим:',
                         user_id, JSONWorker.keyboard_handler('4way'))
 
     @staticmethod

@@ -24,8 +24,7 @@ class GPLInterface:
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(message='''GPL это модуль позволяющий узнать примерное место жительства человека по его друзьям.
-Ведь все мы любим указывать школы, университеты итд.
-Использовать модуль можно нажав на клавиатуре /GPL_run''', user_id=user_id, keyboard=JSONWorker.keyboard_handler('gpl'))
+Ведь все мы любим указывать школы, университеты итд.''', user_id=user_id, keyboard=JSONWorker.keyboard_handler('gpl'))
 
     @staticmethod
     def run(victim_id, user_id) -> None:

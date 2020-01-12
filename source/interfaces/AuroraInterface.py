@@ -3,6 +3,7 @@ from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
 from source.vkapi.UserAPI import UserAPI
 
+
 class AuroraInterface:
     @staticmethod
     def init(user_id) -> None:
@@ -24,10 +25,7 @@ class AuroraInterface:
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(
-            message='''Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.
-Подключить модуль можно нажав на клавиатуре /aurora_add
-Отключить модуль можно нажав на клавиатуре /aurora_remove
-''',
+            message='Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.',
             user_id=user_id, keyboard=JSONWorker.keyboard_handler('aurora'))
 
     @staticmethod
