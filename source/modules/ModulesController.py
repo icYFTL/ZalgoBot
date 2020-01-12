@@ -17,19 +17,19 @@ class ModulesController:
         vk = BotAPI()
         vk.message_send(
             message="Работа модуля GPL начата",
-            user_id=self.user_id, keyboard=JSONWorker.read_json('default'))
+            user_id=self.user_id, keyboard=JSONWorker.keyboard_handler('default'))
         InternalBD.status_changer(user_id=self.user_id, obj="WFM.gpl.task")
         try:
             vk.message_send(message="Успешно завершено.\n{data}".format(
                 data=gpl.Main.init(token=self.token, user_id=[victim_id])),
-                user_id=self.user_id, keyboard=JSONWorker.read_json('default')
+                user_id=self.user_id, keyboard=JSONWorker.keyboard_handler('default')
             )
             InternalBD.status_changer(user_id=self.user_id, obj="None")
         except Exception as e:
             LogWork.error(str(e))
             vk.message_send(
                 message="Во время работы модуля GPL что-то пошло не так.\nНапишите об этом пожалуйста разработчикам ^^",
-                user_id=self.user_id, keyboard=JSONWorker.read_json('default'))
+                user_id=self.user_id, keyboard=JSONWorker.keyboard_handler('default'))
             InternalBD.status_changer(user_id=self.user_id, obj="None")
 
     @staticmethod

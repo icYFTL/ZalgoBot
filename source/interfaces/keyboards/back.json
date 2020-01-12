@@ -1,14 +1,12 @@
-{
-  "one_time": false,
-  "buttons": [
-    [
+[
       {
         "action": {
           "type": "text",
-          "label": "/back"
+          "payload": {
+            "button": "/back"
+          },
+          "label": "Назад"
         },
-        "color": "primary"
+        "color": "default"
       }
-    ]
-  ]
-}
+]

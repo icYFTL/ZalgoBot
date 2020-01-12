@@ -5,14 +5,20 @@
       {
         "action": {
           "type": "text",
-          "label": "/tools"
+          "payload": {
+            "button": "/tools"
+          },
+          "label": "Инструменты"
         },
         "color": "primary"
       },
       {
         "action": {
           "type": "text",
-          "label": "/text"
+          "payload": {
+            "button": "/text"
+          },
+          "label": "Текст"
         },
         "color": "primary"
       }
@@ -21,7 +27,10 @@
       {
         "action": {
           "type": "text",
-          "label": "/settings"
+          "payload": {
+            "button": "/settings"
+          },
+          "label": "Настройки"
         },
         "color": "positive"
       }

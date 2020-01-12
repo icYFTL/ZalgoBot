@@ -17,8 +17,10 @@ class Main:
             StaticData.new_message_trigger.clear()
 
             data = StaticData.stack_messages.pop(0)
+
             user_id = data['user_id']
             message = data['message']
+            payload = data['payload']
 
             LogWork.log(f'Got "{message}" from {user_id}')
 
@@ -31,22 +33,22 @@ class Main:
 
                 data = InternalBD.getter(user_id)
                 if data['status'] != "None":
-                    if message == '/back':
+                    if payload == '/back':
                         InternalBD.status_changer(user_id=user_id, obj="None")
                         CH.back_comma()
                         continue
                     LogWork.log('Module "{}" request from {}'.format(data['status'], user_id))
 
                     # GPL
-                    if 'GPL' in data['status'] and message == '/GPL_run':
+                    if 'GPL' in data['status'] and payload == '/GPL_run':
                         CH.gpl_run_comma()
                     elif 'GPL' in data['status']:
                         CH.gpl_run_comma(message)
                     continue
 
-                if str(message)[0] == '/':
-                    LogWork.log(f'Command "{message}" request from {user_id}')
-                    CH.identify_comma(message)
+                if payload:
+                    LogWork.log(f'Command "{payload}" request from {user_id}')
+                    CH.identify_comma(payload)
                     continue
 
                 if len(message) > 100:

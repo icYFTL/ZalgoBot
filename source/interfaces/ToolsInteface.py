@@ -9,4 +9,4 @@ class ToolsInterface:
         vk.message_send('''Выберите инструмент:
 /GPL - Примерное место жительства человека по его друзьям.
 /aurora - Автоматическое удаление друзей, удаливших вас, из подписок.''',
-                        user_id, JSONWorker.read_json('modules'))
+                        user_id, JSONWorker.keyboard_handler('modules'))

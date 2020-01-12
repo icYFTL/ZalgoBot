@@ -5,25 +5,22 @@
       {
         "action": {
           "type": "text",
-          "label": "/GPL"
+          "payload": {
+            "button": "/GPL"
+          },
+          "label": "GPL"
         },
         "color": "positive"
       },
       {
         "action": {
           "type": "text",
-          "label": "/aurora"
+          "payload": {
+            "button": "/aurora"
+          },
+          "label": "Aurora"
         },
         "color": "positive"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
-          "label": "/back"
-        },
-        "color": "default"
       }
     ]
   ]

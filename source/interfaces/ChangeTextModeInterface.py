@@ -12,11 +12,11 @@ class ChangeTextModeInterface:
 /flip - Включить режим Flip
 /reverse - Включить режим Reverse
 /cout - Включить режим Crossed Out''',
-                        user_id, JSONWorker.read_json('4way'))
+                        user_id, JSONWorker.keyboard_handler('4way'))
 
     @staticmethod
     def change(user_id, mode) -> None:
         vk = BotAPI()
         InternalBD.mode_changer(user_id=user_id, obj=mode)
         vk.message_send('Режим {} активирован.'.format(mode[0].upper() + ''.join(mode[1:])),
-                        user_id, JSONWorker.read_json('4way'.format(mode)))
+                        user_id, JSONWorker.keyboard_handler('4way'.format(mode)))

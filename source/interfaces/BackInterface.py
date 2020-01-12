@@ -6,4 +6,4 @@ class BackInterface:
     @staticmethod
     def init(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('Отменено', user_id, JSONWorker.read_json('default'))
+        vk.message_send('Отменено', user_id, JSONWorker.keyboard_handler('default'))

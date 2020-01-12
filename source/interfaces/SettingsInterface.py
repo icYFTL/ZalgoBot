@@ -19,4 +19,4 @@ class SettingsInterface:
 
         vk.message_send(f"""Настройки.
     • AccessToken - {token}
-    • Подписка - {sub}""", user_id, JSONWorker.read_json('settings'))
+    • Подписка - {sub}""", user_id, JSONWorker.keyboard_handler('settings'))

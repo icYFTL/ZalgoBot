@@ -5,25 +5,22 @@
       {
         "action": {
           "type": "text",
-          "label": "/aurora_add"
+          "payload": {
+            "button": "/aurora_add"
+          },
+          "label": "Включить Aurora"
         },
         "color": "positive"
       },
       {
         "action": {
           "type": "text",
-          "label": "/aurora_remove"
+          "payload": {
+            "button": "/aurora_remove"
+          },
+          "label": "Удалить Aurora"
         },
         "color": "negative"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
-          "label": "/back"
-        },
-        "color": "default"
       }
     ]
   ]

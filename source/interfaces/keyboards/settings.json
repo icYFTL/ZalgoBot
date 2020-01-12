@@ -5,18 +5,12 @@
       {
         "action": {
           "type": "text",
-          "label": "/access_token"
+          "payload": {
+            "button": "/access_token"
+          },
+          "label": "Access Token"
         },
         "color": "positive"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
-          "label": "/back"
-        },
-        "color": "default"
       }
     ]
   ]

@@ -34,7 +34,8 @@ def processing():
         return "bb2072fc"
     elif data['type'] == 'message_new':
         if data['secret'] == 'C0llbAcK_iS_r3aL':
-            StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id']})
+            StaticData.stack_messages.append({'message': data['object']['text'], 'user_id': data['object']['from_id'],
+                                              'payload': data['object'].get('payload').get('button')})
             StaticData.new_message_trigger.set()
             return 'ok'
         else:

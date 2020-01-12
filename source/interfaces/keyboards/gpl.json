@@ -5,18 +5,12 @@
       {
         "action": {
           "type": "text",
-          "label": "/GPL_run"
+          "payload": {
+            "button": "/GPL_run"
+          },
+          "label": "Запустить GPL"
         },
         "color": "positive"
-      }
-    ],
-    [
-      {
-        "action": {
-          "type": "text",
-          "label": "/back"
-        },
-        "color": "default"
       }
     ]
   ]

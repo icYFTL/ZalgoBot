@@ -12,4 +12,4 @@ Access token - это объект, который позволяет польз
 Например - смотреть ваших друзей.
         
 Зарегистрировать свой токен в нашей системе можно перейдя по ссылке: https://vk.cc/a3BQFY''',
-                        user_id, JSONWorker.read_json('default'))
+                        user_id, JSONWorker.keyboard_handler('default'))
