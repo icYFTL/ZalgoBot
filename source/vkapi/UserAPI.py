@@ -7,10 +7,9 @@ class UserAPI:
         try:
             vk = vk_api.VkApi(token=token)
             vk.method('friends.get')
+            return True
         except:
             return False
-        finally:
-            return True
 
     @staticmethod
     def user_exists(token, user_id):
