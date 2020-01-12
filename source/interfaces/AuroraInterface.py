@@ -9,7 +9,7 @@ class AuroraInterface:
     def init(user_id) -> None:
         vk = BotAPI()
         vk.message_send('Увы, Aurora в данный момент недоступна.',
-                        user_id=user_id, keyboard=JSONWorker.keyboard_handler('settings'))
+                        user_id=user_id)
         return
 
         token = InternalBD.getter(user_id)['token']
