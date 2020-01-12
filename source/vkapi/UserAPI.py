@@ -11,6 +11,7 @@ class UserAPI:
             return False
         finally:
             return True
+
     @staticmethod
     def user_exists(token, user_id):
         vk = vk_api.VkApi(token=token)

@@ -41,12 +41,12 @@ class InternalBD:
         token = InternalBD.getter(user_id)['token']
         return False if not token else token
 
-    @staticmethod
-    def messages_increment(user_id):
-        data = InternalBD.initialize()
-        conn, cursor = data[0], data[1]
-        cursor.execute(f'UPDATE data SET messages_count=messages_count+1 WHERE user_id={user_id}')
-        conn.commit()
+    # @staticmethod
+    # def messages_increment(user_id):
+    #     data = InternalBD.initialize()
+    #     conn, cursor = data[0], data[1]
+    #     cursor.execute(f'UPDATE data SET messages_count=messages_count+1 WHERE user_id={user_id}')
+    #     conn.commit()
 
     @staticmethod
     def status_changer(user_id, obj):

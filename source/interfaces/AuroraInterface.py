@@ -1,8 +1,7 @@
-from source.databases.InternalBD import InternalBD as IB
+from source.databases.InternalBD import InternalBD
 from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
-from source.vkapi.TokenController import TokenController
-
+from source.vkapi.UserAPI import UserAPI
 
 class AuroraInterface:
     @staticmethod
@@ -12,19 +11,17 @@ class AuroraInterface:
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
         return
 
+        token = InternalBD.getter(user_id)['token']
 
-        token = IB.getter(user_id)['token']
-        TC = TokenController(token)
-
-        if not TokenController.token_exists(user_id):
+        if not InternalBD.get_token(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.status_changer(user_id=user_id, obj="None")
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
-        elif not TC.token_valid():
+        elif not UserAPI.is_token_valid(token):
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.status_changer(user_id=user_id, obj="None")
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(
             message='''Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.
@@ -39,25 +36,24 @@ class AuroraInterface:
         vk.message_send('Увы, Aurora в данный момент недоступна.',
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
         return
-        token = IB.getter(user_id)['token']
-        TC = TokenController(token)
+        token = InternalBD.getter(user_id)['token']
 
-        if not TokenController.token_exists(user_id):
+        if not InternalBD.get_token(token):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.status_changer(user_id=user_id, obj="None")
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
-        elif not TC.token_valid():
+        elif not UserAPI.is_token_valid(token):
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
-            IB.status_changer(user_id=user_id, obj="None")
+            InternalBD.status_changer(user_id=user_id, obj="None")
             return
-        from source.modules.Aurora.source.databases.InternalBD import InternalBD
-        if InternalBD.user_exists(user_id):
+        from source.modules.Aurora.source.databases.InternalBD import InternalBD as IB
+        if IB.user_exists(user_id):
             vk.message_send(message="Вы уже подключили модуль Aurora.", user_id=user_id,
                             keyboard=JSONWorker.read_json('aurora'))
             return
-        InternalBD.add_user(user_id, token)
+        IB.add_user(user_id, token)
         vk.message_send(message="Вы успешно подключили модуль Aurora!", user_id=user_id,
                         keyboard=JSONWorker.read_json('aurora'))
 
@@ -67,12 +63,12 @@ class AuroraInterface:
         vk.message_send('Увы, Aurora в данный момент недоступна.',
                         user_id=user_id, keyboard=JSONWorker.read_json('settings'))
         return
-        from source.modules.Aurora.source.databases.InternalBD import InternalBD
-        if not InternalBD.user_exists(user_id):
+        from source.modules.Aurora.source.databases.InternalBD import InternalBD as IB
+        if not IB.user_exists(user_id):
             vk.message_send(message="Вы не подключали модуль Aurora.", user_id=user_id,
                             keyboard=JSONWorker.read_json('aurora'))
             return
-        InternalBD.delete_user(user_id)
+        IB.delete_user(user_id)
         vk.message_send(message="Вы успешно отключили модуль Aurora!", user_id=user_id,
                         keyboard=JSONWorker.read_json('aurora'))
 

@@ -1,7 +1,7 @@
 from source.databases.InternalBD import InternalBD
 from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
-from source.vkapi.TokenController import TokenController
+from source.vkapi.UserAPI import UserAPI
 
 
 class SettingsInterface:
@@ -9,8 +9,7 @@ class SettingsInterface:
     def init(user_id) -> None:
         vk = BotAPI()
         token = InternalBD.get_token(user_id)
-        TC = TokenController(token)
-        if not TC.token_valid():
+        if not token or not UserAPI.is_token_valid(token):
             token = "⛔"
             InternalBD.update_token(user_id, "")
 

@@ -4,7 +4,6 @@ from source.databases.InternalBD import InternalBD
 from source.modules.ModulesController import ModulesController
 from source.other.JSONWorker import JSONWorker
 from source.vkapi.BotAPI import BotAPI
-from source.vkapi.TokenController import TokenController
 from source.vkapi.UserAPI import UserAPI
 
 
@@ -13,14 +12,13 @@ class GPLInterface:
     def init(user_id) -> None:
         vk = BotAPI()
         token = InternalBD.getter(user_id)['token']
-        TC = TokenController(token)
 
-        if not TokenController.token_exists(user_id):
+        if not InternalBD.get_token(user_id):
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
-        elif not TC.token_valid():
+        elif not UserAPI.is_token_valid(token):
             vk.message_send('Токен истек. Обновите его.',
                             user_id=user_id, keyboard=JSONWorker.read_json('settings'))
             InternalBD.status_changer(user_id=user_id, obj="None")
