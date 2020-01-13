@@ -24,9 +24,10 @@ class UserAPI:
             return False
 
     @staticmethod
-    def user_closed(token, user_id):
+    def user_broken(token, user_id):
         vk = vk_api.VkApi(token=token)
-        return vk.method("users.get", {'user_ids': user_id})[0].get('is_closed')
+        data = vk.method("users.get", {'user_ids': user_id})[0]
+        return data.get('is_closed') == True or data.get('deactivated')
 
     @staticmethod
     def get_id_from_url(token, url):

@@ -13,7 +13,7 @@ from source.texthandlers.ZalgoMaker import ZalgoMaker
 
 class BotAPI:
     '''
-    This class controls VK Api requests.
+    This class controls VK Community Api requests.
     '''
 
     def __init__(self):
@@ -26,7 +26,7 @@ class BotAPI:
             self.vk = vk_api.VkApi(token=self.token)
         except:
             LogWork.fatal('Bad basic access token.')
-            exit()
+            raise SystemExit(-1)
 
     def message_send(self, message, user_id, keyboard=None, type_t=None):
         template = {"user_id": user_id,

@@ -8,7 +8,7 @@ class JSONWorker:
     '''
 
     @staticmethod
-    def keyboard_handler(file):
+    def keyboard_handler(file) -> json:
         data = json.loads(open(f'source/interfaces/keyboards/{file}.json', 'r', encoding='UTF-8').read())
         if file != 'default':
             data['buttons'].append(
