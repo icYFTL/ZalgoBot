@@ -7,7 +7,7 @@ class ChangeTextModeInterface:
     @staticmethod
     def init(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('Выберите режим:',
+        vk.message_send(f'Текущий режим -- {InternalBD.getter(user_id)["current_mode"]}\nВыберите режим:',
                         user_id, JSONWorker.keyboard_handler('4way'))
 
     @staticmethod
