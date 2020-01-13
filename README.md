@@ -1,6 +1,6 @@
 # ZalgoBot
 * `What this script does?`  
-    This script transform text to t̷̤̦̰̫͓͕͗͌ͦ̓͛̋ͥè̴̠̤͓͕̠͒̇̆̋x͍͇͖̻̍ͯ͛͌̇t҉͕͉̮
+    This script transforms text to t̷̤̦̰̫͓͕͗͌ͦ̓͛̋ͥè̴̠̤͓͕̠͒̇̆̋x͍͇͖̻̍ͯ͛͌̇t҉͕͉̮
 
 
 
