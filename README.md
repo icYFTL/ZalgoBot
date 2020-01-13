@@ -6,10 +6,11 @@
 
 
  #### DO NOT FORGET:
-    • Specify admins in "Config.py" in "admins".
-    • Speficy VK community access token in "Config.py" in "access_token".
-    • Specify group_id in "Config.py" in "group_id".
+    • Specify admins in "Config.py" in "admins"
+    • Speficy VK community access token in "Config.py" in "access_token"
+    • Specify group_id in "Config.py" in "group_id"
     • Do the "pip3 install -r (path_to_script)/requirements.txt"
+    • Add secret key to the "Config.py" from callback api in VK
 
  #### Tokens's rights:  
 ##### 1) Community:
