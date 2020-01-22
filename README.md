@@ -19,6 +19,9 @@
  #### Tokens's permissions:  
 ##### 1) Community:
     messages  
+    
+* Run it using supervisor or just  
+`nohup python3 ZalgoBot.py &`
 
  That's all what I have to say.  
 Hope that this script will help you with your communities.
