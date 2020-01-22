@@ -7,6 +7,7 @@ from flask import Flask, request, redirect
 from source.databases.InternalBD import InternalBD
 from source.static.StaticData import StaticData
 from source.vkapi.BotAPI import BotAPI
+from Config import Config
 
 m_thread = Flask(__name__)
 
@@ -19,7 +20,7 @@ def get_access():
     try:
         code = request.args['code']
         access = json.loads(requests.get(
-            "https://oauth.vk.com/access_token?client_id=7112656&client_secret=CuoqrFoGDchqt8OOErU2&redirect_uri=https://icyftl.ru/zalgo&code=" + code).text)
+            f"https://oauth.vk.com/access_token?client_id=7112656&client_secret={Config.app_secret}&redirect_uri=https://icyftl.ru/zalgo&code=" + code).text)
         InternalBD.update_token(user_id=access['user_id'], token=access['access_token'])
         bot = BotAPI()
         bot.message_send('Access Token успешно зарегистрирован!', access['user_id'])
@@ -34,9 +35,9 @@ def processing():
     if 'type' not in data.keys():
         return 'not vk'
     if data['type'] == 'confirmation':
-        return "bb2072fc"
+        return Config.group_special_string
     elif data['type'] == 'message_new':
-        if data['secret'] == 'C0llbAcK_iS_r3aL':
+        if data['secret'] == Config.secret_key:
             payload = None
             if data['object'].get('payload'):
                 payload = json.loads(data['object']['payload'])['button']

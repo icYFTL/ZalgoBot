@@ -1,5 +1,8 @@
 class Config:
     admins = []
-    access_token = ""
+    access_token = ''
     group_id = -1
-    secret_key = ""
+    group_special_string = ''
+    secret_key = ''
+
+    app_secret = ''
