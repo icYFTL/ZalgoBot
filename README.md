@@ -18,7 +18,8 @@
 
  #### Tokens's permissions:  
 ##### 1) Community:
-    messages`(but I gave all permissions)`
+    messages  
+    `(but I gave all permissions)`
 
  That's all what I have to say.  
 Hope that this script will help you with your communities.
