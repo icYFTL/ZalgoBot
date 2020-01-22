@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 wheels/
+Config.py
 data/
 .idea/
 database.db
