@@ -14,5 +14,5 @@ class ChangeTextModeInterface:
     def change(user_id, mode) -> None:
         vk = BotAPI()
         InternalBD.mode_changer(user_id=user_id, obj=mode)
-        vk.message_send('Режим {} активирован.'.format(mode[0].upper() + ''.join(mode[1:])),
+        vk.message_send('Режим {} активирован.'.format(mode[0].upper() + ''.join(mode[1:])).replace('_', ' '),
                         user_id, JSONWorker.keyboard_handler('4way'.format(mode)))

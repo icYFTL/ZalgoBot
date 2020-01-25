@@ -24,6 +24,8 @@ class CommandsHandler:
             self.change_mode_comma('reverse')
         elif comma == '/cout':
             self.change_mode_comma('cout')
+        elif comma == '/white_bracket':
+            self.change_mode_comma('white_bracket')
         elif comma == '/back':
             self.back_comma()
         elif comma == '/tools':

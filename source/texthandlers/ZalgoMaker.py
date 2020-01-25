@@ -46,22 +46,22 @@ class ZalgoMaker:
     ]
 
     @staticmethod
-    def rand(maxi):
+    def rand(maxi) -> int:
         return random.randint(0, maxi - 1)
 
     @staticmethod
-    def rand_zalgo(data):
+    def rand_zalgo(data) -> chr:
         ind = random.randint(0, len(data) - 1)
         return data[ind]
 
     @staticmethod
-    def is_zalgo_char(c):
+    def is_zalgo_char(c) -> bool:
         if c in ZalgoMaker.zalgo_up or c in ZalgoMaker.zalgo_mid or c in ZalgoMaker.zalgo_down:
             return True
         return False
 
     @staticmethod
-    def zalgo_textarea(data, mode='average'):
+    def zalgo_textarea(data, mode='average') -> str:
         txt = data
         newtxt = ''
         pos = '123'

@@ -91,7 +91,7 @@ class FlipTextMaker:
     }
 
     @staticmethod
-    def flip(text):
+    def flip(text) -> str:
         text = text.lower()
         newstr = ""
         for i in text:

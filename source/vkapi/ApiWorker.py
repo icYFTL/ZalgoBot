@@ -12,12 +12,12 @@ class ApiWorker:
     '''
 
     @staticmethod
-    def started():
+    def started() -> None:
         LogWork.log('Script has been started.')
         ApiWorker.thread_controller()
 
     @staticmethod
-    def thread_controller():
+    def thread_controller() -> None:
         # Main Messages Handler
         main_messages_handler = Thread(target=Main.handle)
         main_messages_handler.start()

@@ -1,4 +1,4 @@
 class ReverseText:
     @staticmethod
-    def reverse(text):
+    def reverse(text) -> str:
         return text[::-1]

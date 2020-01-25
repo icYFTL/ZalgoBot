@@ -43,6 +43,16 @@
           "label": "Cout"
         },
         "color": "positive"
+      },
+      {
+        "action": {
+          "type": "text",
+          "payload": {
+            "button": "/white_bracket"
+          },
+          "label": "White bracket"
+        },
+        "color": "positive"
       }
     ]
   ]
