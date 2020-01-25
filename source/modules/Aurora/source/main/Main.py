@@ -34,10 +34,10 @@ class Main:
                     subs = vk.get_subs()['items']
                     for i in removed:
                         if i in subs:
-                            vk.unsub(i)
-                            LogWork.log(f"User ({user}) was unsubed from ({i})")
+                            # vk.unsub(i)
+                            # LogWork.log(f"User ({user}) was unsubed from ({i})")
                             if Config.bot_features:
                                 bot.message_send(f"Пользователь @id{user} отписался от Вас.", i)
                             time.sleep(0.4)
                 InternalBD.update_friends(user, current_friends)
-            time.sleep(30)
+            time.sleep(60)

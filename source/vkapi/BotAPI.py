@@ -1,5 +1,5 @@
 import random
-
+import os
 import vk_api
 
 from Config import Config
@@ -26,7 +26,7 @@ class BotAPI:
             self.vk = vk_api.VkApi(token=self.token)
         except:
             LogWork.fatal('Bad basic access token.')
-            raise SystemExit(-1)
+            os._exit(0)
 
     def message_send(self, message, user_id, keyboard=None, type_t=None):
         template = {"user_id": user_id,

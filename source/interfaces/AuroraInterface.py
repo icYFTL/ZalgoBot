@@ -8,13 +8,10 @@ class AuroraInterface:
     @staticmethod
     def init(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('Увы, Aurora в данный момент недоступна.',
-                        user_id=user_id)
-        return
 
         token = InternalBD.getter(user_id)['token']
 
-        if not InternalBD.get_token(user_id):
+        if not token:
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.keyboard_handler('settings'))
             InternalBD.status_changer(user_id=user_id, obj="None")
@@ -31,12 +28,10 @@ class AuroraInterface:
     @staticmethod
     def add(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('Увы, Aurora в данный момент недоступна.',
-                        user_id=user_id, keyboard=JSONWorker.keyboard_handler('settings'))
-        return
+
         token = InternalBD.getter(user_id)['token']
 
-        if not InternalBD.get_token(token):
+        if not token:
             vk.message_send('Вы не установили access token в настройках.',
                             user_id=user_id, keyboard=JSONWorker.keyboard_handler('settings'))
             InternalBD.status_changer(user_id=user_id, obj="None")
@@ -58,9 +53,6 @@ class AuroraInterface:
     @staticmethod
     def remove(user_id) -> None:
         vk = BotAPI()
-        vk.message_send('Увы, Aurora в данный момент недоступна.',
-                        user_id=user_id, keyboard=JSONWorker.keyboard_handler('settings'))
-        return
         from source.modules.Aurora.source.databases.InternalBD import InternalBD as IB
         if not IB.user_exists(user_id):
             vk.message_send(message="Вы не подключали модуль Aurora.", user_id=user_id,
