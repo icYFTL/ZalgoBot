@@ -21,7 +21,8 @@ class ModulesController:
         InternalBD.status_changer(user_id=self.user_id, obj="WFM.gpl.task")
         try:
             vk.message_send(message="Успешно завершено.\n{data}".format(
-                data=requests.post('localhost:7865/gpl', data=json.dumps({'token': self.token, 'victim_id': victim_id}),
+                data=requests.post('http://localhost:7865/gpl',
+                                   data=json.dumps({'token': self.token, 'victim_id': victim_id}),
                                    headers={'Content-Type': 'application/json'}).text),
                 user_id=self.user_id, keyboard=JSONWorker.keyboard_handler('default')
             )
