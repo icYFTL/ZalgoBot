@@ -31,13 +31,13 @@ class Main:
                         LogWork.log(f"Found difference in user's ({user}) friends.")
                         removed.append(old_friends[old])
                 if removed:
-                    subs = vk.get_subs()['items']
+                    # subs = vk.get_subs()['items']
                     for i in removed:
-                        if i in subs:
-                            # vk.unsub(i)
-                            # LogWork.log(f"User ({user}) was unsubed from ({i})")
-                            if Config.bot_features:
-                                bot.message_send(message=f"Пользователь @id{i} отписался от Вас.", user_id=user)
-                            time.sleep(0.4)
+                        # vk.unsub(i)
+                        # LogWork.log(f"User ({user}) was unsubed from ({i})")
+                        if Config.bot_features:
+                            bot.message_send(message=f"Пользователь @id{i} отписался от Вас или вы его удалили.",
+                                             user_id=user)
+                        time.sleep(0.4)
                 InternalBD.update_friends(user, current_friends)
             time.sleep(60)

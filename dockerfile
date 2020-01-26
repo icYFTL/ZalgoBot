@@ -4,6 +4,7 @@ COPY requirements.txt /
 RUN pip install -r /requirements.txt
 COPY source/ /source
 COPY ZalgoBot.py /ZalgoBot.py
+COPY zalgo.db /zalgo.db
 COPY Config.py /Config.py
 
 WORKDIR /
