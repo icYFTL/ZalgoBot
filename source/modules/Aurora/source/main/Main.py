@@ -3,7 +3,7 @@ import time
 from source.modules.Aurora.Config import Config
 from source.modules.Aurora.source.databases.InternalBD import InternalBD
 from source.modules.Aurora.source.logger.LogWork import LogWork
-from source.modules.Aurora.source.vk_api.BotAPI import BotAPI
+from source.vkapi.BotAPI import BotAPI
 from source.modules.Aurora.source.vk_api.UserAPI import UserAPI
 
 
@@ -37,7 +37,7 @@ class Main:
                             # vk.unsub(i)
                             # LogWork.log(f"User ({user}) was unsubed from ({i})")
                             if Config.bot_features:
-                                bot.message_send(f"Пользователь @id{user} отписался от Вас.", i)
+                                bot.message_send(message=f"Пользователь @id{i} отписался от Вас.", user_id=user)
                             time.sleep(0.4)
                 InternalBD.update_friends(user, current_friends)
             time.sleep(60)

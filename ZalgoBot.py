@@ -1,3 +1,5 @@
+import os
+
 from source.console.Preview import Preview
 from source.logger.LogWork import LogWork
 from source.other.ExitHandler import ExitHandler
@@ -21,4 +23,5 @@ ApiWorker.started()
 
 # Messages GET - Module routine initialization
 LogWork.log('Messages getter has been started')
-m_thread.run(host='localhost', port=8000, debug=False)
+
+m_thread.run('0.0.0.0', port=int(os.environ.get("PORT", 8000)))

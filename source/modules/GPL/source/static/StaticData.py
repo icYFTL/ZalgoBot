@@ -1,4 +1,4 @@
 class StaticData:
-    name = 'GPL'
+    name = 'GPL XServer Edition'
     author = 'icYFTL'
-    version = '1.6.2'
+    version = '1.0.0'

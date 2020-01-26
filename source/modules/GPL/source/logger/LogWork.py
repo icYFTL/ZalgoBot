@@ -2,7 +2,7 @@ import os
 
 import hues
 
-from source.modules.GPL.source.static.StaticMethods import StaticMethods
+from source.static.StaticMethods import StaticMethods
 
 
 class LogWork:

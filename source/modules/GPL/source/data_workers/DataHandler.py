@@ -1,33 +1,20 @@
 import operator
-import os
 import time
 from collections import Counter
 
-from source.modules.GPL.Config import Config
-from source.modules.GPL.source.logger.LogWork import LogWork
-from source.modules.GPL.source.static.StaticMethods import StaticMethods
-from source.modules.GPL.source.vk_api.UserAPI import UserAPI
+from source.logger.LogWork import LogWork
+from source.static.StaticMethods import StaticMethods
+from source.vk_api.UserAPI import UserAPI
 
 
 class DataHandler:
-    def __init__(self, user_id):
+    def __init__(self, user_id, token):
         self.user_id = user_id
-        self.vk = UserAPI(user_id=self.user_id)
+        self.vk = UserAPI(user_id=self.user_id, token=token)
         self.cities = []
         self.schools = []
         self.high_schools = []
         self.repl = []
-
-    def save(self, data):
-        if not Config.save_results:
-            return
-        try:
-            os.mkdir("./stdout/")
-        except FileExistsError:
-            pass
-        f = open(f'./stdout/{self.user_id}.txt', 'w', encoding='utf-8')
-        f.write(''.join(data))
-        f.close()
 
     def cities_handler(self, data):
         try:
@@ -168,7 +155,9 @@ class DataHandler:
 
         self.post_handler(data)
         out = self.reply_contruct()
-        self.save(out)
 
-        LogWork.success(f'User with ID {self.user_id} handled')
-        return ''.join(out)
+        if out:
+            LogWork.success(f'User with ID {self.user_id} handled')
+            return ''.join(out)
+        else:
+            return False

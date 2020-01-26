@@ -2,15 +2,14 @@ import re
 
 import vk_api
 
-from source.modules.GPL.Config import Config
-from source.modules.GPL.source.logger.LogWork import LogWork
+from source.logger.LogWork import LogWork
 
 
 class UserAPI:
 
-    def __init__(self, user_id):
-        self.token = Config.user_vk_access_token
-        self.user_id = user_id
+    def __init__(self, user_id, token):
+        self.token = token
+        self.user_id = self.get_id_from_url(user_id)
         self.vk = self.get_session()
 
     def get_session(self):
@@ -30,11 +29,14 @@ class UserAPI:
         return self.vk.method('users.get', {'user_ids': ','.join("{0}".format(n) for n in user_ids),
                                             'fields': 'city,schools,education'})
 
-    @staticmethod
-    def get_id_from_url(url):
+    def get_id_from_url(self, url):
         try:
-            url = re.sub(r"(https://)?vk.com/", '', url).replace('/', '')
-            vk = vk_api.VkApi(token=Config.user_vk_access_token)
-            return vk.method("users.get", {"user_ids": url})[0]['id']
+            int(url)
+            return url
         except:
-            return False
+            try:
+                url = re.sub(r"(https://)?vk.com/", '', url).replace('/', '')
+                vk = vk_api.VkApi(token=self.token)
+                return vk.method("users.get", {"user_ids": url})[0]['id']
+            except:
+                return False

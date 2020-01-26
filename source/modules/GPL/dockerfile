@@ -1,0 +1,9 @@
+FROM python:3.7-alpine as gpl
+EXPOSE 7865
+COPY ./source /source
+COPY ./GPL.py /GPL.py
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+WORKDIR /
+CMD ["nohup", "python3", "GPL.py", "&"]
