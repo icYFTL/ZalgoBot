@@ -24,4 +24,4 @@ ApiWorker.started()
 # Messages GET - Module routine initialization
 LogWork.log('Messages getter has been started')
 
-m_thread.run('0.0.0.0', port=int(os.environ.get("PORT", 8000)))
+m_thread.run('localhost', port=int(os.environ.get("PORT", 8000)))
