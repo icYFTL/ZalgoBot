@@ -8,4 +8,4 @@ COPY zalgo.db /zalgo.db
 COPY Config.py /Config.py
 
 WORKDIR /
-CMD ["nohup", "python3", "ZalgoBot.py", "&"]
+CMD ["python3", "ZalgoBot.py"]

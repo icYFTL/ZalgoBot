@@ -6,4 +6,4 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 WORKDIR /
-CMD ["nohup", "python3", "GPL.py", "&"]
+CMD ["python3", "GPL.py"]
