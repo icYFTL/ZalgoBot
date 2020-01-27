@@ -19,7 +19,16 @@
  #### Tokens's permissions:  
 ##### 1) Community:
     messages  
-    
+
+#### Deploy:
+
+* IMPORTANT:
+    In the start.sh script there're 2 flags `--network="host"` which mean that this script and `GPL` module will be deploy on local.
+
+* Run it using Docker on the linux
+`sudo chmod +x start.sh`  
+`./start.sh`  
+
 * Run it using supervisor or just  
 `nohup python3 ZalgoBot.py &`
 
