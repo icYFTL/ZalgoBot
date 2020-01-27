@@ -22,7 +22,7 @@
 
 #### Deploy:
 
-* IMPORTANT:
+#### IMPORTANT:
     In the start.sh script there're 2 flags `--network="host"` which mean that this script and `GPL` module will be deploy on local.
 
 * Run it using Docker on the linux
