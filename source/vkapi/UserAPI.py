@@ -1,9 +1,10 @@
 import vk_api
+import json
 
 
 class UserAPI:
     @staticmethod
-    def is_token_valid(token):
+    def is_token_valid(token) -> bool:
         try:
             vk = vk_api.VkApi(token=token)
             vk.method('friends.get')
@@ -12,7 +13,7 @@ class UserAPI:
             return False
 
     @staticmethod
-    def user_exists(token, user_id):
+    def user_exists(token, user_id) -> bool:
         vk = vk_api.VkApi(token=token)
         try:
             user = vk.method("users.get", {'user_ids': user_id})
@@ -24,7 +25,7 @@ class UserAPI:
             return False
 
     @staticmethod
-    def user_broken(token, user_id):
+    def user_broken(token, user_id) -> bool:
         vk = vk_api.VkApi(token=token)
         data = vk.method("users.get", {'user_ids': user_id})[0]
         return data.get('is_closed') == True or data.get('deactivated')
@@ -39,6 +40,6 @@ class UserAPI:
             return "BadID"
 
     @staticmethod
-    def user_get(token, user_id):
+    def user_get(token, user_id) -> json:
         vk = vk_api.VkApi(token=token)
         return vk.method("users.get", {"user_ids": user_id})
