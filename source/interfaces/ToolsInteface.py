@@ -8,5 +8,5 @@ class ToolsInterface:
         vk = BotAPI()
         vk.message_send('''Выберите инструмент:
 GPL - Примерное место жительства человека по его друзьям.
-Aurora - Автоматическое удаление друзей, удаливших вас, из подписок.''',
+Aurora - Оповещение об отписке друзей.''',
                         user_id, JSONWorker.keyboard_handler('modules'))

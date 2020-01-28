@@ -21,3 +21,8 @@ def handler():
     except Exception as e:
         LogWork.error(str(e))
         return 'Bad data passed.', 400
+
+
+@gpl.route('/gpl', methods=['GET'])
+def status():
+    return 'ok', 200

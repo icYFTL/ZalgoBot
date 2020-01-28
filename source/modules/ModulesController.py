@@ -37,6 +37,13 @@ class ModulesController:
     @staticmethod
     def full_time_modules_init() -> None:
         try:
+            if requests.get('http://localhost:7865/gpl').text == 'ok':
+                LogWork.log("GPL ✅")
+            else:
+                raise BaseException
+        except:
+            LogWork.error("GPL ⛔")
+        try:
             from source.modules.Aurora.source.main.Main import Main
             m_thread = Thread(target=Main.routine)
             m_thread.start()

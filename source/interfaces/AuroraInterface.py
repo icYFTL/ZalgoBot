@@ -22,7 +22,7 @@ class AuroraInterface:
             InternalBD.status_changer(user_id=user_id, obj="None")
             return
         vk.message_send(
-            message='Aurora это модуль, позволяющий удалять подписки на удаливших вас друзей.',
+            message='А что если твой друг вдруг оказался совсем не друг?',
             user_id=user_id, keyboard=JSONWorker.keyboard_handler('aurora'))
 
     @staticmethod
