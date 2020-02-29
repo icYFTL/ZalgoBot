@@ -27,7 +27,7 @@
 
 * Run it using Docker on the linux  
 `sudo chmod +x start.sh`  
-`./start.sh`  
+`sudo ./start.sh`  
 
 * Run it using supervisor or just  
 `nohup python3 ZalgoBot.py &`
