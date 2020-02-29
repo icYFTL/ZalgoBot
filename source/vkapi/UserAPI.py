@@ -1,5 +1,6 @@
-import vk_api
 import json
+
+import vk_api
 
 
 class UserAPI:
@@ -28,7 +29,7 @@ class UserAPI:
     def user_broken(token, user_id) -> bool:
         vk = vk_api.VkApi(token=token)
         data = vk.method("users.get", {'user_ids': user_id})[0]
-        return data.get('is_closed') == True or data.get('deactivated')
+        return data.get('can_access_closed') == False or data.get('deactivated')
 
     @staticmethod
     def get_id_from_url(token, url):
