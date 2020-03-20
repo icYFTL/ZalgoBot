@@ -5,6 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+touch zalgo.db
 sudo docker cp zalgo:/zalgo.db ./
 
 docker kill gpl_m
