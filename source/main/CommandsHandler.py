@@ -37,8 +37,13 @@ class CommandsHandler:
             self.aurora_add()
         elif comma == '/aurora_remove':
             self.aurora_remove()
+        elif comma == '/about':
+            self.about_comma()
         else:
             self.undefined_comma()
+
+    def about_comma(self) -> None:
+        SettingsInterface.about(self.user_id)
 
     def settings_comma(self) -> None:
         SettingsInterface.init(self.user_id)
@@ -53,7 +58,7 @@ class CommandsHandler:
         ToolsInterface.init(self.user_id)
 
     def back_comma(self) -> None:
-        BackInterface.init(self.user_id)
+        ServiceInterface.back(self.user_id)
 
     def change_mode_comma_init(self) -> None:
         ChangeTextModeInterface.init(self.user_id)
@@ -62,7 +67,7 @@ class CommandsHandler:
         ChangeTextModeInterface.change(self.user_id, mode)
 
     def access_token_comma(self) -> None:
-        AccessTokenInterface.init(self.user_id)
+        SettingsInterface.access_token(self.user_id)
 
     def aurora_comma(self) -> None:
         AuroraInterface.init(self.user_id)
@@ -74,4 +79,4 @@ class CommandsHandler:
         AuroraInterface.remove(self.user_id)
 
     def undefined_comma(self) -> None:
-        UndefinedCommaInterface.init(self.user_id)
+        ServiceInterface.undefined(self.user_id)

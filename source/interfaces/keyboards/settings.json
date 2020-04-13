@@ -12,6 +12,18 @@
         },
         "color": "positive"
       }
+    ],
+    [
+      {
+        "action": {
+          "type": "text",
+          "payload": {
+            "button": "/about"
+          },
+          "label": "О боте"
+        },
+        "color": "primary"
+      }
     ]
   ]
 }

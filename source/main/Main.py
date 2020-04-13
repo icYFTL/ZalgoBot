@@ -1,12 +1,12 @@
+import os
+
 from source.databases.InternalBD import InternalBD
-from source.interfaces.IntroInterface import IntroInterface
+from source.interfaces.ServiceInterface import ServiceInterface
 from source.logger.LogWork import LogWork
 from source.main.CommandsHandler import CommandsHandler
 from source.static.StaticData import StaticData
 from source.texthandlers.MessageHandler import MessageHandler
 from source.vkapi.BotAPI import BotAPI
-
-import os
 
 
 class Main:
@@ -31,7 +31,7 @@ class Main:
                 if message:
                     if not InternalBD.user_exists(user_id):
                         InternalBD.add_user(user_id)
-                        IntroInterface.init(user_id)
+                        ServiceInterface.start(user_id)
                         continue
 
                     data = InternalBD.getter(user_id)
