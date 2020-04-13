@@ -11,11 +11,11 @@ sudo docker cp zalgo:/zalgo.db ./
 docker kill gpl_m
 docker kill zalgo
 
-docker rm gpl_m
-docker rm zalgo
-
 docker image rm gpl_m
 docker image rm zalgo
+
+docker rm gpl_m
+docker rm zalgo
 
 docker build -t gpl ./source/modules/GPL/
 docker build -t zalgobot .
