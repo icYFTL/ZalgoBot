@@ -1,12 +1,5 @@
 # Interfaces
-from source.interfaces.AccessTokenInterface import AccessTokenInterface
-from source.interfaces.AuroraInterface import AuroraInterface
-from source.interfaces.BackInterface import BackInterface
-from source.interfaces.ChangeTextModeInterface import ChangeTextModeInterface
-from source.interfaces.GPLInterface import GPLInterface
-from source.interfaces.SettingsInterface import SettingsInterface
-from source.interfaces.ToolsInteface import ToolsInterface
-from source.interfaces.UndefinedCommaInterface import UndefinedCommaInterface
+from source.interfaces import *
 
 
 class CommandsHandler:

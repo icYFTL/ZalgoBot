@@ -56,10 +56,10 @@ class InternalBD:
         conn.commit()
 
     @staticmethod
-    def mode_changer(user_id, obj):
+    def mode_changer(user_id, mode):
         data = InternalBD.initialize()
         conn, cursor = data[0], data[1]
-        cursor.execute(f'UPDATE data SET current_mode="{obj}" WHERE user_id={user_id}')
+        cursor.execute(f'UPDATE data SET current_mode="{mode}" WHERE user_id={user_id}')
         conn.commit()
 
     @staticmethod

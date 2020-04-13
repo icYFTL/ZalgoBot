@@ -46,28 +46,21 @@ class ZalgoMaker:
     ]
 
     @staticmethod
-    def rand(maxi) -> int:
-        return random.randint(0, maxi - 1)
-
-    @staticmethod
-    def rand_zalgo(data) -> chr:
+    def __rand_zalgo(data) -> chr:
         ind = random.randint(0, len(data) - 1)
         return data[ind]
 
     @staticmethod
-    def is_zalgo_char(c) -> bool:
-        if c in ZalgoMaker.zalgo_up or c in ZalgoMaker.zalgo_mid or c in ZalgoMaker.zalgo_down:
-            return True
-        return False
-
-    @staticmethod
-    def zalgo_textarea(data, mode='average') -> str:
+    def make(data, mode='average') -> str:
         txt = data
         newtxt = ''
         pos = '123'
 
+        is_zalgo_char = lambda c: c in ZalgoMaker.zalgo_up or c in ZalgoMaker.zalgo_mid or c in ZalgoMaker.zalgo_down
+        rand = lambda x: random.randint(0, x - 1)
+
         for i in range(0, len(txt)):
-            if ZalgoMaker.is_zalgo_char(txt[i]):
+            if is_zalgo_char(txt[i]):
                 continue
 
             num_up = None
@@ -77,28 +70,27 @@ class ZalgoMaker:
             newtxt += txt[i]
 
             if mode == 'min':
-                num_up = ZalgoMaker.rand(8)
-                num_mid = ZalgoMaker.rand(2)
-                num_down = ZalgoMaker.rand(8)
-
+                num_up = rand(8)
+                num_mid = rand(2)
+                num_down = rand(8)
             elif mode == 'average':
-                num_up = ZalgoMaker.rand(16) // 2 + 1
-                num_mid = ZalgoMaker.rand(6) // 2
-                num_down = ZalgoMaker.rand(16) // 2 + 1
+                num_up = rand(16) // 2 + 1
+                num_mid = rand(6) // 2
+                num_down = rand(16) // 2 + 1
             elif mode == 'max':
-                num_up = ZalgoMaker.rand(64) // 4 + 3
-                num_mid = ZalgoMaker.rand(16) // 4 + 1
-                num_down = ZalgoMaker.rand(64) // 4 + 3
+                num_up = rand(64) // 4 + 3
+                num_mid = rand(18) // 4 + 1
+                num_down = rand(64) // 4 + 3
 
             if pos != 'None':
                 if '1' in pos:
                     for j in range(0, num_up):
-                        newtxt += ZalgoMaker.rand_zalgo(ZalgoMaker.zalgo_up)
+                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_up)
                 if '2' in pos:
                     for j in range(0, num_mid):
-                        newtxt += ZalgoMaker.rand_zalgo(ZalgoMaker.zalgo_mid)
+                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_mid)
                 if '3' in pos:
                     for j in range(0, num_down):
-                        newtxt += ZalgoMaker.rand_zalgo(ZalgoMaker.zalgo_down)
+                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_down)
 
         return newtxt

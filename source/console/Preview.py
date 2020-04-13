@@ -8,10 +8,7 @@ from source.static.StaticData import StaticData
 class Preview:
     @staticmethod
     def preview():
-        if sys.platform == 'win32':
-            os.system('cls')
-        else:
-            os.system('clear')
+        os.system('cls') if sys.platform == 'win32' else os.system('clear')
         print(f'[{StaticData.name}] v{StaticData.version}')
         corp = f'by {StaticData.author}\n\n'
 

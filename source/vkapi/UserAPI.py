@@ -17,30 +17,27 @@ class UserAPI:
     def user_exists(token, user_id) -> bool:
         vk = vk_api.VkApi(token=token)
         try:
-            user = vk.method("users.get", {'user_ids': user_id})
-            if not user[0].get('deactivated', False):
-                return True
-            else:
-                return False
+            user = vk.method('users.get', {'user_ids': user_id})
+            return not user[0].get('deactivated', False)
         except:
             return False
 
     @staticmethod
     def user_broken(token, user_id) -> bool:
         vk = vk_api.VkApi(token=token)
-        data = vk.method("users.get", {'user_ids': user_id})[0]
-        return data.get('can_access_closed') == False or data.get('deactivated')
+        data = vk.method('users.get', {'user_ids': user_id})[0]
+        return data.get('can_access_closed') == 0 or data.get('deactivated')
 
     @staticmethod
     def get_id_from_url(token, url):
         try:
-            url = url.replace("https://vk.com/", "").replace("vk.com/", "").replace("/", "")
+            url = url.replace('https://vk.com/', '').replace('vk.com/', '').replace('/', '')
             vk = vk_api.VkApi(token=token)
-            return vk.method("users.get", {"user_ids": url})[0]['id']
+            return vk.method('users.get', {'user_ids': url})[0]['id']
         except:
-            return "BadID"
+            return 'BadID'
 
     @staticmethod
     def user_get(token, user_id) -> json:
         vk = vk_api.VkApi(token=token)
-        return vk.method("users.get", {"user_ids": user_id})
+        return vk.method('users.get', {'user_ids': user_id})

@@ -23,7 +23,7 @@ class ExitHandler:
             InternalBD.status_cleaner_emergency()
             vk = BotAPI()
             for admin in Config.admins:
-                vk.message_send(message='Скрипт был аварийно остановлен.', user_id=admin)
+                vk.message_send(message='Скрипт был остановлен', user_id=admin)
             vk.disable_online()
         except Exception as e:
             LogWork.fatal(str(e))

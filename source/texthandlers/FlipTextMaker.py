@@ -91,13 +91,5 @@ class FlipTextMaker:
     }
 
     @staticmethod
-    def flip(text) -> str:
-        text = text.lower()
-        newstr = ""
-        for i in text:
-            symb = str(FlipTextMaker.flipTable.get(i))
-            if symb != "None":
-                newstr += symb
-            else:
-                newstr += i
-        return newstr
+    def make(text: str) -> str:
+        return ''.join([str(FlipTextMaker.flipTable.get(x, x)) for x in text.lower()])

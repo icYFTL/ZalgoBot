@@ -4,6 +4,10 @@ from source.vkapi.BotAPI import BotAPI
 
 
 class AlwaysOnline:
+    '''
+    This class controls online of community.
+    '''
+
     @staticmethod
     def online() -> None:
         while True:

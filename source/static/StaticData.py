@@ -3,7 +3,7 @@ import threading
 
 class StaticData:
     name = 'ZalgoBot'
-    version = '2.3.2.1'
+    version = '2.3.3'
     author = 'icYFTL'
 
     stack_messages = []

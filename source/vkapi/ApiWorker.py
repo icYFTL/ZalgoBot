@@ -8,7 +8,6 @@ from source.vkapi.AlwaysOnline import AlwaysOnline
 class ApiWorker:
     '''
     This class controls threads and script starting behavior
-    :return None
     '''
 
     @staticmethod

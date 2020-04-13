@@ -1,7 +1,4 @@
 class WhiteBracketText:
     @staticmethod
-    def white_bracket(income) -> str:
-        _temp = ''
-        for i in income:
-            _temp += f'『{i}』'
-        return _temp
+    def make(text: str) -> str:
+        return ''.join([f'『{x}』' for x in text])
