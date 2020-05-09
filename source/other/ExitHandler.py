@@ -1,8 +1,9 @@
 import atexit
+import logging
 
 from Config import Config
-from source.databases.InternalBD import InternalBD
-from source.logger.LogWork import LogWork
+from source.databases.InternalDB import InternalDB
+from source.tools.json import getMessage
 from source.vkapi.BotAPI import BotAPI
 
 
@@ -19,11 +20,15 @@ class ExitHandler:
     @staticmethod
     def exit() -> None:
         try:
-            LogWork.warn('Script stop in progress')
-            InternalBD.status_cleaner_emergency()
+            logging.warning('Script stopping in progress...')
+
+            IDB = InternalDB()
+            IDB.status_cleaner_emergency()
+
             vk = BotAPI()
             for admin in Config.admins:
-                vk.message_send(message='Скрипт был остановлен', user_id=admin)
+                vk.message_send(getMessage('script_stopped'), user_id=admin)
+
             vk.disable_online()
         except Exception as e:
-            LogWork.fatal(str(e))
+            logging.fatal(str(e))

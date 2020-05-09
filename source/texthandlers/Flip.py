@@ -1,8 +1,4 @@
-class FlipTextMaker:
-    '''
-    This class controls making flip decoration of text.
-    :return flip -> flipped text
-    '''
+class Flip:
     flipTable = {
         'a': '\u0250',
         'b': 'q',
@@ -92,4 +88,7 @@ class FlipTextMaker:
 
     @staticmethod
     def make(text: str) -> str:
-        return ''.join([str(FlipTextMaker.flipTable.get(x, x)) for x in text.lower()])
+        return ''.join([str(Flip.flipTable.get(x, x)) for x in text.lower()])
+
+    def __repr__(self):
+        return 'flip'

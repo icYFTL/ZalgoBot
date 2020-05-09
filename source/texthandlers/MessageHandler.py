@@ -1,23 +1,18 @@
-from source.databases.InternalBD import InternalBD
-from source.logger.LogWork import LogWork
+import logging
+
+from source.databases.InternalDB import InternalDB
 from source.vkapi.BotAPI import BotAPI
 
 
 class MessageHandler:
     @staticmethod
-    def init(data) -> None:
+    def init(user_id: int, message: str) -> None:
         vk = BotAPI()
-        conf = InternalBD.getter(data['user_id'])
-        if conf['current_mode'] == 'zalgo':
-            vk.message_send(message=data['message'], user_id=data['user_id'], type_t='zalgo')
-        elif conf['current_mode'] == 'flip':
-            vk.message_send(message=data['message'], user_id=data['user_id'], type_t='flip')
-        elif conf['current_mode'] == 'reverse':
-            vk.message_send(message=data['message'], user_id=data['user_id'], type_t='reverse')
-        elif conf['current_mode'] == 'cout':
-            vk.message_send(message=data['message'], user_id=data['user_id'], type_t='cout')
-        elif conf['current_mode'] == 'white_bracket':
-            vk.message_send(message=data['message'], user_id=data['user_id'], type_t='white_bracket')
-        InternalBD.messages_increment(data['user_id'])
-        LogWork.log('"{}" message from {} was handled using method {}'.format(data['message'], data['user_id'],
-                                                                              conf['current_mode']))
+        IDB = InternalDB()
+        user = IDB.get_user(user_id)
+
+        vk.message_send(message=message, user_id=user_id, type_t=user['current_mode'])
+        IDB.messages_increment(user['user_id'])
+
+        logging.info('"{}" message from {} was handled using method {}'.format(message, user['user_id'],
+                                                                               user['current_mode']))

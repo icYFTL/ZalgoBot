@@ -1,18 +1,19 @@
-from source.databases.InternalBD import InternalBD
-from source.other.JSONWorker import JSONWorker
+from source.databases.InternalDB import InternalDB
+from source.tools.json import *
 from source.vkapi.BotAPI import BotAPI
 
 
 class ChangeTextModeInterface:
-    @staticmethod
-    def init(user_id) -> None:
-        vk = BotAPI()
-        vk.message_send(f'Текущий режим -- {InternalBD.getter(user_id)["current_mode"]}\nВыберите режим:',
-                        user_id, JSONWorker.keyboard_handler('4way'))
+    def __init__(self, user_id: int) -> None:
+        self.user_id = user_id
+        self.vk = BotAPI()
+        self.IDB = InternalDB()
 
-    @staticmethod
-    def change(user_id, mode) -> None:
-        vk = BotAPI()
-        InternalBD.mode_changer(user_id=user_id, mode=mode)
-        vk.message_send('Режим {} активирован.'.format(mode[0].upper() + ''.join(mode[1:])).replace('_', ' '),
-                        user_id, JSONWorker.keyboard_handler('4way'.format(mode)))
+    def preview(self) -> None:
+        self.vk.message_send(getMessage('current_mode').format(mode=self.IDB.get_user(self.user_id)["current_mode"]),
+                             self.user_id, getKeyboard('4way'))
+
+    def change(self, mode: str) -> None:
+        self.IDB.mode_changer(user_id=self.user_id, mode=mode)
+        self.vk.message_send(getMessage('mode_activated').format(mode[0].upper() + ''.join(mode[1:])).replace('_', ' '),
+                             self.user_id, getKeyboard('4way'.format(mode)))

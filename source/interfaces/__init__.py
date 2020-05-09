@@ -1,4 +1,4 @@
-from source.interfaces.AuroraInterface import AuroraInterface
+# from source.interfaces.AuroraInterface import AuroraInterface
 from source.interfaces.ChangeTextModeInterface import ChangeTextModeInterface
 from source.interfaces.GPLInterface import GPLInterface
 from source.interfaces.ServiceInterface import ServiceInterface

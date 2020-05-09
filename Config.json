@@ -1,0 +1,31 @@
+{
+  "docker_name": "zalgo",
+  "web_server_host": "localhost",
+  "web_server_port": "8000",
+  "db_name": "zalgo.db",
+  "enable_updates": "1",
+  "access_getter_url": "https://vk.cc/aikRxw",
+  "msg_ru": {
+    "welcome": "Добро пожаловать в ZalgoBot.\nZalgoBot умеет работать с текстом, а еще он умеет делать разные штуки.\n\nТакже, у нас есть настройки в которые неплохо было бы заглянуть.",
+    "canceled": "Отменено",
+    "undefined_comma": "Нет такой команды.",
+    "no_access_token": "Вы не установили access token в настройках.",
+    "token_expired": "Токен истек. Обновите его.",
+    "current_mode": "Текущий режим -- {mode}.\nВыберите режим:",
+    "mode_activated": "Режим {} активирован.",
+    "settings_welcome": "Настройки.\n• AccessToken - {token}\n• Подписка - {sub}",
+    "about_welcome": "ZalgoBot v{version}\nBy [id239125937|icYFTL]\nhttps://github.com/icYFTL/ZalgoBot",
+    "access_token_welcome": "Чтобы пользоваться некоторыми штуками, увы, нужен access token.\n\nAccess token - это объект, который позволяет пользоваться некоторыми способностями конкретно вашего аккаунта.\nНапример - смотреть ваших друзей.\n\nЗарегистрировать свой токен в нашей системе можно перейдя по ссылке: {access_getter_url}",
+    "tools_welcome": "Выберите инструмент:\nGPL - Примерное место жительства человека по его друзьям.",
+    "max_message_length_note": "Длина вашего сообщения {length}.\nМаксимально допустимая длина: 100 символов.",
+    "text_unset": "Гони текст, а не вот это всё.",
+    "script_stopped": "Скрипт был остановлен",
+    "access_token_getting_exception": "При регистрации Access Token произошла ошибка!\nПопробуйте еще раз или обратитесь к администратору сообщества.",
+    "access_token_getting_success": "Access Token успешно зарегистрирован!",
+    "WEB_not_json": "I actually don\\'t like haCk3r$.",
+    "WEB_smth_went_wrong": "Something went wrong"
+  },
+  "absolute_path": "",
+  "modules_path": "source/modules/",
+  "modules": []
+}

@@ -1,21 +1,25 @@
-import os
+import logging
+from os import _exit
 
-from source.databases.InternalBD import InternalBD
+from source.databases.InternalDB import InternalDB
 from source.interfaces.ServiceInterface import ServiceInterface
-from source.logger.LogWork import LogWork
 from source.main.CommandsHandler import CommandsHandler
 from source.static.StaticData import StaticData
 from source.texthandlers.MessageHandler import MessageHandler
+from source.tools.json import getMessage
 from source.vkapi.BotAPI import BotAPI
 
+
+# TO DO: REFACTOR & OPTIMIZE
 
 class Main:
     @staticmethod
     def handle() -> None:
-        LogWork.log('Messages handler has been started')
+        logging.info('Messages handler started')
         while True:
             try:
                 vk = BotAPI()
+                IDB = InternalDB()
                 StaticData.new_message_trigger.wait()
                 StaticData.new_message_trigger.clear()
 
@@ -25,22 +29,24 @@ class Main:
                 message = data['message']
                 payload = data['payload']
 
-                LogWork.log(f'Got "{message}" from {user_id}')
+                logging.info(f'Got "{message}" from {user_id}')
 
                 CH = CommandsHandler(user_id)
                 if message:
-                    if not InternalBD.user_exists(user_id):
-                        InternalBD.add_user(user_id)
+                    if not IDB.user_exists(user_id):
+                        IDB.add_user(user_id)
                         ServiceInterface.start(user_id)
                         continue
 
-                    data = InternalBD.getter(user_id)
-                    if data['status'] != "None":
+                    data = IDB.get_user(user_id)
+                    if data['status']:
                         if payload == '/back':
-                            InternalBD.status_changer(user_id=user_id, obj="None")
+                            IDB.status_changer(user_id=user_id, status=None)
                             CH.back_comma()
                             continue
-                        LogWork.log('Module "{}" request from {}'.format(data['status'], user_id))
+                        logging.info('Module "{}" request from {}'.format(data['status'], user_id))
+
+                        del IDB
 
                         # GPL
                         if 'GPL' in data['status'] and payload == '/GPL_run':
@@ -50,19 +56,17 @@ class Main:
                         continue
 
                     if payload:
-                        LogWork.log(f'Command "{payload}" request from {user_id}')
+                        logging.info(f'Command "{payload}" request from {user_id}')
                         CH.identify_comma(payload)
                         continue
 
                     if len(message) > 100:
-                        vk.message_send(message=f'''Длина вашего сообщения {str(
-                            len(message))}.\nМаксимально допустимая длина: 100 символов.''', user_id=user_id)
-                        message = message[:100]
+                        vk.message_send(getMessage('max_message_length_note').format(length=str(len(message))),
+                                        user_id=user_id)
 
-                    MessageHandler.init(
-                        {'user_id': user_id, 'message': message, 'current_mode': data['current_mode']})
+                    MessageHandler.init(user_id, message[:100])
                 else:
-                    LogWork.log("Bad message from {}".format(user_id))
-                    vk.message_send(message='Гони текст, а не вот это всё.', user_id=user_id)
+                    logging.warning("Bad message from {}".format(user_id))
+                    vk.message_send(message=getMessage('text_unset'), user_id=user_id)
             except KeyboardInterrupt:
-                os._exit(0)
+                _exit(0)

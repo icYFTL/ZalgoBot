@@ -1,6 +1,7 @@
 # Interfaces
 from source.interfaces import *
 
+# TO DO: REFACTOR & OPTIMIZE
 
 class CommandsHandler:
     def __init__(self, user_id):
@@ -31,52 +32,63 @@ class CommandsHandler:
             self.access_token_comma()
         elif comma == '/GPL_run':
             self.gpl_run_comma()
-        elif comma == '/aurora':
-            self.aurora_comma()
-        elif comma == '/aurora_add':
-            self.aurora_add()
-        elif comma == '/aurora_remove':
-            self.aurora_remove()
+        # elif comma == '/aurora':
+        #     self.aurora_comma()
+        # elif comma == '/aurora_add':
+        #     self.aurora_add()
+        # elif comma == '/aurora_remove':
+        #     self.aurora_remove()
         elif comma == '/about':
             self.about_comma()
         else:
             self.undefined_comma()
 
     def about_comma(self) -> None:
-        SettingsInterface.about(self.user_id)
+        SI = SettingsInterface(self.user_id)
+        SI.about()
 
     def settings_comma(self) -> None:
-        SettingsInterface.init(self.user_id)
+        SI = SettingsInterface(self.user_id)
+        SI.preview()
 
     def gpl_comma(self) -> None:
-        GPLInterface.init(self.user_id)
+        GPLI = GPLInterface(self.user_id)
+        GPLI.preview()
 
     def gpl_run_comma(self, victim_id=None) -> None:
-        GPLInterface.run(victim_id, self.user_id)
+        GPLI = GPLInterface(self.user_id)
+        GPLI.run(victim_id, self.user_id)
 
     def tools_comma(self) -> None:
-        ToolsInterface.init(self.user_id)
+        TI = ToolsInterface(self.user_id)
+        TI.preview()
 
     def back_comma(self) -> None:
         ServiceInterface.back(self.user_id)
 
     def change_mode_comma_init(self) -> None:
-        ChangeTextModeInterface.init(self.user_id)
+        CTMI = ChangeTextModeInterface(self.user_id)
+        CTMI.preview()
 
     def change_mode_comma(self, mode) -> None:
-        ChangeTextModeInterface.change(self.user_id, mode)
+        CTMI = ChangeTextModeInterface(self.user_id)
+        CTMI.change(mode)
 
     def access_token_comma(self) -> None:
-        SettingsInterface.access_token(self.user_id)
+        SI = SettingsInterface(self.user_id)
+        SI.access_token()
 
-    def aurora_comma(self) -> None:
-        AuroraInterface.init(self.user_id)
-
-    def aurora_add(self) -> None:
-        AuroraInterface.add(self.user_id)
-
-    def aurora_remove(self) -> None:
-        AuroraInterface.remove(self.user_id)
+    # def aurora_comma(self) -> None:
+    #     AI = AuroraInterface(self.user_id)
+    #     AI.preview()
+    #
+    # def aurora_add(self) -> None:
+    #     AI = AuroraInterface(self.user_id)
+    #     AI.add(self.user_id)
+    #
+    # def aurora_remove(self) -> None:
+    #     AI = AuroraInterface(self.user_id)
+    #     AI.remove(self.user_id)
 
     def undefined_comma(self) -> None:
         ServiceInterface.undefined(self.user_id)

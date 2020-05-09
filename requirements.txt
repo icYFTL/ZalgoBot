@@ -3,3 +3,4 @@ hues
 requests
 pytz
 Flask
+sqlalchemy

@@ -1,12 +1,7 @@
 import random
 
 
-class ZalgoMaker:
-    '''
-    This class controls ZalgoText making.
-    :return zalgo_textarea -> ZalgoText
-    '''
-
+class Zalgo:
     zalgo_up = [
         '\u030d', '\u030e', '\u0304', '\u0305',
         '\u033f', '\u0311', '\u0306', '\u0310',
@@ -46,17 +41,17 @@ class ZalgoMaker:
     ]
 
     @staticmethod
-    def __rand_zalgo(data) -> chr:
+    def __rand_zalgo(data: list) -> chr:
         ind = random.randint(0, len(data) - 1)
         return data[ind]
 
     @staticmethod
-    def make(data, mode='average') -> str:
+    def make(data: str, mode='average') -> str:
         txt = data
         newtxt = ''
         pos = '123'
 
-        is_zalgo_char = lambda c: c in ZalgoMaker.zalgo_up or c in ZalgoMaker.zalgo_mid or c in ZalgoMaker.zalgo_down
+        is_zalgo_char = lambda c: c in Zalgo.zalgo_up or c in Zalgo.zalgo_mid or c in Zalgo.zalgo_down
         rand = lambda x: random.randint(0, x - 1)
 
         for i in range(0, len(txt)):
@@ -85,12 +80,15 @@ class ZalgoMaker:
             if pos != 'None':
                 if '1' in pos:
                     for j in range(0, num_up):
-                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_up)
+                        newtxt += Zalgo.__rand_zalgo(Zalgo.zalgo_up)
                 if '2' in pos:
                     for j in range(0, num_mid):
-                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_mid)
+                        newtxt += Zalgo.__rand_zalgo(Zalgo.zalgo_mid)
                 if '3' in pos:
                     for j in range(0, num_down):
-                        newtxt += ZalgoMaker.__rand_zalgo(ZalgoMaker.zalgo_down)
+                        newtxt += Zalgo.__rand_zalgo(Zalgo.zalgo_down)
 
         return newtxt
+
+    def __repr__(self):
+        return 'zalgo'

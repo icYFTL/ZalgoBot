@@ -1,12 +1,14 @@
 import json
 import logging
 import re
+
 from flask import Flask, request, render_template
 
-from source.databases.InternalBD import InternalBD
-from source.static.StaticData import StaticData
-from source.vkapi.BotAPI import BotAPI
 from Config import Config
+from source.databases.InternalDB import InternalDB
+from source.static.StaticData import StaticData
+from source.tools.json import getMessage
+from source.vkapi.BotAPI import BotAPI
 
 m_thread = Flask(__name__)
 
@@ -30,6 +32,7 @@ def get_access():
 
 @m_thread.route('/zalgo', methods=['POST'])
 def processing():
+    IDB = InternalDB()
     try:
         data = json.loads(request.data)
         if 'type' not in data.keys():
@@ -50,21 +53,21 @@ def processing():
                 raise BaseException
         elif data['type'] == 'access_implementing':
             access = {}
-            bot = BotAPI()
+            vk = BotAPI()
             if 'access_token' in data['data']:
-                data = re.sub(r'(http)?https?:\/\/.*[#]', '', data['data'])
+                data = re.sub(r'(http)?https?://.*[#]', '', data['data'])
                 for i in data.split('&'):
                     access[i.split('=')[0]] = i.split('=')[1]
 
                 if re.match(r'[a-z0-9]{85}', access['access_token']) and int(access['user_id']):
-                    InternalBD.update_token(user_id=access['user_id'], token=access['access_token'])
-                    bot.message_send('Access Token успешно зарегистрирован!', access['user_id'])
+                    IDB.update_token(user_id=int(access['user_id']), token=access['access_token'])
+                    vk.message_send(getMessage('access_token_getting_success'), int(access['user_id']))
                     return 'ok', 200
             if access.get('user_id'):
-                bot.message_send(
-                    'При регистрации Access Token произошла ошибка!\nПопробуйте еще раз или обратитесь к администратору сообщества.',
-                    user_id=access['user_id'])
-            return 'Something went wrong', 500
+                vk.message_send(
+                    getMessage('access_token_getting_exception'),
+                    user_id=int(access['user_id']))
+            return getMessage('WEB_smth_went_wrong'), 500
 
     except:
-        return 'I actually don\'t like haCk3r$.', 418
+        return getMessage('WEB_not_json'), 418

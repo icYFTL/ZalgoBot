@@ -1,24 +1,31 @@
 #!/bin/bash
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root"
   exit
 fi
 
-touch zalgo.db
-sudo docker cp zalgo:/zalgo.db ./
+if ! [ -f ./ZalgoBot.py ]; then
+  echo "Please run in ZalgoBot's root directory"
+  exit
+fi
 
-docker kill gpl_m
-docker kill zalgo
+if command -v python3 --version; then
+  echo "Python ✅"
+else
+  echo "Python 🚫"
+  echo "Python3 isn't installed"
+  exit
+fi
 
-docker image rm gpl_m
-docker image rm zalgo
+pwd | python3 -c "import sys, json;
+data = json.load(open('Config.json', 'r', encoding='UTF-8'))
+data['absolute_path'] = sys.stdin.read().replace('\n', '')
+open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data,ensure_ascii=False))"
 
-docker rm gpl_m
-docker rm zalgo
+touch zalgo.db # Important
 
-docker build -t gpl ./source/modules/GPL/
-docker build -t zalgobot .
-
-docker run -p 7865:7865 -itd --name gpl_m --network="host" gpl
-docker run -p 8000:8000 -itd --name zalgo --network="host" zalgobot
+python3 ./deploy/Destroy.py
+python3 ./deploy/Update.py
+python3 ./deploy/ModulesPrepare.py
+python3 ./deploy/Deploy.py

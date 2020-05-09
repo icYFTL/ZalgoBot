@@ -1,10 +1,12 @@
-import os
+import logging
 
-from source.logger.LogWork import LogWork
+logging.basicConfig(filename='zalgo_log.log', level=logging.INFO)
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
 from source.other.ExitHandler import ExitHandler
 
 # Exit routine
-LogWork.log('Exit routine registered')
+logging.info('Exit routine registered')
 ExitHandler.register()
 
 from source.console.Preview import Preview
@@ -12,13 +14,33 @@ from source.console.Preview import Preview
 # Preview
 Preview.preview()
 
+# Config2Environ
+from os import environ
+import json
+from copy import copy
+
+data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
+
+[data.pop(key) for key in list(data) if 'msg' in key]
+data.pop('modules')
+
+environ.update(copy(data))
+del data
+
+# Create DB
+from source.databases.InternalDB import InternalDB
+
+IDB = InternalDB()
+IDB.create()
+del IDB
+
 from source.modules.ModulesController import ModulesController
 
 # Full-time work modules
 ModulesController.full_time_modules_init()
 
 # Main routine
-LogWork.log('Initialization started.')
+logging.info('Initialization started')
 
 from source.main.Main import Main
 from source.vkapi.AlwaysOnline import AlwaysOnline
@@ -33,8 +55,8 @@ AO = Thread(target=AlwaysOnline.online)
 AO.start()
 
 # Messages GET - Module routine initialization
-LogWork.log('Messages getter has been started')
+logging.info('Messages getter started')
 
 from source.vkapi.CallBackAPI import m_thread
 
-m_thread.run('localhost', port=int(os.environ.get("PORT", 8000)))
+m_thread.run(environ.get('web_server_host', 'localhost'), port=int(environ.get("web_server_port", 8000)))
