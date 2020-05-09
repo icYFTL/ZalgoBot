@@ -13,13 +13,17 @@ system(f'sudo docker cp {data["docker_name"]}:/{data["db_name"]} ./')  # save db
 
 # Destroy modules
 for module in data['modules']:
-    system(f'docker kill {module}')
-    system(f'docker image rm {module} -f')
-    system(f'docker rm {module}')
+    system(f'docker kill {module.lower()}')
+    system(f'docker image rm {module.lower()} -f')
+    system(f'docker rm {module.lower()}')
 
 # Destroy main bot
 system(f'docker kill {data["docker_name"]}')
 system(f'docker image rm {data["docker_name"]} -f')
 system(f'docker rm {data["docker_name"]}')
+
+data['modules'].clear()
+
+open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
 
 print('### DESTROY DONE ###')

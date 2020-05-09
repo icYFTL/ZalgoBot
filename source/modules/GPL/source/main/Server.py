@@ -2,8 +2,7 @@ import json
 
 from flask import Flask, request
 
-from source.data_workers.DataHandler import DataHandler
-from source.logger.LogWork import LogWork
+from source.modules.GPL.source.data_workers.DataHandler import DataHandler
 
 gpl = Flask(__name__)
 
@@ -19,7 +18,6 @@ def handler():
                 raise BaseException
             return _resp
     except Exception as e:
-        LogWork.error(str(e))
         return 'Bad data passed.', 400
 
 

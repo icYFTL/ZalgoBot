@@ -34,21 +34,16 @@ def has_important_entities(x: str) -> bool:
     return check_done
 
 
-def could_be_initiated(x: str) -> bool:
-    import importlib
-    try:
-        importlib.import_module(f'source.modules.{x}')
-    except ImportError:
-        return False
-    return True
-
-
-def prepare(x: str) -> bool:
+def build(x: str) -> bool:
     data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
-    data['modules'].append(x.lower())
+
+    status = system(f'docker build -t {x.lower()} {path.join("source/modules", x)}') == 0
+    if status:
+        data['modules'].append(x)
+
     open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
 
-    return system(f'docker build -t {x.lower()} {path.join("source/modules", x)}') == 0
+    return status
 
 
 for address, dirs, files in walk('source/modules/'):
@@ -60,9 +55,7 @@ for address, dirs, files in walk('source/modules/'):
     break
 
 for module in modules:
-    print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) and could_be_initiated(
-        module) and prepare(
-        module) else print(
+    print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) and build(module) else print(
         f'[PREPARING] 🚫 {module} can\'t be deployed.')
 
 print('### MODULES PREPARING DONE ###')

@@ -2,8 +2,6 @@ import re
 
 import vk_api
 
-from source.logger.LogWork import LogWork
-
 
 class UserAPI:
 
@@ -16,7 +14,6 @@ class UserAPI:
         try:
             return vk_api.VkApi(token=self.token)
         except:
-            LogWork.fatal(text='Bad basic access token.')
             exit()
 
     def get_friends(self):

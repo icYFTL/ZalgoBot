@@ -23,6 +23,7 @@ data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
 
 [data.pop(key) for key in list(data) if 'msg' in key]
 data.pop('modules')
+data['admins'] = ','.join([str(x) for x in data['admins']])
 
 environ.update(copy(data))
 del data

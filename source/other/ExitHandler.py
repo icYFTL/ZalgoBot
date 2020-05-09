@@ -1,7 +1,7 @@
 import atexit
 import logging
+from os import environ
 
-from Config import Config
 from source.databases.InternalDB import InternalDB
 from source.tools.json import getMessage
 from source.vkapi.BotAPI import BotAPI
@@ -26,7 +26,7 @@ class ExitHandler:
             IDB.status_cleaner_emergency()
 
             vk = BotAPI()
-            for admin in Config.admins:
+            for admin in environ['admins'].split(','):
                 vk.message_send(getMessage('script_stopped'), user_id=admin)
 
             vk.disable_online()

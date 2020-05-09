@@ -2,9 +2,8 @@ import operator
 import time
 from collections import Counter
 
-from source.logger.LogWork import LogWork
-from source.static.StaticMethods import StaticMethods
-from source.vk_api.UserAPI import UserAPI
+from source.modules.GPL.source.static.StaticMethods import StaticMethods
+from source.modules.GPL.source.vk_api.UserAPI import UserAPI
 
 
 class DataHandler:
@@ -140,7 +139,6 @@ class DataHandler:
 
     def handler(self):
         users = self.vk.get_friends()
-        LogWork.log("Got user's friends")
         users_info = []
         while len(users) > 0:
             users_info.append(self.vk.get_info(users[:1000]))
@@ -157,7 +155,6 @@ class DataHandler:
         out = self.reply_contruct()
 
         if out:
-            LogWork.success(f'User with ID {self.user_id} handled')
             return ''.join(out)
         else:
             return False

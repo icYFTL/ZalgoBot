@@ -1,10 +1,9 @@
 import logging
-import os
 import random
+from os import environ, _exit
 
 import vk_api
 
-from Config import Config
 # Text handlers
 from source.texthandlers import TextHandlers
 
@@ -15,7 +14,7 @@ class BotAPI:
     '''
 
     def __init__(self):
-        self.token = Config.access_token
+        self.token = environ['access_token']
         self.vk = None
         self.auth()
 
@@ -25,7 +24,7 @@ class BotAPI:
         except Exception as e:
             logging.error(str(e))
             logging.fatal('Bad basic VK community access token.')
-            os._exit(0)
+            _exit(0)
 
     def message_send(self, message: str, user_id: int, keyboard=None, type_t=None) -> None:
         template = {'user_id': user_id,
@@ -40,12 +39,12 @@ class BotAPI:
 
     def enable_online(self) -> None:
         try:
-            self.vk.method('groups.enableOnline', {'group_id': Config.group_id})
+            self.vk.method('groups.enableOnline', {'group_id': environ['group_id']})
         except Exception as e:
             logging.warning(str(e))
 
     def disable_online(self) -> None:
         try:
-            self.vk.method('groups.disableOnline', {'group_id': Config.group_id})
+            self.vk.method('groups.disableOnline', {'group_id': environ['group_id']})
         except Exception as e:
             logging.warning(str(e))

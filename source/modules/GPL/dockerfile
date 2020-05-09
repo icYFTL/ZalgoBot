@@ -1,8 +1,10 @@
 FROM python:3.7-alpine as gpl
 EXPOSE 7865
-COPY ./source /source
-COPY ./GPL.py /GPL.py
-COPY ./requirements.txt /requirements.txt
+
+COPY source /
+COPY GPL.py /
+COPY requirements.txt /
+COPY Config.json /
 RUN pip install -r /requirements.txt
 
 WORKDIR /

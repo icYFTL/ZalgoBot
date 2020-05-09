@@ -4,6 +4,12 @@
   "web_server_port": "8000",
   "db_name": "zalgo.db",
   "enable_updates": "1",
+  "admins": [],
+  "access_token": "",
+  "group_id": "",
+  "group_special_string": "",
+  "secret_key": "",
+  "app_secret": "",
   "access_getter_url": "https://vk.cc/aikRxw",
   "msg_ru": {
     "welcome": "Добро пожаловать в ZalgoBot.\nZalgoBot умеет работать с текстом, а еще он умеет делать разные штуки.\n\nТакже, у нас есть настройки в которые неплохо было бы заглянуть.",
