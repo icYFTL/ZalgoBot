@@ -1,0 +1,17 @@
+version: "3"
+services:
+  server:
+    build: server/
+    command: python3 ./ZalgoBot.py
+    ports:
+      - 8000:8000
+    network_mode: host
+    depends_on:
+      - server
+
+  gpl:
+    build: ./source/modules/GPL
+    ports:
+      - 7865:7865
+    network_mode: host
+    command: python3 ./GPL.py

@@ -1,12 +1,12 @@
 FROM python:3.7-alpine as zalgobot
 EXPOSE 8000
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
+RUN mkdir /app
+WORKDIR /app
+COPY requirements.txt /app
+RUN pip install -r requirements.txt
 
-COPY source/ /source
-COPY ZalgoBot.py /ZalgoBot.py
-COPY zalgo.db /zalgo.db
-COPY Config.json /Config.json
+COPY source/ /app
+COPY ZalgoBot.py /app
+COPY zalgo.db /app
+COPY Config.json /app
 
-WORKDIR /
-CMD ["python3", "ZalgoBot.py"]
