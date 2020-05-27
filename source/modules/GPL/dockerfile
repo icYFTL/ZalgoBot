@@ -1,11 +1,13 @@
 FROM python:3.7-alpine as gpl
 EXPOSE 7865
 
-RUN mkdir /app
-COPY source /app
-COPY GPL.py /app
-COPY requirements.txt /app
-COPY Config.json /app
-RUN pip install -r /app/requirements.txt
+RUN mkdir /gpl
+COPY source /gpl
+COPY GPL.py /gpl
+COPY requirements.txt /gpl
+COPY Config.json /gpl
 
 WORKDIR /app
+
+RUN pip install -r requirements.txt
+

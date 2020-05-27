@@ -8,6 +8,7 @@ services:
     network_mode: host
     depends_on:
       - gpl
+    container_name: zalgo
 
   gpl:
     build: ./source/modules/GPL
@@ -15,3 +16,4 @@ services:
       - 7865:7865
     network_mode: host
     command: python3 ./GPL.py
+    container_name: gpl

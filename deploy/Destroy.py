@@ -22,6 +22,8 @@ system(f'docker kill {data["docker_name"]}')
 system(f'docker image rm {data["docker_name"]} -f')
 system(f'docker rm {data["docker_name"]}')
 
+system('docker-compose rm -a')
+
 data['modules'].clear()
 
 open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
