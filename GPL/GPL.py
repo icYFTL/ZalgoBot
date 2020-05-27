@@ -1,7 +1,7 @@
 import json
 import os
 
-from source.modules.GPL.source.main.Server import gpl
+from source.main.Server import gpl
 
 data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
 

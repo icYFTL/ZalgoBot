@@ -13,7 +13,7 @@ services:
 
   gpl:
     image: gpl
-    build: ./source/modules/GPL
+    build: GPL
     ports:
       - 7865:7865
     network_mode: host

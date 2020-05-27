@@ -1,8 +1,7 @@
 import json
 
 from flask import Flask, request
-
-from source.modules.GPL.source.data_workers.DataHandler import DataHandler
+from source.data_workers.DataHandler import DataHandler
 
 gpl = Flask(__name__)
 

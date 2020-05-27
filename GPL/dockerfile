@@ -1,8 +1,7 @@
 FROM python:3.7-alpine as gpl
 EXPOSE 7865
 
-RUN mkdir /gpl
-WORKDIR /gpl
+WORKDIR /
 
 COPY source/ .
 COPY GPL.py .

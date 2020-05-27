@@ -1,7 +1,6 @@
 FROM python:3.7-alpine as zalgobot
 EXPOSE 8000
-RUN mkdir /zalgo
-WORKDIR /zalgo
+WORKDIR /
 COPY requirements.txt .
 COPY source/ .
 COPY ZalgoBot.py .

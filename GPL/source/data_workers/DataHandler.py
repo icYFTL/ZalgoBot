@@ -2,8 +2,8 @@ import operator
 import time
 from collections import Counter
 
-from source.modules.GPL.source.static.StaticMethods import StaticMethods
-from source.modules.GPL.source.vk_api.UserAPI import UserAPI
+from source.static.StaticMethods import StaticMethods
+from source.vk_api.UserAPI import UserAPI
 
 
 class DataHandler:
