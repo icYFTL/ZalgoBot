@@ -10,6 +10,7 @@ services:
     depends_on:
       - gpl
     container_name: zalgo
+    working_dir: /zalgo
 
 
   gpl:
@@ -18,5 +19,6 @@ services:
     ports:
       - 7865:7865
     network_mode: host
+    working_dir: /gpl
     command: python3 ./GPL.py
     container_name: gpl

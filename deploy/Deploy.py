@@ -13,7 +13,7 @@ data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
 params_ok: bool = True
 important_keys = 'docker_name', 'web_server_host', 'web_server_port', \
                  'db_name', 'admins', 'access_token', \
-                 'group_id', 'group_special_string', 'app_secret', 'modules_path'
+                 'group_id', 'group_special_string', 'app_secret'
 
 # Params check
 for x in list(data):
