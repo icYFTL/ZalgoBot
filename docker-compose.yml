@@ -1,6 +1,7 @@
 version: "3"
 services:
   server:
+    image: zalgo
     build: .
     command: python3 ./ZalgoBot.py
     ports:
@@ -10,7 +11,9 @@ services:
       - gpl
     container_name: zalgo
 
+
   gpl:
+    image: gpl
     build: ./source/modules/GPL
     ports:
       - 7865:7865
