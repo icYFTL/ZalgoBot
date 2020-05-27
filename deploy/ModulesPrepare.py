@@ -1,5 +1,5 @@
 import json
-from os import walk, path, _exit, system
+from os import walk, path, _exit
 
 print('### MODULES PREPARING BEGIN ###')
 
@@ -34,18 +34,6 @@ def has_important_entities(x: str) -> bool:
     return check_done
 
 
-def build(x: str) -> bool:
-    data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
-
-    status = system(f'docker build -t {x.lower()} {path.join("source/modules", x)}') == 0
-    if status:
-        data['modules'].append(x)
-
-    open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
-
-    return status
-
-
 for address, dirs, files in walk('source/modules/'):
     try:
         dirs.remove('__pycache__')
@@ -55,7 +43,7 @@ for address, dirs, files in walk('source/modules/'):
     break
 
 for module in modules:
-    print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) and build(module) else print(
+    print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) else print(
         f'[PREPARING] 🚫 {module} can\'t be deployed.')
 
 print('### MODULES PREPARING DONE ###')
