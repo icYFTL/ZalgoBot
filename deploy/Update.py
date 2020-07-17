@@ -4,7 +4,11 @@ import subprocess
 
 print('### UPDATE BEGIN ###')
 
-enable_updates = lambda x: open('config.json', 'w', encoding='UTF-8').write(json.dumps({'enable_updates': x}))
+
+def disable_updates() -> None:
+    with open('config.json', 'w+') as f:
+        f.write(json.dumps(json.loads(f.read()).update({'enable_updates': False})))
+
 
 if not os.path.exists('ZalgoBot.py'):
     print('Please run Update.py from root directory.')
@@ -15,7 +19,7 @@ try:
     with open('config.json', 'r', encoding='UTF-8') as f:
         conf = json.loads(f.read())
 
-    if conf['enable_updates'] == "0":
+    if not conf['enable_updates']:
         os._exit(-1)
 
     if os.system('git --version > /dev/null 2>&1') != 0:
@@ -45,14 +49,14 @@ try:
 
 
 except FileNotFoundError:
-    print('Update failed.\nConfig json not found.')
+    print('Update failed.\nconfig json not found.')
 except json.JSONDecodeError:
     print('Update failed.\nIncorrect json.')
 except SystemError:
     print('Update failed.\nGit not found.')
-except:
-    print('Update failed.')
+except Exception as e:
+    print('Update failed.\n' + str(e))
 
-enable_updates("0")
+disable_updates()
 
 print('### UPDATE DONE ###')
