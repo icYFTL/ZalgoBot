@@ -39,9 +39,7 @@ try:
         if ans == 'y':
             os.system('git pull')
 
-        from source.static.StaticData import StaticData
-
-        print(f'Updated.\nCurrent version is {StaticData.version}')
+        print(f'Updated.')
 
     else:
         print('Up to date!')
