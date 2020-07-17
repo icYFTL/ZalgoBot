@@ -3,11 +3,11 @@ from os import path, _exit, system
 
 print('### DESTROY BEGIN ###')
 
-if not path.exists('Config.json'):
+if not path.exists('config.json'):
     print('Please run Destroy.py from root directory.')
     _exit(-1)
 
-data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
+data: dict = json.load(open('config.json', 'r', encoding='UTF-8'))
 
 system(f'sudo docker cp {data["docker_name"]}:/{data["db_name"]} ./')  # save db from docker container
 
@@ -26,6 +26,6 @@ system('docker-compose rm -a')
 
 data['modules'].clear()
 
-open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
+open('config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
 
-print('### DESTROY DONE ###')
+print('### ✅ DESTROY DONE ✅ ###')

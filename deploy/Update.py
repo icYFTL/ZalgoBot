@@ -4,7 +4,7 @@ import subprocess
 
 print('### UPDATE BEGIN ###')
 
-enable_updates = lambda x: open('Config.json', 'w', encoding='UTF-8').write(json.dumps({'enable_updates': x}))
+enable_updates = lambda x: open('config.json', 'w', encoding='UTF-8').write(json.dumps({'enable_updates': x}))
 
 if not os.path.exists('ZalgoBot.py'):
     print('Please run Update.py from root directory.')
@@ -12,13 +12,13 @@ if not os.path.exists('ZalgoBot.py'):
 
 conf = None
 try:
-    with open('Config.json', 'r', encoding='UTF-8') as f:
+    with open('config.json', 'r', encoding='UTF-8') as f:
         conf = json.loads(f.read())
 
     if conf['enable_updates'] == "0":
         os._exit(-1)
 
-    if os.system('git --version') != 0:
+    if os.system('git --version > /dev/null 2>&1') != 0:
         raise SystemError
 
     latest_head = \

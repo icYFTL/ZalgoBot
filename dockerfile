@@ -1,11 +1,14 @@
-FROM python:3.7-alpine as zalgobot
+FROM python:3 as zalgobot
 EXPOSE 8000
-WORKDIR /
+
+RUN mkdir /opt/app
+WORKDIR /opt/app
+
 COPY requirements.txt .
-COPY source/ .
+COPY source/ ./source/
 COPY ZalgoBot.py .
 COPY zalgo.db .
-COPY Config.json .
+COPY config.json .
 
 RUN pip3 install -r requirements.txt
 

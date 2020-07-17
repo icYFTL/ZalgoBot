@@ -10,7 +10,7 @@ if ! [ -f ./ZalgoBot.py ]; then
   exit
 fi
 
-if command -v python3 --version; then
+if command -v python3 --version > /dev/null 2>&1; then
   echo "Python ✅"
 else
   echo "Python 🚫"

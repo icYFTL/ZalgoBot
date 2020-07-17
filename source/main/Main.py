@@ -1,5 +1,6 @@
 import logging
 from os import _exit
+from threading import Thread
 
 from source.databases.InternalDB import InternalDB
 from source.interfaces.ServiceInterface import ServiceInterface
@@ -10,11 +11,10 @@ from source.tools.json import getMessage
 from source.vkapi.BotAPI import BotAPI
 
 
-# TO DO: REFACTOR & OPTIMIZE
+# TODO: REFACTOR & OPTIMIZE
 
-class Main:
-    @staticmethod
-    def handle() -> None:
+class Main(Thread):
+    def run(self):
         logging.info('Messages handler started')
         while True:
             try:

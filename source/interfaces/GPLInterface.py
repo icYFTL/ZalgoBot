@@ -16,7 +16,7 @@ class GPLInterface:
         self.user_id = user_id
         self.user = self.IDB.get_user(user_id)
         self.module_location = path.join(environ['modules_path'], 'GPL')
-        self.module_config_location = path.join(self.module_location, 'Config.json')
+        self.module_config_location = path.join(self.module_location, 'config.json')
 
     def preview(self):
         self.vk.message_send(

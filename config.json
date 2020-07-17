@@ -28,10 +28,12 @@
     "script_stopped": "Скрипт был остановлен",
     "access_token_getting_exception": "При регистрации Access Token произошла ошибка!\nПопробуйте еще раз или обратитесь к администратору сообщества.",
     "access_token_getting_success": "Access Token успешно зарегистрирован!",
-    "WEB_not_json": "I actually don\\'t like haCk3r$.",
+    "WEB_not_json": "I actually don't like haCk3r$.",
     "WEB_smth_went_wrong": "Something went wrong"
   },
   "absolute_path": "",
   "modules_path": "source/modules/",
-  "modules": []
+  "modules": [],
+  "use_modules": true,
+  "no_checks": false
 }

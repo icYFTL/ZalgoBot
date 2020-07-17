@@ -1,16 +1,16 @@
-import time
+from threading import Thread
+from time import sleep
 
 from source.vkapi.BotAPI import BotAPI
 
 
-class AlwaysOnline:
+class AlwaysOnline(Thread):
     '''
     This class controls online of community.
     '''
 
-    @staticmethod
-    def online() -> None:
+    def run(self):
         while True:
             vk = BotAPI()
             vk.enable_online()
-            time.sleep(900)
+            sleep(900)

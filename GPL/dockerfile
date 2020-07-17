@@ -3,7 +3,7 @@ EXPOSE 7865
 
 WORKDIR /
 
-COPY source/ .
+COPY source/ ./source/
 COPY GPL.py .
 COPY requirements.txt .
 COPY Config.json .

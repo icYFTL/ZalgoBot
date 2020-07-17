@@ -3,10 +3,12 @@ services:
   server:
     image: zalgo
     build: .
-    command: python3 ZalgoBot.py
+    #command: python3 ZalgoBot.py
     ports:
       - 8000:8000
-    network_mode: host
+    networks:
+      - zalgo_net
+    restart: always
     depends_on:
       - gpl
     container_name: zalgo
@@ -16,6 +18,12 @@ services:
     build: GPL
     ports:
       - 7865:7865
-    network_mode: host
     command: python3 GPL.py
+    restart: always
+    networks:
+      - zalgo_net
+
     container_name: gpl
+networks:
+  zalgo_net:
+    driver: bridge

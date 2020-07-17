@@ -9,5 +9,5 @@ def keyboard_handler(filename: str) -> json:
     return json.dumps(data)
 
 
-def message_handler(msg: str, lang='ru', location='Config.json') -> str:
+def message_handler(msg: str, lang='ru', location='config.json') -> str:
     return json.load(open(location, 'r', encoding='UTF-8')).get(f'msg_{lang}', {}).get(msg)

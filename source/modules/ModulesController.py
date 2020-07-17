@@ -14,7 +14,7 @@ class ModulesController:
         self.user_id = user_id
         self.token = token
         self.IDB = InternalDB()
-        self.GPL_config_path = path.join(environ['modules_path'], 'GPL', 'Config.json')
+        self.GPL_config_path = path.join(environ['modules_path'], 'GPL', 'config.json')
 
     def gpl_execute(self, victim_id) -> None:
         vk = BotAPI()

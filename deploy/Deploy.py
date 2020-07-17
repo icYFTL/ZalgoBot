@@ -3,12 +3,12 @@ from os import system, path, _exit
 
 print('### DEPLOY BEGIN ###')
 
-if not path.exists('Config.json'):
+if not path.exists('config.json'):
     print('Please run Deploy.py from root directory.')
     _exit(-1)
 
-# Get Config.json
-data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
+# Get config.json
+config: dict = json.load(open('config.json', 'r', encoding='UTF-8'))
 
 params_ok: bool = True
 important_keys = 'docker_name', 'web_server_host', 'web_server_port', \
@@ -16,24 +16,25 @@ important_keys = 'docker_name', 'web_server_host', 'web_server_port', \
                  'group_id', 'group_special_string', 'app_secret'
 
 # Params check
-for x in list(data):
-    if not data[x]:
-        print(f'Parameter unfilled: {x}')
-        params_ok = False
+if not config['no_checks']:
+    for x in list(config):
+        if not config[x]:
+            print(f'Parameter unfilled: {x}')
+            params_ok = False
 
 if not params_ok:
     _exit(-1)
-
 
 if system(f'docker-compose build') == 0:
     print('✅ Build success!')
 else:
     print('🚫 Build failed.')
+    _exit(-1)
 
-if system(f'docker-compose up') == 0:
+if system(f'docker-compose up -d') == 0:
     print('✅ Up done!')
 else:
     print('🚫 Up failed.')
+    _exit(-1)
 
-
-print('### DEPLOY DONE ###')
+print('### ✅ DEPLOY DONE ✅ ###')

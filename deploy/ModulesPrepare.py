@@ -1,20 +1,28 @@
 import json
-from os import walk, path, _exit
+from os import walk, path, _exit, system
+
+config = json.load(open('config.json', 'r', encoding='UTF-8'))
+
+if not config['use_modules']:
+    print('### ⚠ MODULES DISABLED ⚠ ###')
+    _exit(0)
 
 print('### MODULES PREPARING BEGIN ###')
 
-ABSOLUTE_PATH = json.load(open('Config.json', 'r', encoding='UTF-8'))['absolute_path']
-
-if not ABSOLUTE_PATH:
+if not config['absolute_path']:
     print('Run start.sh first')
     _exit(-1)
 
-if not path.exists('Config.json'):
+if not path.exists('config.json'):
     print('Please run ModulesPrepare.py from the root directory.')
     _exit(-1)
 
+if not config['modules']:
+    print('### ⚠ NO ONE MODULE IN CONFIG ⚠ ###')
+    _exit(-1)
+
 modules = list()
-important_files = ['requirements.txt', 'dockerfile', 'Config.json']
+important_files = ['requirements.txt', 'dockerfile', 'config.json']
 
 
 def has_important_entities(x: str) -> bool:
@@ -46,4 +54,8 @@ for module in modules:
     print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) else print(
         f'[PREPARING] 🚫 {module} can\'t be deployed.')
 
-print('### MODULES PREPARING DONE ###')
+print('[PREPARING] Bridge is setting up')
+if system('bash init_bridge.sh') != 0:
+    print('[PREPARING] ⚠ Can\'t up the bridge. Modules may not work or not work correctly.')
+
+print('### ✅ MODULES PREPARING DONE ✅ ###')

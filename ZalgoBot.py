@@ -14,12 +14,12 @@ from source.console.Preview import Preview
 # Preview
 Preview.preview()
 
-# Config2Environ
+# Config2Environ # BAD WAY TODO: REFACTOR
 from os import environ
 import json
 from copy import copy
 
-data: dict = json.load(open('Config.json', 'r', encoding='UTF-8'))
+data: dict = json.load(open('config.json', 'r', encoding='UTF-8'))
 
 [data.pop(key) for key in list(data) if 'msg' in key]
 data.pop('modules')
@@ -28,7 +28,7 @@ data['admins'] = ','.join([str(x) for x in data['admins']])
 environ.update(copy(data))
 del data
 
-# Create DB
+# Create DB TODO: Probably bad way. REFACTOR
 from source.databases.InternalDB import InternalDB
 
 IDB = InternalDB()
@@ -45,15 +45,12 @@ logging.info('Initialization started')
 
 from source.main.Main import Main
 from source.vkapi.AlwaysOnline import AlwaysOnline
-from threading import Thread
 
 # Main Messages Handler
-main_messages_handler = Thread(target=Main.handle)
-main_messages_handler.start()
+Main().start()
 
 # Always Online
-AO = Thread(target=AlwaysOnline.online)
-AO.start()
+AlwaysOnline().start()
 
 # Messages GET - Module routine initialization
 logging.info('Messages getter started')
