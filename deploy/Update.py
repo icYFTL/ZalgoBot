@@ -7,7 +7,9 @@ print('### UPDATE BEGIN ###')
 
 def disable_updates() -> None:
     with open('config.json', 'w+') as f:
-        f.write(json.dumps(json.loads(f.read()).update({'enable_updates': False})))
+        data = json.load(f.read())
+        data['enable_updates'] = False
+        f.write(json.dumps(json.loads(data)))
 
 
 if not os.path.exists('ZalgoBot.py'):
@@ -37,6 +39,7 @@ try:
             ans = input('> ')
 
         if ans == 'y':
+            os.system('git stash')
             os.system('git pull')
 
         print(f'Updated.')
