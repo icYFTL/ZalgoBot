@@ -9,6 +9,7 @@ COPY source/ ./source/
 COPY ZalgoBot.py .
 COPY zalgo.db .
 COPY config.json .
+COPY core.py .
 
 RUN pip3 install -r requirements.txt
 
