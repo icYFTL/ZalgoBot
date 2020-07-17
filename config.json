@@ -31,9 +31,11 @@
     "WEB_not_json": "I actually don't like haCk3r$.",
     "WEB_smth_went_wrong": "Something went wrong"
   },
-  "absolute_path": "",
+  "absolute_path": "/Users/icyftl/Documents/GitHub/ZalgoBot",
   "modules_path": "source/modules/",
-  "modules": [],
+  "modules": [
+    "GPL"
+  ],
   "use_modules": true,
-  "no_checks": false
+  "no_checks": true
 }

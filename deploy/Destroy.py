@@ -22,9 +22,10 @@ system(f'docker kill {data["docker_name"]}')
 system(f'docker image rm {data["docker_name"]} -f')
 system(f'docker rm {data["docker_name"]}')
 
-system('docker-compose rm -a')
+# Destroy network
+system(f'docker network rm zalgo_net')
 
-data['modules'].clear()
+system('docker-compose rm -a')
 
 open('config.json', 'w', encoding='UTF-8').write(json.dumps(data, ensure_ascii=False))
 

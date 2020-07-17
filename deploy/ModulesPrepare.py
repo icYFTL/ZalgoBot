@@ -1,5 +1,5 @@
 import json
-from os import walk, path, _exit, system
+from os import walk, path, _exit
 
 config = json.load(open('config.json', 'r', encoding='UTF-8'))
 
@@ -53,9 +53,5 @@ for address, dirs, files in walk('source/modules/'):
 for module in modules:
     print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) else print(
         f'[PREPARING] 🚫 {module} can\'t be deployed.')
-
-print('[PREPARING] Bridge is setting up')
-if system('bash init_bridge.sh') != 0:
-    print('[PREPARING] ⚠ Can\'t up the bridge. Modules may not work or not work correctly.')
 
 print('### ✅ MODULES PREPARING DONE ✅ ###')

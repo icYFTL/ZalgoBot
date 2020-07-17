@@ -1,6 +1,6 @@
 {
   "docker_name": "gpl",
-  "web_server_host": "localhost",
+  "web_server_host": "192.168.127.3",
   "web_server_port": "7865",
   "msg_ru": {
     "gpl_description": "GPL это модуль позволяющий узнать примерное место жительства человека по его друзьям.\nВедь все мы любим указывать школы, университеты итд.",

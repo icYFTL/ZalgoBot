@@ -18,6 +18,8 @@ class ModulesController:
         self.GPL_config_path = path.join(config.get('modules_path', 'source/modules/'), 'GPL', 'config.json')
 
     def gpl_execute(self, victim_id) -> None:
+        config = json.load(open('GPL/config.json', 'r'))
+
         vk = BotAPI()
         vk.message_send(
             getMessage('gpl_work_started', location=self.GPL_config_path),
@@ -25,7 +27,7 @@ class ModulesController:
         self.IDB.status_changer(user_id=self.user_id, status="WFM.gpl.task")
         try:
             vk.message_send(getMessage('gpl_success_done', location=self.GPL_config_path).format(
-                data=requests.post('http://localhost:7865/gpl',
+                data=requests.post(f'http://{config["web_server_host"]}:{config["web_server_port"]}/gpl',
                                    data=json.dumps({'token': self.token, 'victim_id': victim_id}),
                                    headers={'Content-Type': 'application/json'}).text),
                 user_id=self.user_id, keyboard=getKeyboard('default')
@@ -41,7 +43,7 @@ class ModulesController:
     @staticmethod
     def full_time_modules_init() -> None:
         try:
-            if requests.get('http://localhost:7865/gpl').text == 'ok':
+            if requests.get(f'http://{config["web_server_host"]}:{config["web_server_port"]}/gpl').text == 'ok':
                 logging.info("[RUNNING] GPL ✅")
             else:
                 raise BaseException
