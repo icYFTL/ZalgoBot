@@ -18,7 +18,7 @@ important_keys = 'docker_name', 'web_server_host', 'web_server_port', \
 # Params check
 if not config['no_checks']:
     for x in list(config):
-        if not config[x]:
+        if not config[x] and x in important_keys:
             print(f'Parameter unfilled: {x}')
             params_ok = False
 

@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 
 class Zalgo:
@@ -42,8 +42,7 @@ class Zalgo:
 
     @staticmethod
     def __rand_zalgo(data: list) -> chr:
-        ind = random.randint(0, len(data) - 1)
-        return data[ind]
+        return data[randint(0, len(data) - 1)]
 
     @staticmethod
     def make(data: str, mode='average') -> str:
@@ -52,7 +51,7 @@ class Zalgo:
         pos = '123'
 
         is_zalgo_char = lambda c: c in Zalgo.zalgo_up or c in Zalgo.zalgo_mid or c in Zalgo.zalgo_down
-        rand = lambda x: random.randint(0, x - 1)
+        rand = lambda x: randint(0, x - 1)
 
         for i in range(0, len(txt)):
             if is_zalgo_char(txt[i]):

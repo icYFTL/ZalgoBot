@@ -1,9 +1,10 @@
 import json
 import logging
-from os import environ, path
+from os import path
 
 import requests
 
+from core import config
 from source.databases.InternalDB import InternalDB
 from source.tools.json import *
 from source.vkapi.BotAPI import BotAPI
@@ -14,7 +15,7 @@ class ModulesController:
         self.user_id = user_id
         self.token = token
         self.IDB = InternalDB()
-        self.GPL_config_path = path.join(environ['modules_path'], 'GPL', 'config.json')
+        self.GPL_config_path = path.join(config.get('modules_path', 'source/modules/'), 'GPL', 'config.json')
 
     def gpl_execute(self, victim_id) -> None:
         vk = BotAPI()

@@ -1,9 +1,10 @@
 import logging
 import random
-from os import environ, _exit
+from os import _exit
 
 import vk_api
 
+from core import config
 # Text handlers
 from source.texthandlers import TextHandlers
 
@@ -14,7 +15,7 @@ class BotAPI:
     '''
 
     def __init__(self):
-        self.token = environ['access_token']
+        self.token = config['access_token']
         self.vk = None
         self.auth()
 
@@ -39,12 +40,12 @@ class BotAPI:
 
     def enable_online(self) -> None:
         try:
-            self.vk.method('groups.enableOnline', {'group_id': environ['group_id']})
+            self.vk.method('groups.enableOnline', {'group_id': config['group_id']})
         except Exception as e:
             logging.warning(str(e))
 
     def disable_online(self) -> None:
         try:
-            self.vk.method('groups.disableOnline', {'group_id': environ['group_id']})
+            self.vk.method('groups.disableOnline', {'group_id': config['group_id']})
         except Exception as e:
             logging.warning(str(e))

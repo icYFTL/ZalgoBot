@@ -1,6 +1,7 @@
-from os import path, environ
+from os import path
 from threading import Thread
 
+from core import config
 from source.databases.InternalDB import InternalDB
 from source.interfaces.AccessToken import AccessToken
 from source.modules.ModulesController import ModulesController
@@ -15,7 +16,7 @@ class GPLInterface:
         self.IDB = InternalDB()
         self.user_id = user_id
         self.user = self.IDB.get_user(user_id)
-        self.module_location = path.join(environ['modules_path'], 'GPL')
+        self.module_location = path.join(config.get('modules_path', 'source/modules'), 'GPL')
         self.module_config_location = path.join(self.module_location, 'config.json')
 
     def preview(self):

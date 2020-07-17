@@ -10,7 +10,7 @@ if ! [ -f ./ZalgoBot.py ]; then
   exit
 fi
 
-if command -v python3 --version > /dev/null 2>&1; then
+if command -v python3 --version >/dev/null 2>&1; then
   echo "Python ✅"
 else
   echo "Python 🚫"
@@ -19,9 +19,9 @@ else
 fi
 
 pwd | python3 -c "import sys, json;
-data = json.load(open('Config.json', 'r', encoding='UTF-8'))
+data = json.load(open('config.json', 'r', encoding='UTF-8'))
 data['absolute_path'] = sys.stdin.read().replace('\n', '')
-open('Config.json', 'w', encoding='UTF-8').write(json.dumps(data,ensure_ascii=False))"
+open('config.json', 'w', encoding='UTF-8').write(json.dumps(data,ensure_ascii=False))"
 
 touch zalgo.db # Important
 

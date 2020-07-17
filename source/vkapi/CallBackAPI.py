@@ -1,10 +1,10 @@
 import json
 import logging
 import re
-from os import environ
 
 from flask import Flask, request, render_template
 
+from core import config
 from source.databases.InternalDB import InternalDB
 from source.static.StaticData import StaticData
 from source.tools.json import getMessage
@@ -38,9 +38,9 @@ def processing():
         if 'type' not in data.keys():
             return 'not vk'
         if data['type'] == 'confirmation':
-            return environ['group_special_string']
+            return config.get('group_special_string', '')
         elif data['type'] == 'message_new':
-            if data['secret'] == environ['secret_key']:
+            if data.get('secret') == config.get('secret_key'):
                 payload = None
                 if data['object'].get('payload'):
                     payload = json.loads(data['object']['payload'])['button']

@@ -1,14 +1,13 @@
-from os import environ
-
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, engine
 from sqlalchemy.orm import mapper, sessionmaker
 
+from core import config
 from source.databases.abstractions.User import User
 
 
 class InternalDB:
     def __init__(self) -> None:
-        self._engine: engine = create_engine(f'sqlite:///{environ.get("db_name")}', echo=False)
+        self._engine: engine = create_engine(f'sqlite:///{config.get("db_name", "zalgo.db")}', echo=False)
         self._session = sessionmaker(bind=self._engine)()
 
     def create(self) -> None:

@@ -1,5 +1,4 @@
-from os import environ
-
+from core import config
 from source.databases.InternalDB import InternalDB
 from source.tools.json import *
 from source.vkapi.BotAPI import BotAPI
@@ -31,5 +30,5 @@ class SettingsInterface:
 
     def access_token(self) -> None:
         self.vk.message_send(
-            getMessage('access_token_welcome').format(access_getter_url=environ.get('access_getter_url', 'INVALID')),
+            getMessage('access_token_welcome').format(access_getter_url=config.get('access_getter_url', 'INVALID')),
             self.user_id, JSONWorker.keyboard_handler('default'))
