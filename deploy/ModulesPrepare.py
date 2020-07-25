@@ -8,7 +8,7 @@ if not path.exists('config.json'):
 config = json.load(open('config.json', 'r', encoding='UTF-8'))
 
 if not config['use_modules']:
-    print('### ⚠ MODULES DISABLED ⚠ ###')
+    print('### MODULES DISABLED ###')
     _exit(0)
 
 print('### MODULES PREPARING BEGIN ###')
@@ -52,7 +52,7 @@ for address, dirs, files in walk('source/modules/'):
     break
 
 for module in modules:
-    print(f'[PREPARING] ✅ {module} can be deployed!') if has_important_entities(module) else print(
-        f'[PREPARING] 🚫 {module} can\'t be deployed.')
+    print(f'[PREPARING] {module} can be deployed!') if has_important_entities(module) else print(
+        f'[PREPARING] {module} can\'t be deployed.')
 
-print('### ✅ MODULES PREPARING DONE ✅ ###')
+print('### MODULES PREPARING DONE ###')

@@ -25,16 +25,16 @@ if not config['no_checks']:
 if not params_ok:
     _exit(-1)
 
-if system(f'docker-compose build --force_recreate') == 0:
-    print('✅ Build success!')
+if system(f'docker-compose build  --force-rm') == 0:
+    print('Build success!')
 else:
-    print('🚫 Build failed.')
+    print('Build failed.')
     _exit(-1)
 
 if system(f'docker-compose up -d') == 0:
-    print('✅ Up done!')
+    print('Up done!')
 else:
-    print('🚫 Up failed.')
+    print('Up failed.')
     _exit(-1)
 
-print('### ✅ DEPLOY DONE ✅ ###')
+print('### DEPLOY DONE ###')
