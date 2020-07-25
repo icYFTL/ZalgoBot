@@ -1,6 +1,6 @@
 {
   "docker_name": "zalgo",
-  "web_server_host": "localhost",
+  "web_server_host": "0.0.0.0",
   "web_server_port": "8000",
   "db_name": "zalgo.db",
   "enable_updates": true,
@@ -31,11 +31,9 @@
     "WEB_not_json": "I actually don't like haCk3r$.",
     "WEB_smth_went_wrong": "Something went wrong"
   },
-  "absolute_path": "/Users/icyftl/Documents/GitHub/ZalgoBot",
-  "modules_path": "source/modules/",
-  "modules": [
-    "GPL"
-  ],
+  "absolute_path": "",
+  "modules_path": "./modules/",
+
   "use_modules": true,
   "no_checks": true
 }

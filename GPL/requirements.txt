@@ -1,4 +1,0 @@
-vk-api
-pytz
-hues
-flask

@@ -1,10 +1,9 @@
 import logging
 import random
 from os import _exit
-
 import vk_api
-
 from core import config
+
 # Text handlers
 from source.texthandlers import TextHandlers
 

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   server:
     image: zalgo
@@ -6,27 +6,17 @@ services:
     command: python3 ZalgoBot.py
     ports:
       - 8000:8000
-    networks:
-      - zalgo_net
     restart: always
     depends_on:
       - gpl
     container_name: zalgo
 
+# MODULES
   gpl:
     image: gpl
-    build: GPL
+    build: source/modules/GPL
     ports:
       - 7865:7865
     command: python3 GPL.py
     restart: always
-    networks:
-      zalgo_net:
-        ipv4_address: 192.168.127.3
     container_name: gpl
-networks:
-  zalgo_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.127.0/24

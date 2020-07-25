@@ -1,0 +1,3 @@
+[submodule "source/modules/GPL"]
+	path = source/modules/GPL
+	url = https://github.com/icyftl/GPL

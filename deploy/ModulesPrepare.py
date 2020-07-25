@@ -1,5 +1,9 @@
 import json
-from os import walk, path, _exit
+from os import walk, path, _exit, system
+
+if not path.exists('config.json'):
+    print('Please run ModulesPrepare.py from the root directory.')
+    _exit(-1)
 
 config = json.load(open('config.json', 'r', encoding='UTF-8'))
 
@@ -13,13 +17,10 @@ if not config['absolute_path']:
     print('Run start.sh first')
     _exit(-1)
 
-if not path.exists('config.json'):
-    print('Please run ModulesPrepare.py from the root directory.')
+if system('git submodule init && git submodule install') == 0:
+    print('Can\'t get submodules.')
     _exit(-1)
 
-if not config['modules']:
-    print('### ⚠ NO ONE MODULE IN CONFIG ⚠ ###')
-    _exit(-1)
 
 modules = list()
 important_files = ['requirements.txt', 'dockerfile', 'config.json']
