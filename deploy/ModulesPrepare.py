@@ -17,7 +17,7 @@ if not config['absolute_path']:
     print('Run start.sh first')
     _exit(-1)
 
-if system('git submodule init && git submodule install') == 0:
+if system('git submodule init && git submodule update') == 0:
     print('Can\'t get submodules.')
     _exit(-1)
 
