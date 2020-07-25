@@ -7,7 +7,7 @@ print('### UPDATE BEGIN ###')
 
 def disable_updates() -> None:
     with open('config.json', 'w+') as f:
-        data = json.load(f.read())
+        data = json.load(f)
         data['enable_updates'] = False
         f.write(json.dumps(json.loads(data)))
 
